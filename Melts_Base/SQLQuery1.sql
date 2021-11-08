@@ -1,0 +1,2 @@
+CREATE DATABASE AutoLot;
+GO
