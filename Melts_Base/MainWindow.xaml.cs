@@ -24,5 +24,10 @@ namespace Melts_Base
         {
             InitializeComponent();
         }
+
+        private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

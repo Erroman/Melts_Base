@@ -5,8 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Melts_Base"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Данные по плавкам цеха 32 ПАО Корпорации ВСМПО-АВИСМА" Height="450" Width="800" WindowState="Maximized" >
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Ribbon x:Name="RibbonWin"  SelectedIndex="2">
+
+            <!-- Help Pane, located at the right-hand side -->
+            <Ribbon.HelpPaneContent>
+                <RibbonButton />
+            </Ribbon.HelpPaneContent>
+
+            <Ribbon.ApplicationMenu>
+                <RibbonApplicationMenu>
+                    <RibbonApplicationMenuItem Header="Настройки" />
+                    <RibbonApplicationMenuItem Header="Выход из программы" Click="RibbonApplicationMenuItem_Click" />
+                </RibbonApplicationMenu>
+            </Ribbon.ApplicationMenu>
+
+            <RibbonTab Header="Основные данные по плавкам">
+
+
+                <RibbonGroup x:Name="TheMainListOfMelts" Header="Отображение информации по номерам плавок">
+                </RibbonGroup>
+
+
+            </RibbonTab>
+
+            <RibbonTab Header="Дополнительные сведения" KeyTip="I">
+
+                <RibbonGroup x:Name="SupplementaryData" Header="Дополнительные сведения по выбранной из списка плавке">
+                </RibbonGroup>
+
+            </RibbonTab>
+
+        </Ribbon>
 
     </Grid>
 </Window>
