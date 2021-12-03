@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:Melts_Base"
         mc:Ignorable="d"
         Title="Данные по плавкам цеха 32 ПАО Корпорации ВСМПО-АВИСМА" Height="450" Width="800" WindowState="Maximized" >
+    <Window.Resources>
+        <CollectionViewSource x:Key="meltsViewSource"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
