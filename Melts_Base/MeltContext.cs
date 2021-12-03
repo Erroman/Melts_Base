@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 namespace Melts_Base
 {
-    internal class MeltContext:DbContext
+    class MeltContext:DbContext
     {
         public DbSet<Melt> Melts { get; set; }  
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) 
