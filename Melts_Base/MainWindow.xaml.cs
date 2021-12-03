@@ -21,10 +21,14 @@ namespace Melts_Base
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
+        
     {
+        private readonly MeltContext meltContext = new MeltContext();
+        private CollectionViewSource meltsViewSource;
         public MainWindow()
         {
             InitializeComponent();
+            meltsViewSource = (CollectionViewSource)FindResource(nameof(meltsViewSource));
         }
 
         private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)

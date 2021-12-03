@@ -8,7 +8,7 @@ namespace Melts_Base
 {
     internal class MeltContext:DbContext
     {
-        public DbSet<Melt> Melt { get; set; }  
+        public DbSet<Melt> Melts { get; set; }  
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) 
         {
             optionsBuilder.UseSqlite("Data Source=melts.db");
