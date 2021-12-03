@@ -35,5 +35,11 @@ namespace Melts_Base
         {
             this.Close();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            meltContext.Database.EnsureCreated();
+            meltContext.Melts.Load();
+        }
     }
 }
