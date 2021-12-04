@@ -56,8 +56,16 @@
             </TabControl.SelectedIndex>
             <TabItem Header="TabItem">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"/>
-
+                    <!--DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"/-->
+                    <DataGrid ItemsSource = "{Binding Source={StaticResource meltsViewSource}}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding MeltId}"
+                                    Header="Id плавки" Width="SizeToHeader"
+                                    IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding MeltNumber}" Header="Номер плавки" 
+                                    Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
             <TabItem Header="TabItem">
