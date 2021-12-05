@@ -64,6 +64,22 @@
                                     IsReadOnly="True"/>
                             <DataGridTextColumn Binding="{Binding MeltNumber}" Header="Номер плавки" 
                                     Width="*"/>
+                            <DataGridTextColumn Binding="{Binding MeltDate}" Header="Дата плавки" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding AlloyName}" Header="Сплав" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding AlloyIndex}" Header="Индекс" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding MouldSet}" Header="Номер комплекта" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding ElectrodeDiameter}" Header="Диаметр электрода" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding MelterName}" Header="ФИО плавильщика" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding TEKNumber}" Header="№ ТЭК" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding IL_UiS_SHN}" Header="ИЛ//УиС//ШН" 
+                                    Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
