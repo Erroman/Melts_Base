@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Melts_Base"
         mc:Ignorable="d"
-        Title="Данные по плавкам цеха 32 ПАО Корпорации ВСМПО-АВИСМА" Height="450" Width="800" WindowState="Maximized"  Loaded="Window_Loaded">
+        Title="Информационная системв по выплавкам титановых слитков на печах ВДП цеха 31 ПАО Корпорации ВСМПО-АВИСМА" Height="450" Width="800" WindowState="Maximized"  Loaded="Window_Loaded">
     <Window.Resources>
         <CollectionViewSource x:Key="meltsViewSource"/>
     </Window.Resources>
@@ -57,7 +57,8 @@
             <TabItem Header="TabItem">
                 <Grid Background="#FFE5E5E5">
                     <!--DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"/-->
-                    <DataGrid ItemsSource = "{Binding Source={StaticResource meltsViewSource}}">
+                    <DataGrid ItemsSource = "{Binding Source={StaticResource meltsViewSource}}"
+                              AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding MeltId}"
                                     Header="Id плавки" Width="SizeToHeader"
@@ -78,7 +79,15 @@
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding TEKNumber}" Header="№ ТЭК" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding IL_UiS_SHN}" Header="ИЛ//УиС//ШН" 
+                            <DataGridTextColumn Binding="{Binding IL_UiS_SHN}" Header="ИЛ / УиС / ШН" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Contract}" Header="Контракт" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Supplement}" Header="Приложение" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Purpose}" Header="Назначение" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding IngotDiameter}" Header="Диаметр слитка" 
                                     Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>

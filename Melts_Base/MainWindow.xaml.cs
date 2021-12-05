@@ -40,6 +40,7 @@ namespace Melts_Base
         {
             meltContext.Database.EnsureCreated();
             meltContext.Melts.Load();
+            meltsViewSource.Source = meltContext.Melts.Local.ToObservableCollection();
         }
     }
 }
