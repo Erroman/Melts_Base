@@ -42,5 +42,11 @@ namespace Melts_Base
             meltContext.Melts.Load();
             meltsViewSource.Source = meltContext.Melts.Local.ToObservableCollection();
         }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            meltContext.SaveChanges();
+            meltContext.Dispose();
+        }
     }
 }
