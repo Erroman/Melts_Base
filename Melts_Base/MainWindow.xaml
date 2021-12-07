@@ -32,6 +32,7 @@
 
 
                 <RibbonGroup x:Name="TheMainListOfMelts" Header="Отображение информации по номерам плавок">
+                    <Button Content="Подкачка данных"/>
                 </RibbonGroup>
 
 
@@ -41,7 +42,6 @@
 
                 <RibbonGroup x:Name="SupplementaryData" Header="Дополнительные сведения по выбранной из списка плавке">
                 </RibbonGroup>
-
             </RibbonTab>
 
         </Ribbon>
