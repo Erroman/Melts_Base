@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Melts_Base.PostgreFiles;
 
 namespace Melts_Base
 {
@@ -24,6 +25,7 @@ namespace Melts_Base
         
     {
         private readonly MeltContext meltContext = new MeltContext();
+        private readonly epasportContext meltPostgresContext = new epasportContext();
         private CollectionViewSource meltsViewSource;
         public MainWindow()
         {
