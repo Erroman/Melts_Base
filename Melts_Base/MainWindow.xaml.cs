@@ -27,10 +27,12 @@ namespace Melts_Base
         private readonly MeltContext meltContext = new MeltContext();
         private readonly epasportContext meltPostgresContext = new epasportContext();
         private CollectionViewSource meltsViewSource;
+        private CollectionViewSource meltsPostgresViewSource;
         public MainWindow()
         {
             InitializeComponent();
             meltsViewSource = (CollectionViewSource)FindResource(nameof(meltsViewSource));
+            meltsPostgresViewSource = (CollectionViewSource)FindResource(nameof(meltsPostgresViewSource));
         }
 
         private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)
@@ -43,6 +45,8 @@ namespace Melts_Base
             meltContext.Database.EnsureCreated();
             meltContext.Melts.Load();
             meltsViewSource.Source = meltContext.Melts.Local.ToObservableCollection();
+            //meltPostgresContext.Melts.Load();
+            //meltsPostgresViewSource.Source = meltPostgresContext.Melts.Local.ToObservableCollection();
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)

@@ -109,7 +109,7 @@
                     <DataGrid ItemsSource = "{Binding Source={StaticResource meltsPostgresViewSource}}"
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding MeltId}"
+                            <DataGridTextColumn Binding="{Binding Id}"
                                     Header="Id плавки" Width="SizeToHeader"
                                     IsReadOnly="True"/>
                             <DataGridTextColumn Binding="{Binding MeltNumber}" Header="Номер плавки" 

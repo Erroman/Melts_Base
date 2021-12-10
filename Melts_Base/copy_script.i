@@ -1,0 +1,1 @@
+\copy (select id,dateandtime,mks,tagname,val from vdp03) to  'vdp03copy.csv' DELIMITER ',' CSV
