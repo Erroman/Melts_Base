@@ -1,3 +1,14 @@
+DROP DATABASE melts_base;
+DROP DATABASE postgresMelts;
+CREATE DATABASE postgresMelts
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Russian_Russia.1251'
+    LC_CTYPE = 'Russian_Russia.1251'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+ALTER DATABASE 	postgresMelts;
 DROP TABLE IF EXISTS public.melts;
 DROP SEQUENCE IF EXISTS public.melts_id_seq;
 CREATE SEQUENCE public.melts_id_seq;
@@ -40,3 +51,4 @@ CREATE INDEX index
     ON public.id USING btree
     (dateandtime)
     TABLESPACE pg_default;
+	

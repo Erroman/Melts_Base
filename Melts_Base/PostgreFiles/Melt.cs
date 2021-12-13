@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 
 namespace Melts_Base.PostgreFiles
 {
+    [Keyless]
     public partial class Melt
     {
         /// <summary>
