@@ -47,6 +47,7 @@ namespace Melts_Base
             meltsViewSource.Source = meltContext.Melts.Local.ToObservableCollection();
             meltPostgresContext.Database.EnsureCreated();
             meltPostgresContext.Melts.Load();
+            //meltsPostgresViewSource.Source = meltPostgresContext.Melts.ToList();
             meltsPostgresViewSource.Source = meltPostgresContext.Melts.Local.ToObservableCollection();
         }
 

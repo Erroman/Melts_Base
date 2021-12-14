@@ -147,9 +147,11 @@ namespace Melts_Base.PostgreFiles
 
             modelBuilder.Entity<Melt>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("melts");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasComment("Идентификатор записи");
 
                 entity.Property(e => e.Alg)
                     .HasMaxLength(50)
@@ -171,11 +173,6 @@ namespace Melts_Base.PostgreFiles
                 entity.Property(e => e.Gmp)
                     .HasColumnName("gmp")
                     .HasComment("Признак ГМП");
-
-                entity.Property(e => e.Id)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("id")
-                    .HasComment("Идентификатор записи");
 
                 entity.Property(e => e.Ind)
                     .HasMaxLength(50)
