@@ -32,16 +32,15 @@
             <RibbonTab Header="Данные из базы Oracle">
 
 
-                <RibbonGroup x:Name="TheMainListOfMelts" Header="Отображение информации по номерам плавок">
-                    <Button Content="Подкачка данных"/>
-                </RibbonGroup>
+                <RibbonGroup x:Name="TheMainListOfMelts">
+                                   </RibbonGroup>
 
 
             </RibbonTab>
             <RibbonTab Header="Данные из базы Postgre">
 
 
-                <RibbonGroup x:Name="PostgresListOfMelts" Header="Информация о плавках из базы данных Postgres">
+                <RibbonGroup x:Name="PostgresListOfMelts">
 
                 </RibbonGroup>
 
@@ -50,7 +49,8 @@
 
             <RibbonTab Header="Сводные данные" KeyTip="I">
 
-                <RibbonGroup x:Name="SupplementaryData" Header="Дополнительные сведения по выбранной из списка плавке">
+                <RibbonGroup x:Name="SupplementaryData">
+                    <Button Content="Подкачка данных"/>
                 </RibbonGroup>
             </RibbonTab>
 
