@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Ribbon x:Name="RibbonWin"  SelectedIndex="1">
+        <Ribbon x:Name="RibbonWin"  SelectedIndex="2">
 
             <!-- Help Pane, located at the right-hand side -->
             <Ribbon.HelpPaneContent>
@@ -50,7 +50,7 @@
             <RibbonTab Header="Сводные данные" KeyTip="I">
 
                 <RibbonGroup x:Name="SupplementaryData">
-                    <Button Content="Подкачка данных"/>
+                    <Button Content="Подкачка данных" Click="Button_Click"/>
                 </RibbonGroup>
             </RibbonTab>
 

@@ -56,5 +56,10 @@ namespace Melts_Base
             meltContext.SaveChanges();
             meltContext.Dispose();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
