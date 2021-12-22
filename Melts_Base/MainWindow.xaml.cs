@@ -45,10 +45,13 @@ namespace Melts_Base
             meltContext.Database.EnsureCreated();
             meltContext.Melts.Load();
             meltsViewSource.Source = meltContext.Melts.Local.ToObservableCollection();
+            
+
             meltPostgresContext.Database.EnsureCreated();
             meltPostgresContext.Melts.Load();
             //meltsPostgresViewSource.Source = meltPostgresContext.Melts.ToList();
             meltsPostgresViewSource.Source = meltPostgresContext.Melts.Local.ToObservableCollection();
+            
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -59,7 +62,12 @@ namespace Melts_Base
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            var sqlightAllMelts = meltContext.Melts.ToList();
+            var postgresAllMelts = meltPostgresContext.Melts.ToList();
+            PumpPostgresData(sqlightAllMelts, postgresAllMelts);
+            MessageBox.Show("Подкачка выполнена!");
 
         }
+        private void PumpPostgresData(List<Melt> listPostgersMelts, List<PostgreFiles.Melt> listSqLiteMelts) { }
     }
 }
