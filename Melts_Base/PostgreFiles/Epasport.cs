@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Melts_Base.PostgreFiles
+namespace Melts_Base.PostgresFiles
 {
     public partial class Epasport
     {

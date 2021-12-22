@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Melts_Base.PostgreFiles;
+using Melts_Base.PostgresFiles;
 
 namespace Melts_Base
 {
@@ -68,6 +68,10 @@ namespace Melts_Base
             MessageBox.Show("Подкачка выполнена!");
 
         }
-        private void PumpPostgresData(List<Melt> listPostgersMelts, List<PostgreFiles.Melt> listSqLiteMelts) { }
+        private void PumpPostgresData(List<Melt> listPostgersMelts, List<PostgresFiles.Melt> listSqLiteMelts) 
+        {
+            var listNewMelts = new List<PostgresFiles.Melt>();
+            var listChangedMelts = new List<PostgresFiles.Melt>();
+        }
     }
 }
