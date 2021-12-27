@@ -156,7 +156,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="TabItem">
+            <TabItem Header="Сводные данные">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid ItemsSource = "{Binding Source={StaticResource meltsViewSource}}"
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">

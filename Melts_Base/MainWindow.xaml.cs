@@ -90,7 +90,8 @@ namespace Melts_Base
                     //конструируется новая запись по плавке для SqLite
                     var newMelt = new Melt()
                     {
-                        MeltNumber = postgresMelt.Nplav
+                        MeltNumber = postgresMelt.Nplav,
+                        MeltDate = postgresMelt.Dpl
                     };
                     meltContext.Add<Melt>(newMelt);
                     meltContext.SaveChanges();
