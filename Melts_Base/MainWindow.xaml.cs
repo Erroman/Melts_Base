@@ -72,6 +72,7 @@ namespace Melts_Base
         {
             //var listNewMelts = new List<PostgresFiles.Melt>();
             //var listChangedMelts = new List<PostgresFiles.Melt>();
+            var MeltFound = false;
             foreach (var postgresMelt in listPostgresMelts) 
             {
                 //проверяем, есть ли запись в базе SqLite, соответствующая плавке в базе Postgres
@@ -79,7 +80,18 @@ namespace Melts_Base
                 //если записи такой нет, добавляем
                 foreach(var melt in listSqLiteMelts) 
                 { 
-                    if(postgresMelt.MeltNumber == melt.Nplav) { }
+                    if(postgresMelt.MeltNumber == melt.Nplav) 
+                    {
+                        MeltFound = true;
+                    }
+                }
+                if (!MeltFound) 
+                { 
+                    //конструируется новая запись по плавке для SqLite
+                    var newMelt = new Melt() 
+                    { 
+
+                    };
                 }
             }
         }
