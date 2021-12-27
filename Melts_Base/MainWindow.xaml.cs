@@ -77,6 +77,10 @@ namespace Melts_Base
                 //проверяем, есть ли запись в базе SqLite, соответствующая плавке в базе Postgres
                 //сравнение ведём по номеру плавки
                 //если записи такой нет, добавляем
+                foreach(var melt in listSqLiteMelts) 
+                { 
+                    if(postgresMelt.MeltNumber == melt.Nplav) { }
+                }
             }
         }
     }
