@@ -68,10 +68,16 @@ namespace Melts_Base
             MessageBox.Show("Подкачка выполнена!");
 
         }
-        private void PumpPostgresData(List<Melt> listPostgersMelts, List<PostgresFiles.Melt> listSqLiteMelts) 
+        private void PumpPostgresData(List<Melt> listPostgresMelts, List<PostgresFiles.Melt> listSqLiteMelts) 
         {
-            var listNewMelts = new List<PostgresFiles.Melt>();
-            var listChangedMelts = new List<PostgresFiles.Melt>();
+            //var listNewMelts = new List<PostgresFiles.Melt>();
+            //var listChangedMelts = new List<PostgresFiles.Melt>();
+            foreach (var postgresMelt in listPostgresMelts) 
+            {
+                //проверяем, есть ли запись в базе SqLite, соответствующая плавке в базе Postgres
+                //сравнение ведём по номеру плавки
+                //если записи такой нет, добавляем
+            }
         }
     }
 }
