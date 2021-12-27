@@ -64,11 +64,11 @@ namespace Melts_Base
         {
             var sqlightAllMelts = meltContext.Melts.ToList();
             var postgresAllMelts = meltPostgresContext.Melts.ToList();
-            PumpPostgresData(sqlightAllMelts, postgresAllMelts);
+            PumpPostgresData(postgresAllMelts,sqlightAllMelts);
             MessageBox.Show("Подкачка выполнена!");
 
         }
-        private void PumpPostgresData(List<Melt> listPostgresMelts, List<PostgresFiles.Melt> listSqLiteMelts) 
+        private void PumpPostgresData(List<PostgresFiles.Melt> listPostgresMelts, List<Melt> listSqLiteMelts) 
         {
             //var listNewMelts = new List<PostgresFiles.Melt>();
             //var listChangedMelts = new List<PostgresFiles.Melt>();
@@ -80,18 +80,20 @@ namespace Melts_Base
                 //если записи такой нет, добавляем
                 foreach(var melt in listSqLiteMelts) 
                 { 
-                    if(postgresMelt.MeltNumber == melt.Nplav) 
+                    if(postgresMelt.Nplav == melt.MeltNumber) 
                     {
                         MeltFound = true;
                     }
                 }
                 if (!MeltFound) 
-                { 
+                {
                     //конструируется новая запись по плавке для SqLite
-                    var newMelt = new Melt() 
-                    { 
-
+                    var newMelt = new Melt()
+                    {
+                        MeltNumber = postgresMelt.Nplav
                     };
+                    meltContext.Add<Melt>(newMelt);
+                    meltContext.SaveChanges();
                 }
             }
         }
