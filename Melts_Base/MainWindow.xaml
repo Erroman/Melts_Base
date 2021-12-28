@@ -118,6 +118,8 @@
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Dpl}" Header="Дата плавки" 
                                     Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Spl}" Header="Сплав" 
+                                    Width="*"/>
                             <DataGridTextColumn Binding="{Binding Ind}" Header="Индекс" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Nkompl}" Header="Номер комплекта" 

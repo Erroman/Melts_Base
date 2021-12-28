@@ -91,7 +91,11 @@ namespace Melts_Base
                     var newMelt = new Melt()
                     {
                         MeltNumber = postgresMelt.Nplav,
-                        MeltDate = postgresMelt.Dpl
+                        MeltDate = postgresMelt.Dpl,
+                        AlloyName = postgresMelt.Spl,
+                        AlloyIndex = postgresMelt.Ind,
+                        MouldSet = postgresMelt.Nkompl
+
                     };
                     meltContext.Add<Melt>(newMelt);
                     meltContext.SaveChanges();

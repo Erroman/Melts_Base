@@ -13,7 +13,7 @@ namespace Melts_Base
         public DateOnly? MeltDate { get; set; }
         public string AlloyName { get; set; }
         public string AlloyIndex { get; set; }
-        public string MouldSet { get; set; }
+        public short? MouldSet { get; set; }
         public int ElectrodeDiameter { get; set; }
         public string MelterNumber { get; set; }
         public string MelterName { get; set; }
