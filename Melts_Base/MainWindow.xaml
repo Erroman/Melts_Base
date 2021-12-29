@@ -136,8 +136,6 @@
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Pril}" Header="Приложение" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Purpose}" Header="Назначение" 
-                                    Width="*"/>
                             <DataGridTextColumn Binding="{Binding Pos}" Header="Позиция" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Nazn}" Header="Назначение" 
@@ -175,7 +173,7 @@
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding ElectrodeDiameter}" Header="Диаметр электрода" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding MelterName}" Header="ФИО плавильщика" 
+                            <DataGridTextColumn Binding="{Binding MelterNumber}" Header="Т.Н. плавильщика" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding TEKNumber}" Header="№ ТЭК" 
                                     Width="*"/>

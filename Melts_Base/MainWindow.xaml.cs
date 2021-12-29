@@ -94,7 +94,15 @@ namespace Melts_Base
                         MeltDate = postgresMelt.Dpl,
                         AlloyName = postgresMelt.Spl,
                         AlloyIndex = postgresMelt.Ind,
-                        MouldSet = postgresMelt.Nkompl
+                        MouldSet = postgresMelt.Nkompl,
+                        ElectrodeDiameter = postgresMelt.Del,
+                        MelterNumber = postgresMelt.TabNPl,
+                        TEKNumber = postgresMelt.Ntek,
+                        IL_UiS_SHN = postgresMelt.NomInsp,
+                        Contract = postgresMelt.Kont,
+                        Supplement = postgresMelt.Pril,
+                        Purpose = postgresMelt.Nazn,
+                        IngotDiameter = postgresMelt.Diam
 
                     };
                     meltContext.Add<Melt>(newMelt);

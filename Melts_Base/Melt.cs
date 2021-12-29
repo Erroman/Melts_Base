@@ -14,7 +14,7 @@ namespace Melts_Base
         public string AlloyName { get; set; }
         public string AlloyIndex { get; set; }
         public short? MouldSet { get; set; }
-        public int ElectrodeDiameter { get; set; }
+        public short? ElectrodeDiameter { get; set; }
         public string MelterNumber { get; set; }
         public string MelterName { get; set; }
         public string TEKNumber { get; set; }
@@ -22,6 +22,6 @@ namespace Melts_Base
         public string Contract { get; set; }  
         public string Supplement { get; set; }       
         public string Purpose { get; set; }
-        public int IngotDiameter { get; set; }
+        public short? IngotDiameter { get; set; }
     }
 }
