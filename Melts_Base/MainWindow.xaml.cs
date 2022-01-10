@@ -45,13 +45,15 @@ namespace Melts_Base
             meltContext.Database.EnsureCreated();
             meltContext.Melts.Load();
             meltsViewSource.Source = meltContext.Melts.Local.ToObservableCollection();
-            
 
-            meltPostgresContext.Database.EnsureCreated();
+            //Поставить проверку соединения
+            if (meltPostgresContext.Database.CanConnect()) { 
+
+            //meltPostgresContext.Database.EnsureCreated();
             meltPostgresContext.Melts.Load();
             //meltsPostgresViewSource.Source = meltPostgresContext.Melts.ToList();
             meltsPostgresViewSource.Source = meltPostgresContext.Melts.Local.ToObservableCollection();
-            
+            }
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
