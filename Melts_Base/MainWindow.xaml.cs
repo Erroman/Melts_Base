@@ -64,11 +64,14 @@ namespace Melts_Base
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var sqlightAllMelts = meltContext.Melts.ToList();
-            var postgresAllMelts = meltPostgresContext.Melts.ToList();
-            PumpPostgresData(postgresAllMelts,sqlightAllMelts);
-            MessageBox.Show("Подкачка выполнена!");
-
+            if (meltPostgresContext.Database.CanConnect())
+            {
+                var sqlightAllMelts = meltContext.Melts.ToList();
+                var postgresAllMelts = meltPostgresContext.Melts.ToList();
+                PumpPostgresData(postgresAllMelts, sqlightAllMelts);
+                MessageBox.Show("Подкачка выполнена!");
+            }
+            else MessageBox.Show("Соединение с цеховой базой Postgres нарушено!");
         }
         private void PumpPostgresData(List<PostgresFiles.Melt> listPostgresMelts, List<Melt> listSqLiteMelts) 
         {
