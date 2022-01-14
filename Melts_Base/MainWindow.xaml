@@ -162,7 +162,20 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding MeltNumber}"  Width="*">
                                 <DataGridTextColumn.Header>
-                                    <Grid/>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.ColumnSpan="2">Номер плавки</TextBlock>
+                                        <TextBlock Grid.Row="1">От:</TextBlock>
+                                        <TextBlock Grid.Row="2">До:</TextBlock>
+                                    </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
                             <DataGridTextColumn Binding="{Binding MeltDate}" Header="Дата плавки" 
