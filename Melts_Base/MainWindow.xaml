@@ -73,8 +73,7 @@
                             <DataGridTextColumn Binding="{Binding MeltId}"
                                     Header="Id плавки" Width="SizeToHeader"
                                     IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding MeltNumber}" Header="Номер плавки" 
-                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding MeltNumber}"  Width="*" Header="Номер плавки"/>
                             <DataGridTextColumn Binding="{Binding MeltDate}" Header="Дата плавки" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding AlloyName}" Header="Сплав" 
@@ -161,8 +160,11 @@
                     <DataGrid ItemsSource = "{Binding Source={StaticResource meltsViewSource}}"
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding MeltNumber}" Header="Номер плавки" 
-                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding MeltNumber}"  Width="*">
+                                <DataGridTextColumn.Header>
+                                    <Grid/>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
                             <DataGridTextColumn Binding="{Binding MeltDate}" Header="Дата плавки" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding AlloyName}" Header="Сплав" 
