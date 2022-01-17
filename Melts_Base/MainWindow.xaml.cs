@@ -27,6 +27,7 @@ namespace Melts_Base
     {
         private readonly MeltContext meltContext = new MeltContext();
         private readonly epasportContext meltPostgresContext = new epasportContext();
+        private readonly OracleContext oracleContext = new OracleContext();
         private CollectionViewSource meltsViewSource;
         private CollectionViewSource meltsPostgresViewSource;
         public MainWindow()
@@ -55,7 +56,7 @@ namespace Melts_Base
             //meltsPostgresViewSource.Source = meltPostgresContext.Melts.ToList();
             meltsPostgresViewSource.Source = meltPostgresContext.Melts.Local.ToObservableCollection();
             }
-            //if()
+            if (oracleContext.Database.CanConnect()) { }
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
