@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Oracle.EntityFrameworkCore;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -54,6 +55,7 @@ namespace Melts_Base
             //meltsPostgresViewSource.Source = meltPostgresContext.Melts.ToList();
             meltsPostgresViewSource.Source = meltPostgresContext.Melts.Local.ToObservableCollection();
             }
+            //if()
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
