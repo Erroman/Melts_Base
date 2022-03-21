@@ -56,7 +56,10 @@ namespace Melts_Base
             //meltsPostgresViewSource.Source = meltPostgresContext.Melts.ToList();
             meltsPostgresViewSource.Source = meltPostgresContext.Melts.Local.ToObservableCollection();
             }
-            if (oracleContext.Database.CanConnect()) { }
+            if (oracleContext.Database.CanConnect())
+            {
+            }
+            else MessageBox.Show("No connection with Oracle!");
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)

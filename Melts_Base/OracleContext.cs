@@ -12,7 +12,8 @@ namespace Melts_Base
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseOracle(@"User Id=blog;Password=<password>;Data Source=pdborcl;");
+            //optionsBuilder.UseOracle(@"User Id=blog;Password=<password>;Data Source=pdborcl;");
+            optionsBuilder.UseOracle(@"User Id=SYSDBA;Data Source=ORACLE19;");
         }
     }
 }
