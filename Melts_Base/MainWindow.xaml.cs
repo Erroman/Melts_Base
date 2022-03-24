@@ -58,6 +58,7 @@ namespace Melts_Base
             }
             if (oracleContext.Database.CanConnect())
             {
+                MessageBox.Show("Сonnection with Oracle granted!");
             }
             else MessageBox.Show("No connection with Oracle!");
         }
