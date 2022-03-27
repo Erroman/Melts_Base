@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
 Console.WriteLine("Hello, World!");
+BloggingContext oracleContext = new BloggingContext();
 public class BloggingContext : DbContext
 {
     public DbSet<Blog>? Blogs { get; set; }
