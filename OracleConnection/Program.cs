@@ -1,7 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Oracle.DataAccess.Client;
 
 Console.WriteLine("Hello, World!");
 public class BloggingContext : DbContext
@@ -11,7 +10,7 @@ public class BloggingContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseOracle(@"User Id=blog;Password=<Password>;Data Source=<Net Service Name>");
+        optionsBuilder.UseOracle(@"User Id=blog;Password=blog;Data Source=localhost:1521/orclpdb.oradev.oraclecorp.com");
     }
 }
 
