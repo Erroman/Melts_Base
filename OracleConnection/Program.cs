@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 Console.WriteLine("Hello, World!");
 BloggingContext oracleContext = new BloggingContext();
+Console.WriteLine(oracleContext.Database.CanConnect());
 public class BloggingContext : DbContext
 {
     public DbSet<Blog>? Blogs { get; set; }
@@ -11,7 +12,7 @@ public class BloggingContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseOracle(@"User Id=blog;Password=blog;Data Source=localhost:1521/orclpdb.oradev.oraclecorp.com");
+        optionsBuilder.UseOracle(@"User Id=romanovskiy_vg@vsmpo.ru;Password=GR6JbEe4vFy@g7d;Data Source=oracle19");
     }
 }
 
