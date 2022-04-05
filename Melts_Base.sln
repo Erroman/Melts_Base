@@ -5,7 +5,9 @@ VisualStudioVersion = 17.0.31825.309
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Melts_Base", "Melts_Base\Melts_Base.csproj", "{EF9A16E2-F338-4F42-82D2-28455E7F6C0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OracleConnection", "OracleConnection\OracleConnection.csproj", "{317B9994-A2EA-4CFF-87C6-C5160B149853}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OracleConnection", "OracleConnection\OracleConnection.csproj", "{317B9994-A2EA-4CFF-87C6-C5160B149853}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OracleWebConnect", "OracleWebConnect\OracleWebConnect.csproj", "{DE1847A4-8CD3-461C-B05A-D430E4D26086}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{317B9994-A2EA-4CFF-87C6-C5160B149853}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{317B9994-A2EA-4CFF-87C6-C5160B149853}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{317B9994-A2EA-4CFF-87C6-C5160B149853}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE1847A4-8CD3-461C-B05A-D430E4D26086}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE1847A4-8CD3-461C-B05A-D430E4D26086}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE1847A4-8CD3-461C-B05A-D430E4D26086}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE1847A4-8CD3-461C-B05A-D430E4D26086}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
