@@ -1,10 +1,27 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using (var db = new BloggingContext())
+{
+    Console.WriteLine(db.Database.CanConnect());
+    var blog = new Blog { Url = "https://blogs.oracle.com" };
+    //var blog = new Blog { Url = "https://blogs.oracle.com", Rating = 10 };
+    db.Blogs!.Add(blog);
+    db.SaveChanges();
+}
 
+using (var db = new BloggingContext())
+{
+    var blogs = db.Blogs;
+    foreach (var item in blogs!)
+    {
+        Console.WriteLine(item.Url);
+        //Console.WriteLine(item.Url + " has rating " + item.Rating );
+    }
+}
 Console.WriteLine("Hello, World!");
-BloggingContext oracleContext = new BloggingContext();
-Console.WriteLine(oracleContext.Database.CanConnect());
+//0BloggingContext oracleContext = new BloggingContext();
+//Console.WriteLine(oracleContext.Database.CanConnect());
 public class BloggingContext : DbContext
 {
     public DbSet<Blog>? Blogs { get; set; }
@@ -12,8 +29,15 @@ public class BloggingContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseOracle(@"User Id=romanovskiy_vg@vsmpo.ru;Password=GR6JbEe4vFy@g7d;Data Source=oracle19");
+        //optionsBuilder.UseOracle(@"User Id=C##BOOKS_ADMIN1;MyPassword;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=oracle19.errdonald.net)))");
+        //optionsBuilder.UseOracle(@"User Id=C##BOOKS_ADMIN1;MyPassword;Data Source=oracle19.errdonald.net");
+        //optionsBuilder.UseOracle(@"User Id=blog;WWelcome22##;Data Source=atp21c_tpurgent");
+        //optionsBuilder.UseOracle(@"User Id=blog;WWelcome22##;Data Source=oracle19.errdonald.net");
+        //optionsBuilder.UseOracle(@"User Id=blog;;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=oracle19.errdonald.net)))");
+        //optionsBuilder.UseOracle(@"User Id=scott;tiger;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=oracle19.errdonald.net)))");
+        optionsBuilder.UseOracle(@"User Id=scott;tiger;Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=oracle19.errdonald.net)))");
     }
+    
 }
 
 public class Blog
