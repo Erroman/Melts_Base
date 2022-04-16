@@ -36,7 +36,9 @@ public class BloggingContext : DbContext
         //optionsBuilder.UseOracle(@"User Id=blog;;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=oracle19.errdonald.net)))");
         //optionsBuilder.UseOracle(@"User Id=scott;tiger;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=oracle19.errdonald.net)))");
         //optionsBuilder.UseOracle(@"User Id=scott;tiger;Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=oracle19.errdonald.net)))");
-        optionsBuilder.UseOracle(@"User Id=blog;Password = dotchka1S;Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=pdb1.errdonald.net)))");
+        //optionsBuilder.UseOracle(@"User Id=C##blog;Password = dotchka1SS;Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=oracle19.errdonald.net)))");
+        optionsBuilder.UseOracle(@"User Id=C##blog;Password = dotchka1SS;Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=oracle19.errdonald.net)))");
+        //optionsBuilder.UseOracle(@"User Id=blog;Password = dotchka1SS;Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=pdb1.errdonald.net)))");
     }
     
 }
