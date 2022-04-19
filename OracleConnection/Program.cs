@@ -4,8 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using (var db = new BloggingContext())
 {
     Console.WriteLine(db.Database.CanConnect());
-    var blog = new Blog { Url = "https://blogs.oracle.com" };
-    //var blog = new Blog { Url = "https://blogs.oracle.com", Rating = 10 };
+    //var blog = new Blog { Url = "https://blogs.oracle.com" };
+    var blog = new Blog { Url = "https://blogs.oracle.com", Rating = 10 };
     db.Blogs!.Add(blog);
     db.SaveChanges();
 }
@@ -16,7 +16,7 @@ using (var db = new BloggingContext())
     foreach (var item in blogs!)
     {
         Console.WriteLine(item.Url);
-        //Console.WriteLine(item.Url + " has rating " + item.Rating );
+        Console.WriteLine(item.Url + " has rating " + item.Rating );
     }
 }
 Console.WriteLine("Hello, World!");
@@ -48,7 +48,7 @@ public class Blog
 {
     public int BlogId { get; set; }
     public string? Url { get; set; }
-    //public int? Rating { get; set; }
+    public int? Rating { get; set; }
     public List<Post>? Posts { get; set; }
 }
 
