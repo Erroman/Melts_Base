@@ -31,11 +31,13 @@ namespace Melts_Base
         private readonly ModelContext meltsOracleContext = new ModelContext();
         private CollectionViewSource meltsViewSource;
         private CollectionViewSource meltsPostgresViewSource;
+        private CollectionViewSource meltsOracleViewSource;
         public MainWindow()
         {
             InitializeComponent();
             meltsViewSource = (CollectionViewSource)FindResource(nameof(meltsViewSource));
             meltsPostgresViewSource = (CollectionViewSource)FindResource(nameof(meltsPostgresViewSource));
+            meltsOracleViewSource = (CollectionViewSource)FindResource(nameof(meltsOracleViewSource));
         }
 
         private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)
@@ -60,8 +62,12 @@ namespace Melts_Base
             if (meltsOracleContext.Database.CanConnect())
             {
                 MessageBox.Show("Сonnection with Oracle granted!");
+                meltsOracleContext.Melts31s.Load();
+                meltsOracleViewSource.Source = meltsOracleContext.Melts31s.Local.ToObservableCollection();
 
-                
+
+
+
             }
             else MessageBox.Show("No connection with Oracle!");
         }

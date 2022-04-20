@@ -54,14 +54,14 @@
             <TabItem Header="Данные из базы Oracle">
                 <Grid Background="#FFE5E5E5">
                     <!--DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"/-->
-                    <DataGrid ItemsSource = "{Binding Source={StaticResource meltsViewSource}}"
+                    <DataGrid ItemsSource = "{Binding Source={StaticResource meltsOracleViewSource}}"
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding MeltId}"
                                     Header="Id плавки" Width="SizeToHeader"
                                     IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding MeltNumber}"  Width="*" Header="Номер плавки"/>
-                            <DataGridTextColumn Binding="{Binding MeltDate}" Header="Дата плавки" 
+                            <DataGridTextColumn Binding="{Binding Meltnumber}"  Width="*" Header="Номер плавки"/>
+                            <!--DataGridTextColumn Binding="{Binding MeltDate}" Header="Дата плавки" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding AlloyName}" Header="Сплав" 
                                     Width="*"/>
@@ -84,7 +84,7 @@
                             <DataGridTextColumn Binding="{Binding Purpose}" Header="Назначение" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding IngotDiameter}" Header="Диаметр слитка" 
-                                    Width="*"/>
+                                    Width="*"/-->
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
