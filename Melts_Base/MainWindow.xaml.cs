@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Melts_Base.PostgresFiles;
+using Melts_Base.OracleModels;
 
 namespace Melts_Base
 {
@@ -27,7 +28,7 @@ namespace Melts_Base
     {
         private readonly MeltContext meltsContext = new MeltContext();
         private readonly epasportContext meltsPostgresContext = new epasportContext();
-        private readonly OracleContext meltsOracleContext = new OracleContext();
+        private readonly ModelContext meltsOracleContext = new ModelContext();
         private CollectionViewSource meltsViewSource;
         private CollectionViewSource meltsPostgresViewSource;
         public MainWindow()
