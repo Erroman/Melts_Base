@@ -43,6 +43,11 @@ namespace Melts_Base.OracleModels
                     .HasColumnType("NUMBER")
                     .HasColumnName("MELT_ID");
 
+                entity.Property(e => e.Alloyname)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ALLOYNAME");
+
                 entity.Property(e => e.Meltdate)
                     .HasColumnType("DATE")
                     .HasColumnName("MELTDATE");

@@ -8,5 +8,6 @@ namespace Melts_Base.OracleModels
         public decimal MeltId { get; set; }
         public string Meltnumber { get; set; }
         public DateTime Meltdate { get; set; }
+        public string Alloyname { get; set; }
     }
 }

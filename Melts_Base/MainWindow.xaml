@@ -61,11 +61,11 @@
                                     Header="Id плавки" Width="SizeToHeader"
                                     IsReadOnly="True"/>
                             <DataGridTextColumn Binding="{Binding Meltnumber}"  Width="*" Header="Номер плавки"/>
-                            <!--DataGridTextColumn Binding="{Binding MeltDate}" Header="Дата плавки" 
+                            <DataGridTextColumn Binding="{Binding Meltdate}" Header="Дата плавки" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding AlloyName}" Header="Сплав" 
+                            <DataGridTextColumn Binding="{Binding Alloyname}" Header="Сплав" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding AlloyIndex}" Header="Индекс" 
+                            <!--DataGridTextColumn Binding="{Binding AlloyIndex}" Header="Индекс" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding MouldSet}" Header="Номер комплекта" 
                                     Width="*"/>
