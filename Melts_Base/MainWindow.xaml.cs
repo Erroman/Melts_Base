@@ -25,9 +25,9 @@ namespace Melts_Base
     public partial class MainWindow : Window
         
     {
-        private readonly MeltContext meltContext = new MeltContext();
-        private readonly epasportContext meltPostgresContext = new epasportContext();
-        private readonly OracleContext oracleContext = new OracleContext();
+        private readonly MeltContext meltsContext = new MeltContext();
+        private readonly epasportContext meltsPostgresContext = new epasportContext();
+        private readonly OracleContext meltsOracleContext = new OracleContext();
         private CollectionViewSource meltsViewSource;
         private CollectionViewSource meltsPostgresViewSource;
         public MainWindow()
@@ -44,37 +44,39 @@ namespace Melts_Base
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            meltContext.Database.EnsureCreated();
-            meltContext.Melts.Load();
-            meltsViewSource.Source = meltContext.Melts.Local.ToObservableCollection();
+            meltsContext.Database.EnsureCreated();
+            meltsContext.Melts.Load();
+            meltsViewSource.Source = meltsContext.Melts.Local.ToObservableCollection();
 
             //Поставить проверку соединения
-            if (meltPostgresContext.Database.CanConnect()) { 
+            if (meltsPostgresContext.Database.CanConnect()) { 
 
-            //meltPostgresContext.Database.EnsureCreated();
-            meltPostgresContext.Melts.Load();
-            //meltsPostgresViewSource.Source = meltPostgresContext.Melts.ToList();
-            meltsPostgresViewSource.Source = meltPostgresContext.Melts.Local.ToObservableCollection();
+            //meltsPostgresContext.Database.EnsureCreated();
+            meltsPostgresContext.Melts.Load();
+            //meltsPostgresViewSource.Source = meltsPostgresContext.Melts.ToList();
+            meltsPostgresViewSource.Source = meltsPostgresContext.Melts.Local.ToObservableCollection();
             }
-            if (oracleContext.Database.CanConnect())
+            if (meltsOracleContext.Database.CanConnect())
             {
                 MessageBox.Show("Сonnection with Oracle granted!");
+
+                
             }
             else MessageBox.Show("No connection with Oracle!");
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            meltContext.SaveChanges();
-            meltContext.Dispose();
+            meltsContext.SaveChanges();
+            meltsContext.Dispose();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (meltPostgresContext.Database.CanConnect())
+            if (meltsPostgresContext.Database.CanConnect())
             {
-                var sqlightAllMelts = meltContext.Melts.ToList();
-                var postgresAllMelts = meltPostgresContext.Melts.ToList();
+                var sqlightAllMelts = meltsContext.Melts.ToList();
+                var postgresAllMelts = meltsPostgresContext.Melts.ToList();
                 PumpPostgresData(postgresAllMelts, sqlightAllMelts);
                 MessageBox.Show("Подкачка выполнена!");
             }
@@ -117,8 +119,8 @@ namespace Melts_Base
                         IngotDiameter = postgresMelt.Diam
 
                     };
-                    meltContext.Add<Melt>(newMelt);
-                    meltContext.SaveChanges();
+                    meltsContext.Add<Melt>(newMelt);
+                    meltsContext.SaveChanges();
                 }
             }
         }
