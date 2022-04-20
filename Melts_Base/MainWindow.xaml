@@ -9,6 +9,7 @@
     <Window.Resources>
         <CollectionViewSource x:Key="meltsViewSource"/>
         <CollectionViewSource x:Key="meltsPostgresViewSource"/>
+        <CollectionViewSource x:Key="meltsOracleViewSource"/>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -16,45 +17,31 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Ribbon x:Name="RibbonWin"  SelectedIndex="2">
-
             <!-- Help Pane, located at the right-hand side -->
             <Ribbon.HelpPaneContent>
                 <RibbonButton />
             </Ribbon.HelpPaneContent>
-
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu>
                     <RibbonApplicationMenuItem Header="Настройки" />
                     <RibbonApplicationMenuItem Header="Выход из программы" Click="RibbonApplicationMenuItem_Click" />
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
-
             <RibbonTab Header="Данные из базы Oracle">
-
-
                 <RibbonGroup x:Name="TheMainListOfMelts">
                                    </RibbonGroup>
-
-
             </RibbonTab>
             <RibbonTab Header="Данные из базы Postgre">
-
-
                 <RibbonGroup x:Name="PostgresListOfMelts">
-
                 </RibbonGroup>
-
-
             </RibbonTab>
-
             <RibbonTab Header="Сводные данные" KeyTip="I">
-
                 <RibbonGroup x:Name="SupplementaryData">
                     <Button Content="Подкачка данных" Click="Button_Click"/>
                 </RibbonGroup>
             </RibbonTab>
-
         </Ribbon>
+
         <TabControl Grid.Row="1">
             <TabControl.ItemContainerStyle>
                 <Style TargetType="{x:Type TabItem}">
