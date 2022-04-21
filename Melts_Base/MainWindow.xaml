@@ -65,17 +65,17 @@
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Alloyname}" Header="Сплав" 
                                     Width="*"/>
-                            <!--DataGridTextColumn Binding="{Binding AlloyIndex}" Header="Индекс" 
+                            <DataGridTextColumn Binding="{Binding Alloyindex}" Header="Индекс" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding MouldSet}" Header="Номер комплекта" 
+                            <DataGridTextColumn Binding="{Binding Mouldset}" Header="Номер комплекта" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding ElectrodeDiameter}" Header="Диаметр электрода" 
+                            <DataGridTextColumn Binding="{Binding Electrodediameter}" Header="Диаметр электрода" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding MelterName}" Header="ФИО плавильщика" 
+                            <DataGridTextColumn Binding="{Binding Meltername}" Header="ФИО плавильщика" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding TEKNumber}" Header="№ ТЭК" 
+                            <DataGridTextColumn Binding="{Binding Teknumber}" Header="№ ТЭК" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding IL_UiS_SHN}" Header="ИЛ / УиС / ШН" 
+                            <DataGridTextColumn Binding="{Binding IlUisShn}" Header="ИЛ / УиС / ШН" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Contract}" Header="Контракт" 
                                     Width="*"/>
@@ -83,8 +83,8 @@
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Purpose}" Header="Назначение" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding IngotDiameter}" Header="Диаметр слитка" 
-                                    Width="*"/-->
+                            <DataGridTextColumn Binding="{Binding Ingotdiameter}" Header="Диаметр слитка" 
+                                    Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

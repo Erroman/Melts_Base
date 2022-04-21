@@ -43,20 +43,74 @@ namespace Melts_Base.OracleModels
                     .HasColumnType("NUMBER")
                     .HasColumnName("MELT_ID");
 
+                entity.Property(e => e.Alloyindex)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ALLOYINDEX");
+
                 entity.Property(e => e.Alloyname)
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("ALLOYNAME");
 
+                entity.Property(e => e.Contract)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("CONTRACT");
+
+                entity.Property(e => e.Electrodediameter)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("ELECTRODEDIAMETER");
+
+                entity.Property(e => e.IlUisShn)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IL_UIS_SHN");
+
+                entity.Property(e => e.Ingotdiameter)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("INGOTDIAMETER");
+
                 entity.Property(e => e.Meltdate)
                     .HasColumnType("DATE")
                     .HasColumnName("MELTDATE");
+
+                entity.Property(e => e.Meltername)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MELTERNAME");
+
+                entity.Property(e => e.Melternumber)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MELTERNUMBER");
 
                 entity.Property(e => e.Meltnumber)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("MELTNUMBER");
+
+                entity.Property(e => e.Mouldset)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOULDSET");
+
+                entity.Property(e => e.Purpose)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("PURPOSE");
+
+                entity.Property(e => e.Supplement)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("SUPPLEMENT");
+
+                entity.Property(e => e.Teknumber)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("TEKNUMBER");
             });
 
             OnModelCreatingPartial(modelBuilder);
