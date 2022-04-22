@@ -153,20 +153,40 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition/>
                                             <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.ColumnSpan="2">Номер плавки:</TextBlock>
+                                        <TextBox Grid.Row="1" Grid.ColumnSpan="2"/>
+                                    </Grid>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding MeltDate}"
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.ColumnSpan="2">Номер плавки</TextBlock>
-                                        <TextBlock Grid.Row="1">От:</TextBlock>
-                                        <TextBlock Grid.Row="2">До:</TextBlock>
+                                        <TextBlock Grid.ColumnSpan="2">Дата плавки</TextBlock>
+                                        
+                                            <TextBlock Grid.Row="1">От:</TextBlock><TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch"/>
+                                        
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="2">
+                                            <TextBlock>От:</TextBlock><TextBox HorizontalAlignment="Stretch"/>
+                                        </StackPanel>
+
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding MeltDate}" Header="Дата плавки" 
-                                    Width="*"/>
                             <DataGridTextColumn Binding="{Binding AlloyName}" Header="Сплав" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding AlloyIndex}" Header="Индекс" 
