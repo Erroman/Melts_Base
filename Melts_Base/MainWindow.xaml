@@ -170,20 +170,20 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition/>
                                             <RowDefinition/>
-                                            <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.ColumnSpan="2">Дата плавки</TextBlock>
-                                        
-                                            <TextBlock Grid.Row="1">От:</TextBlock><TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch"/>
-                                        
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="2">
-                                            <TextBlock>От:</TextBlock><TextBox HorizontalAlignment="Stretch"/>
-                                        </StackPanel>
-
+                                        <TextBlock>Дата плавки</TextBlock>
+                                        <Grid Grid.Row="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Row="0">От:</TextBlock><TextBox Grid.Row="0" Grid.Column="1"/>
+                                            <TextBlock Grid.Row="1">До:</TextBlock><TextBox Grid.Row="1" Grid.Column="1" />
+                                        </Grid>
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
