@@ -163,7 +163,7 @@
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding MeltDate}"
+                            <DataGridTextColumn Binding="{Binding MeltDate, StringFormat=dd.MM.yyyy}"
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <Grid>
@@ -183,7 +183,7 @@
                                             </Grid.ColumnDefinitions>
                                             <TextBlock Grid.Row="0">От:</TextBlock>
                                             <DatePicker Grid.Column="1"/>
-                                            <TextBlock Grid.Row="1">До:</TextBlock>
+                                            <TextBlock  Grid.Row="1">До:</TextBlock>
                                             <DatePicker Grid.Row="1" Grid.Column="1"/>
                                         </Grid>
                                     </Grid>
