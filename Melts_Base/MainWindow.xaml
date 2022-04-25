@@ -181,8 +181,10 @@
                                                 <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Grid.Row="0">От:</TextBlock><TextBox Grid.Row="0" Grid.Column="1"/>
-                                            <TextBlock Grid.Row="1">До:</TextBlock><TextBox Grid.Row="1" Grid.Column="1" />
+                                            <TextBlock Grid.Row="0">От:</TextBlock>
+                                            <DatePicker Grid.Column="1"/>
+                                            <TextBlock Grid.Row="1">До:</TextBlock>
+                                            <DatePicker Grid.Row="1" Grid.Column="1"/>
                                         </Grid>
                                     </Grid>
                                 </DataGridTextColumn.Header>
@@ -211,6 +213,7 @@
                                     Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
+             
                 </Grid>
             </TabItem>
         </TabControl>
