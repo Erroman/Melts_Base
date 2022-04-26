@@ -131,5 +131,10 @@ namespace Melts_Base
                 }
             }
         }
+
+        private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
+        {
+            //MessageBox.Show("Filter works!");
+        }
     }
 }

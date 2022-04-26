@@ -59,7 +59,7 @@ namespace DGGroupSortFilterExample
 
         private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
         {
-            Task t = e.Item as Task;
+            Task? t = e.Item as Task;
             if (t != null)
             // If filter is turned on, filter completed items.
             {

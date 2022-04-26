@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Информационная система по выплавкам титановых слитков на печах ВДП цеха 31 ПАО Корпорации ВСМПО-АВИСМА" Height="450" Width="800" WindowState="Maximized"  Loaded="Window_Loaded" Closing="Window_Closing">
     <Window.Resources>
-        <CollectionViewSource x:Key="meltsViewSource"/>
+        <CollectionViewSource x:Key="meltsViewSource" Filter="CollectionViewSource_Filter"/>
         <CollectionViewSource x:Key="meltsPostgresViewSource"/>
         <CollectionViewSource x:Key="meltsOracleViewSource"/>
     </Window.Resources>
@@ -144,7 +144,7 @@
             </TabItem>
             <TabItem Header="Сводные данные">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid ItemsSource = "{Binding Source={StaticResource meltsViewSource}}"
+                    <DataGrid ItemsSource = "{Binding Source={StaticResource meltsViewSource}}" 
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding MeltNumber}"  Width="*">
