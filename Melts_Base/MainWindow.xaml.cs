@@ -135,6 +135,13 @@ namespace Melts_Base
         private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
         {
             //MessageBox.Show("Filter works!");
+            //MessageBox.Show(this.MeltsStartDate.Text);
+            //string startdate = this.MeltsStartDate.Text;
+            DateTime startdate;
+            DateTime enddate;
+            bool startdateFilterSet = DateTime.TryParse(this.MeltsStartDate.Text,out startdate);
+            bool enddateFilterSet   = DateTime.TryParse(this.MeltsEndDate.Text, out enddate);
+
         }
     }
 }

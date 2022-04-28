@@ -181,10 +181,10 @@
                                                 <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Grid.Row="0">От:</TextBlock>
-                                            <DatePicker Grid.Column="1"/>
+                                            <TextBlock  Grid.Row="0">От:</TextBlock>
+                                            <DatePicker Name="MeltsStartDate" Grid.Column="1"/>
                                             <TextBlock  Grid.Row="1">До:</TextBlock>
-                                            <DatePicker Grid.Row="1" Grid.Column="1"/>
+                                            <DatePicker Name="MeltsEndDate" Grid.Row="1" Grid.Column="1"/>
                                         </Grid>
                                     </Grid>
                                 </DataGridTextColumn.Header>
