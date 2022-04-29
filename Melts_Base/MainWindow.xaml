@@ -183,9 +183,9 @@
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock  Grid.Row="0">От:</TextBlock>
-                                            <DatePicker Name="MeltsStartDate" Grid.Column="1"/>
+                                            <DatePicker Name="MeltsStartDate" Grid.Column="1" Text="{Binding Source={StaticResource datefilter},Path=StartDate,Mode=OneWayToSource}"/>
                                             <TextBlock  Grid.Row="1">До:</TextBlock>
-                                            <DatePicker Name="MeltsEndDate" Grid.Row="1" Grid.Column="1"/>
+                                            <DatePicker Name="MeltsEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding Source={StaticResource datefilter},Path=EndDate,Mode=OneWayToSource}"/>
                                         </Grid>
                                     </Grid>
                                 </DataGridTextColumn.Header>
