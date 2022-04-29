@@ -10,5 +10,7 @@ namespace Melts_Base.ViewModel
     internal class DateFilter : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
     }
 }
