@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Data;
+using Melts_Base;
 
 namespace Melts_Base.ViewModel
 {
@@ -14,6 +16,7 @@ namespace Melts_Base.ViewModel
         void OnPropertyChanged([CallerMemberName] string propertyName = null) 
         { 
             PropertyChanged(this,new PropertyChangedEventArgs(propertyName));
+            //CollectionViewSource.GetDefaultView(dataGrid1.ItemsSource).Refresh();
         }
             
 

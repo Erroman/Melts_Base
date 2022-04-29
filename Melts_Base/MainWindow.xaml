@@ -145,7 +145,7 @@
             </TabItem>
             <TabItem Header="Сводные данные">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid ItemsSource = "{Binding Source={StaticResource meltsViewSource}}" 
+                    <DataGrid Name="dataGrid1" ItemsSource = "{Binding Source={StaticResource meltsViewSource}}" 
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding MeltNumber}"  Width="*">
