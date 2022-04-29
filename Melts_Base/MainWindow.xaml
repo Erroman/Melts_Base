@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Melts_Base"
+        xmlns:viewmodel="clr-namespace:Melts_Base.ViewModel"
         mc:Ignorable="d"
         Title="Информационная система по выплавкам титановых слитков на печах ВДП цеха 31 ПАО Корпорации ВСМПО-АВИСМА" Height="450" Width="800" WindowState="Maximized"  Loaded="Window_Loaded" Closing="Window_Closing">
     <Window.Resources>
+        <viewmodel:DateFilter x:Key="datefilter"/>
         <CollectionViewSource x:Key="meltsViewSource" Filter="CollectionViewSource_Filter"/>
         <CollectionViewSource x:Key="meltsPostgresViewSource"/>
         <CollectionViewSource x:Key="meltsOracleViewSource"/>
