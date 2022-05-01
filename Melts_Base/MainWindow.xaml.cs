@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Melts_Base.PostgresFiles;
 using Melts_Base.OracleModels;
+using Melts_Base.ViewModel;
 
 namespace Melts_Base
 {
@@ -32,12 +33,15 @@ namespace Melts_Base
         private CollectionViewSource meltsViewSource;
         private CollectionViewSource meltsPostgresViewSource;
         private CollectionViewSource meltsOracleViewSource;
+        private DateFilter dateFilter;
         public MainWindow()
         {
             InitializeComponent();
             meltsViewSource = (CollectionViewSource)FindResource(nameof(meltsViewSource));
             meltsPostgresViewSource = (CollectionViewSource)FindResource(nameof(meltsPostgresViewSource));
             meltsOracleViewSource = (CollectionViewSource)FindResource(nameof(meltsOracleViewSource));
+            //dateFilter = (DateFilter)FindResource(nameof(datefilter));
+            dateFilter = (DateFilter)Resources[nameof(dateFilter)];
         }
 
         private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)

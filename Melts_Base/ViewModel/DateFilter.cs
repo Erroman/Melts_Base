@@ -13,6 +13,7 @@ namespace Melts_Base.ViewModel
     internal class DateFilter : INotifyPropertyChanged
     {
         public delegate void DoFilteringOverMeltDate();
+        public event DoFilteringOverMeltDate doFiltering;
         //public event  
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         void OnPropertyChanged([CallerMemberName] string propertyName = null) 
