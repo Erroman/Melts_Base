@@ -41,7 +41,8 @@ namespace Melts_Base
             meltsPostgresViewSource = (CollectionViewSource)FindResource(nameof(meltsPostgresViewSource));
             meltsOracleViewSource = (CollectionViewSource)FindResource(nameof(meltsOracleViewSource));
             //dateFilter = (DateFilter)FindResource(nameof(datefilter));
-            dateFilter = (DateFilter)Resources[nameof(dateFilter)];
+            
+            
         }
 
         private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)
@@ -54,6 +55,8 @@ namespace Melts_Base
             meltsContext.Database.EnsureCreated();
             meltsContext.Melts.Load();
             meltsViewSource.Source = meltsContext.Melts.Local.ToObservableCollection();
+            dateFilter = (DateFilter)Resources[nameof(dateFilter)];
+            dateFilter.doFiltering += DateFilter_doFiltering;
 
             //Поставить проверку соединения
             if (meltsPostgresContext.Database.CanConnect()) { 
@@ -74,6 +77,12 @@ namespace Melts_Base
 
             }
             else MessageBox.Show("No connection with Oracle!");
+        }
+
+        private void DateFilter_doFiltering()
+        {
+            CollectionViewSource.GetDefaultView(dataGrid1.ItemsSource).Refresh();
+            //throw new NotImplementedException();
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)

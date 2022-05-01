@@ -12,6 +12,9 @@ namespace Melts_Base.ViewModel
 {
     internal class DateFilter : INotifyPropertyChanged
     {
+        public DateFilter() {
+            MessageBox.Show("DataFilter!");
+        }
         public delegate void DoFilteringOverMeltDate();
         public event DoFilteringOverMeltDate doFiltering;
         //public event  
@@ -19,9 +22,10 @@ namespace Melts_Base.ViewModel
         void OnPropertyChanged([CallerMemberName] string propertyName = null) 
         { 
             PropertyChanged(this,new PropertyChangedEventArgs(propertyName));
+            doFiltering();
             //CollectionViewSource.GetDefaultView(dataGrid1.ItemsSource).Refresh();
         }
-            
+
 
         string startDate;
         public string StartDate
