@@ -32,6 +32,7 @@ namespace Melts_Base
         private readonly epasportContext meltsPostgresContext = new epasportContext();
         private readonly ModelContext meltsOracleContext = new ModelContext();
         private CollectionViewSource meltsViewSource;
+        private ObservableCollection<Melt> observableMelts;
         private CollectionViewSource meltsPostgresViewSource;
         private CollectionViewSource meltsOracleViewSource;
         private DateFilter dateFilter;
@@ -40,9 +41,10 @@ namespace Melts_Base
         {
             InitializeComponent();
             meltsViewSource = (CollectionViewSource)FindResource(nameof(meltsViewSource));
+            observableMelts = (ObservableCollection<Melt>)FindResource(nameof(observableMelts));
             meltsPostgresViewSource = (CollectionViewSource)FindResource(nameof(meltsPostgresViewSource));
             meltsOracleViewSource = (CollectionViewSource)FindResource(nameof(meltsOracleViewSource));
-            //dateFilter = (DateFilter)FindResource(nameof(datefilter));
+            dateFilter = (DateFilter)FindResource(nameof(dateFilter));
             
             
         }
@@ -56,9 +58,12 @@ namespace Melts_Base
         {
             meltsContext.Database.EnsureCreated();
             meltsContext.Melts.Load();
-            meltsViewSource.Source = (ObservableCollection<Melt>)meltsContext.Melts.Local.ToObservableCollection();
+            // meltsViewSource.Source = (ObservableCollection<Melt>)meltsContext.Melts.Local.ToObservableCollection();
+            //(ObservableCollection<Melt>)meltsContext.Melts.Local.ToObservableCollection().CopyTo(meltsObservable);
+            //meltsContext.Melts.Local.ToObservableCollection().CopyTo(meltsObservable);
             dateFilter = (DateFilter)Resources[nameof(dateFilter)];
             dateFilter.doFiltering += DateFilter_doFiltering;
+            foreach (Melt melt in meltsContext.Melts.Local.ToArray()) observableMelts.Add(melt);
 
             //Поставить проверку соединения
             if (meltsPostgresContext.Database.CanConnect()) { 
@@ -149,15 +154,15 @@ namespace Melts_Base
 
         private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
         {
-            var melt = e.Item as Melts31;
+            var melt = e.Item as Melt;
             if (melt != null)
             {
-                DateTime startdate;
-                DateTime enddate;
-                bool startdateFilterSet = DateTime.TryParse(this.MeltsStartDate.Text,out startdate);
-                bool enddateFilterSet   = DateTime.TryParse(this.MeltsEndDate.Text, out enddate);
+                DateOnly startdate;
+                DateOnly enddate;
+                bool startdateFilterSet = DateOnly.TryParse(this.MeltsStartDate.Text,out startdate);
+                bool enddateFilterSet   = DateOnly.TryParse(this.MeltsEndDate.Text, out enddate);
                 e.Accepted = 
-                    (!startdateFilterSet || (startdate <= melt.Meltdate)) && (!enddateFilterSet || (melt.Meltdate <=  enddate));
+                    (!startdateFilterSet || (startdate <= melt.MeltDate)) && (!enddateFilterSet || (melt.MeltDate <=  enddate));
 
             }
             
