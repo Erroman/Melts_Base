@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,4 +25,5 @@ namespace Melts_Base
         public string Purpose { get; set; }
         public short? IngotDiameter { get; set; }
     }
+    public class ObservableMelts : ObservableCollection<Melt> { }
 }

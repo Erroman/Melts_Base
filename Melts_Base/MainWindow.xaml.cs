@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,7 @@ namespace Melts_Base
         private CollectionViewSource meltsPostgresViewSource;
         private CollectionViewSource meltsOracleViewSource;
         private DateFilter dateFilter;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -54,7 +56,7 @@ namespace Melts_Base
         {
             meltsContext.Database.EnsureCreated();
             meltsContext.Melts.Load();
-            meltsViewSource.Source = meltsContext.Melts.Local.ToObservableCollection();
+            meltsViewSource.Source = (ObservableCollection<Melt>)meltsContext.Melts.Local.ToObservableCollection();
             dateFilter = (DateFilter)Resources[nameof(dateFilter)];
             dateFilter.doFiltering += DateFilter_doFiltering;
 
