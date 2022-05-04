@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Информационная система по выплавкам титановых слитков на печах ВДП цеха 31 ПАО Корпорации ВСМПО-АВИСМА" Height="450" Width="800" WindowState="Maximized"  Loaded="Window_Loaded" Closing="Window_Closing">
     <Window.Resources>
-        <viewmodel:DateFilter x:Key="datefilter"/>
+        <viewmodel:DateFilter x:Key="dateFilter"/>
         <CollectionViewSource x:Key="meltsViewSource" Filter="CollectionViewSource_Filter"/>
         <CollectionViewSource x:Key="meltsPostgresViewSource"/>
         <CollectionViewSource x:Key="meltsOracleViewSource"/>
@@ -183,9 +183,9 @@
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock  Grid.Row="0">От:</TextBlock>
-                                            <DatePicker Name="MeltsStartDate" Grid.Column="1" Text="{Binding Source={StaticResource datefilter},Path=StartDate,Mode=OneWayToSource}"/>
+                                            <DatePicker Name="MeltsStartDate" Grid.Column="1" Text="{Binding Source={StaticResource dateFilter},Path=StartDate,Mode=OneWayToSource}"/>
                                             <TextBlock  Grid.Row="1">До:</TextBlock>
-                                            <DatePicker Name="MeltsEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding Source={StaticResource datefilter},Path=EndDate,Mode=OneWayToSource}"/>
+                                            <DatePicker Name="MeltsEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding Source={StaticResource dateFilter},Path=EndDate,Mode=OneWayToSource}"/>
                                         </Grid>
                                     </Grid>
                                 </DataGridTextColumn.Header>
