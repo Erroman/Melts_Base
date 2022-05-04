@@ -12,9 +12,6 @@ namespace Melts_Base.ViewModel
 {
     internal class DateFilter : INotifyPropertyChanged
     {
-        public DateFilter() {
-            MessageBox.Show("DataFilter!");
-        }
         public delegate void DoFilteringOverMeltDate();
         public event DoFilteringOverMeltDate doFiltering;
         //public event  

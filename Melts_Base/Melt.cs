@@ -25,5 +25,4 @@ namespace Melts_Base
         public string Purpose { get; set; }
         public short? IngotDiameter { get; set; }
     }
-    public class ObservableMelts : ObservableCollection<Melt> { }
-}
+ }
