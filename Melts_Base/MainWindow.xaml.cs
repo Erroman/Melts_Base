@@ -36,6 +36,7 @@ namespace Melts_Base
         private CollectionViewSource meltsPostgresViewSource;
         private CollectionViewSource meltsOracleViewSource;
         private DateFilter dateFilter;
+        private ListCollectionView meltsForFiltering;
 
         public MainWindow()
         {
@@ -64,7 +65,9 @@ namespace Melts_Base
             dateFilter = (DateFilter)Resources[nameof(dateFilter)];
             dateFilter.doFiltering += DateFilter_doFiltering;
             foreach (Melt melt in meltsContext.Melts.Local.ToArray()) observableMelts.Add(melt);
-
+            //meltsForFiltering = (ListCollectionView)CollectionViewSource.GetDefaultView(dataGrid1.ItemsSource);
+            meltsForFiltering = new ListCollectionView(observableMelts);
+            meltsForFiltering.Filter = ListCollectionView_Filter;
             //Поставить проверку соединения
             if (meltsPostgresContext.Database.CanConnect()) { 
 
@@ -166,6 +169,21 @@ namespace Melts_Base
 
             }
             
+        }
+        private bool ListCollectionView_Filter(object Item)
+        {
+            var melt = Item as Melt;
+            if (melt != null)
+            {
+                DateOnly startdate;
+                DateOnly enddate;
+                bool startdateFilterSet = DateOnly.TryParse(this.MeltsStartDate.Text, out startdate);
+                bool enddateFilterSet = DateOnly.TryParse(this.MeltsEndDate.Text, out enddate);
+                return
+                    (!startdateFilterSet || (startdate <= melt.MeltDate)) && (!enddateFilterSet || (melt.MeltDate <= enddate));
+
+            }return false;
+
         }
     }
 }

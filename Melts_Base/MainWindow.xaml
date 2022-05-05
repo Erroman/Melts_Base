@@ -3,13 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewmodel="clr-namespace:Melts_Base.ViewModel"
+        xmlns:viewmodel="clr-namespace:Melts_Base.ViewModel" xmlns:clr="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Информационная система по выплавкам титановых слитков на печах ВДП цеха 31 ПАО Корпорации ВСМПО-АВИСМА" Height="450" Width="800" WindowState="Maximized"  Loaded="Window_Loaded" Closing="Window_Closing">
     <Window.Resources>
         <viewmodel:DateFilter x:Key="dateFilter"/>
         <viewmodel:ObservableMelts x:Key="observableMelts"/>
-        <CollectionViewSource x:Key="meltsViewSource" Source="{StaticResource observableMelts}" Filter="CollectionViewSource_Filter"/>
+        <CollectionViewSource x:Key="meltsViewSource" Source="{StaticResource observableMelts}" Filter="CollectionViewSource_Filter" IsLiveFilteringRequested="True">
+            <CollectionViewSource.LiveFilteringProperties>
+                <clr:String>MeltDate</clr:String>
+            </CollectionViewSource.LiveFilteringProperties>
+        </CollectionViewSource>
         <CollectionViewSource x:Key="meltsPostgresViewSource"/>
         <CollectionViewSource x:Key="meltsOracleViewSource"/>
     </Window.Resources>
