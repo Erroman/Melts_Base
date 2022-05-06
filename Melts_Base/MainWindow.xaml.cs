@@ -71,6 +71,9 @@ namespace Melts_Base
             meltsForFiltering.Filter = ListCollectionView_Filter;
             observableMeltsViewModel = new ObservableMeltsViewModel(observableMelts) 
             {MeltsStartDate = this.MeltsStartDate.Text,MeltsEndDate=this.MeltsEndDate.Text };
+            dataGrid1.DataContext = observableMeltsViewModel;
+
+
             //Поставить проверку соединения
             if (meltsPostgresContext.Database.CanConnect()) { 
 
