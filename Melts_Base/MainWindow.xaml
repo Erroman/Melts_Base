@@ -150,7 +150,7 @@
             </TabItem>
             <TabItem Header="Сводные данные">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid Name="dataGrid1" ItemsSource = "{Binding Source={StaticResource meltsViewSource}}" 
+                    <DataGrid Name="dataGrid1" ItemsSource = "{Binding View}" 
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding MeltNumber}"  Width="*">
@@ -188,9 +188,9 @@
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock  Grid.Row="0">От:</TextBlock>
-                                            <DatePicker Name="MeltsStartDate" Grid.Column="1" Text="{Binding Source={StaticResource dateFilter},Path=StartDate,Mode=OneWayToSource}"/>
+                                            <DatePicker Name="MeltsStartDate" Grid.Column="1" Text="{Binding StartDate,Mode=OneWayToSource}"/>
                                             <TextBlock  Grid.Row="1">До:</TextBlock>
-                                            <DatePicker Name="MeltsEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding Source={StaticResource dateFilter},Path=EndDate,Mode=OneWayToSource}"/>
+                                            <DatePicker Name="MeltsEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding EndDate,Mode=OneWayToSource}"/>
                                         </Grid>
                                     </Grid>
                                 </DataGridTextColumn.Header>

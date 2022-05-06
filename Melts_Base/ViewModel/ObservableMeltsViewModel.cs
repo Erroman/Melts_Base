@@ -17,14 +17,52 @@ namespace Melts_Base.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         public ObservableMeltsViewModel(ObservableCollection<Melt> melts) 
-        { 
-            View = new ListCollectionView(melts);
-            View.Filter = ListCollectionView_Filter;
+        {
+            Melts = melts;
+
+            _view = new ListCollectionView(melts);
+            _view.Filter = ListCollectionView_Filter;
         }
-        public ListCollectionView View { get; set; }
+        private ObservableCollection<Melt> _melts;
+        public ObservableCollection<Melt> Melts 
+        { 
+            get =>_melts;
+            set  {_melts = value;OnPropertyChanged(); }
+            
+        }
+        private ListCollectionView _view;
+        public ICollectionView View => _view;
+
+
+
+        string startDate;
+        public string StartDate
+        {
+            get => startDate;
+            set
+            {
+                if (startDate == value) return;
+                startDate = value;
+                OnPropertyChanged();
+                View.Refresh();
+            }
+        }
+        string endDate;
+        public string EndDate
+        {
+            get => endDate;
+            set
+            {
+                if (endDate == value) return;
+                endDate = value;
+                OnPropertyChanged();
+                View.Refresh();
+
+            }
+        }
         private bool ListCollectionView_Filter(object Item)
         {
             var melt = Item as Melt;
@@ -32,8 +70,8 @@ namespace Melts_Base.ViewModel
             {
                 DateOnly startdate;
                 DateOnly enddate;
-                bool startdateFilterSet = DateOnly.TryParse(MeltsStartDate, out startdate);
-                bool enddateFilterSet = DateOnly.TryParse(MeltsEndDate, out enddate);
+                bool startdateFilterSet = DateOnly.TryParse(StartDate, out startdate);
+                bool enddateFilterSet = DateOnly.TryParse(EndDate, out enddate);
                 return
                     (!startdateFilterSet || (startdate <= melt.MeltDate)) && (!enddateFilterSet || (melt.MeltDate <= enddate));
 

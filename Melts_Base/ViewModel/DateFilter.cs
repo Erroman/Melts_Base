@@ -19,7 +19,6 @@ namespace Melts_Base.ViewModel
         void OnPropertyChanged([CallerMemberName] string propertyName = null) 
         { 
             PropertyChanged(this,new PropertyChangedEventArgs(propertyName));
-            doFiltering?.Invoke();
             //CollectionViewSource.GetDefaultView(dataGrid1.ItemsSource).Refresh();
         }
 
@@ -33,6 +32,7 @@ namespace Melts_Base.ViewModel
                 if (startDate == value) return;
                 startDate = value;
                 OnPropertyChanged();
+                doFiltering?.Invoke();
             }
         }
         string endDate;
@@ -44,8 +44,9 @@ namespace Melts_Base.ViewModel
                 if (endDate == value) return;
                 endDate = value;
                 OnPropertyChanged();
-
+                doFiltering?.Invoke();
             }
+
         }
     }
 }

@@ -67,11 +67,14 @@ namespace Melts_Base
             dateFilter.doFiltering += DateFilter_doFiltering;
             foreach (Melt melt in meltsContext.Melts.Local.ToArray()) observableMelts.Add(melt);
             //meltsForFiltering = (ListCollectionView)CollectionViewSource.GetDefaultView(dataGrid1.ItemsSource);
-            meltsForFiltering = new ListCollectionView(observableMelts);
-            meltsForFiltering.Filter = ListCollectionView_Filter;
+            //meltsForFiltering = new ListCollectionView(observableMelts);
+            //meltsForFiltering.Filter = ListCollectionView_Filter;
             observableMeltsViewModel = new ObservableMeltsViewModel(observableMelts) 
             {MeltsStartDate = this.MeltsStartDate.Text,MeltsEndDate=this.MeltsEndDate.Text };
             dataGrid1.DataContext = observableMeltsViewModel;
+            MeltsStartDate.DataContext = observableMeltsViewModel;
+            MeltsEndDate.DataContext = observableMeltsViewModel;
+
 
 
             //Поставить проверку соединения
