@@ -37,6 +37,7 @@ namespace Melts_Base
         private CollectionViewSource meltsOracleViewSource;
         private DateFilter dateFilter;
         private ListCollectionView meltsForFiltering;
+        private ObservableMeltsViewModel observableMeltsViewModel;
 
         public MainWindow()
         {
@@ -68,6 +69,8 @@ namespace Melts_Base
             //meltsForFiltering = (ListCollectionView)CollectionViewSource.GetDefaultView(dataGrid1.ItemsSource);
             meltsForFiltering = new ListCollectionView(observableMelts);
             meltsForFiltering.Filter = ListCollectionView_Filter;
+            observableMeltsViewModel = new ObservableMeltsViewModel(observableMelts) 
+            {MeltsStartDate = this.MeltsStartDate.Text,MeltsEndDate=this.MeltsEndDate.Text };
             //Поставить проверку соединения
             if (meltsPostgresContext.Database.CanConnect()) { 
 
@@ -170,20 +173,20 @@ namespace Melts_Base
             }
             
         }
-        private bool ListCollectionView_Filter(object Item)
-        {
-            var melt = Item as Melt;
-            if (melt != null)
+            private bool ListCollectionView_Filter(object Item)
             {
-                DateOnly startdate;
-                DateOnly enddate;
-                bool startdateFilterSet = DateOnly.TryParse(this.MeltsStartDate.Text, out startdate);
-                bool enddateFilterSet = DateOnly.TryParse(this.MeltsEndDate.Text, out enddate);
-                return
-                    (!startdateFilterSet || (startdate <= melt.MeltDate)) && (!enddateFilterSet || (melt.MeltDate <= enddate));
+                var melt = Item as Melt;
+                if (melt != null)
+                {
+                    DateOnly startdate;
+                    DateOnly enddate;
+                    bool startdateFilterSet = DateOnly.TryParse(this.MeltsStartDate.Text, out startdate);
+                    bool enddateFilterSet = DateOnly.TryParse(this.MeltsEndDate.Text, out enddate);
+                    return
+                        (!startdateFilterSet || (startdate <= melt.MeltDate)) && (!enddateFilterSet || (melt.MeltDate <= enddate));
 
-            }return false;
+                }return false;
 
-        }
+            }
     }
 }
