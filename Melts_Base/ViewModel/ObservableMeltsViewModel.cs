@@ -65,6 +65,24 @@ namespace Melts_Base.ViewModel
         }
         private bool ListCollectionView_Filter(object Item)
         {
+            //var melt = Item as Melt;
+            //if (melt != null)
+            //{
+            //    DateOnly startdate;
+            //    DateOnly enddate;
+            //    bool startdateFilterSet = DateOnly.TryParse(StartDate, out startdate);
+            //    bool enddateFilterSet = DateOnly.TryParse(EndDate, out enddate);
+            //    return
+            //        (!startdateFilterSet || (startdate <= melt.MeltDate)) && (!enddateFilterSet || (melt.MeltDate <= enddate));
+
+            //}
+            //return false;
+            return meltDateFilter(Item)&&meltDateFilter(Item) ;
+
+        }
+        private bool meltDateFilter(object Item) 
+        {
+
             var melt = Item as Melt;
             if (melt != null)
             {
@@ -77,7 +95,6 @@ namespace Melts_Base.ViewModel
 
             }
             return false;
-
         }
     }
 }
