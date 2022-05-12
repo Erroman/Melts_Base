@@ -32,7 +32,7 @@ namespace Melts_Base
         private readonly epasportContext meltsPostgresContext = new epasportContext();
         private readonly ModelContext meltsOracleContext = new ModelContext();
         private CollectionViewSource meltsViewSource;
-        private ObservableCollection<Melt> observableMelts;
+        //private ObservableCollection<Melt> observableMelts;
         private CollectionViewSource meltsPostgresViewSource;
         private CollectionViewSource meltsOracleViewSource;
         //private DateFilter dateFilter;
@@ -43,7 +43,7 @@ namespace Melts_Base
         {
             InitializeComponent();
             meltsViewSource = (CollectionViewSource)FindResource(nameof(meltsViewSource));
-            observableMelts = (ObservableCollection<Melt>)FindResource(nameof(observableMelts));
+            //observableMelts = (ObservableCollection<Melt>)FindResource(nameof(observableMelts));
             meltsPostgresViewSource = (CollectionViewSource)FindResource(nameof(meltsPostgresViewSource));
             meltsOracleViewSource = (CollectionViewSource)FindResource(nameof(meltsOracleViewSource));
             //dateFilter = (DateFilter)FindResource(nameof(dateFilter));
@@ -65,12 +65,13 @@ namespace Melts_Base
             //meltsContext.Melts.Local.ToObservableCollection().CopyTo(meltsObservable);
             //dateFilter = (DateFilter)Resources[nameof(dateFilter)];
             //dateFilter.doFiltering += DateFilter_doFiltering;
-            foreach (Melt melt in meltsContext.Melts.Local.ToArray()) observableMelts.Add(melt);
+            //foreach (Melt melt in meltsContext.Melts.Local.ToArray()) observableMelts.Add(melt);
             //meltsForFiltering = (ListCollectionView)CollectionViewSource.GetDefaultView(dataGrid1.ItemsSource);
             //meltsForFiltering = new ListCollectionView(observableMelts);
             //meltsForFiltering.Filter = ListCollectionView_Filter;
-            observableMeltsViewModel = new ObservableMeltsViewModel(observableMelts) 
-            {MeltsStartDate = this.MeltsStartDate.Text,MeltsEndDate=this.MeltsEndDate.Text };
+            //---!!!observableMeltsViewModel = new ObservableMeltsViewModel(observableMelts) 
+            //{MeltsStartDate = this.MeltsStartDate.Text,MeltsEndDate=this.MeltsEndDate.Text };
+            observableMeltsViewModel = new ObservableMeltsViewModel(meltsContext.Melts.Local.ToObservableCollection());
             dataGrid1.DataContext = observableMeltsViewModel;
             MeltsStartDate.DataContext = observableMeltsViewModel;
             MeltsEndDate.DataContext = observableMeltsViewModel;
