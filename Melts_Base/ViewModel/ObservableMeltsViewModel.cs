@@ -12,8 +12,6 @@ namespace Melts_Base.ViewModel
 {
     internal class ObservableMeltsViewModel : INotifyPropertyChanged
     {
-        public string MeltsStartDate;
-        public string MeltsEndDate;   
         public event PropertyChangedEventHandler PropertyChanged;
         void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -77,18 +75,7 @@ namespace Melts_Base.ViewModel
         }    
         private bool ListCollectionView_Filter(object Item)
         {
-            //var melt = Item as Melt;
-            //if (melt != null)
-            //{
-            //    DateOnly startdate;
-            //    DateOnly enddate;
-            //    bool startdateFilterSet = DateOnly.TryParse(StartDate, out startdate);
-            //    bool enddateFilterSet = DateOnly.TryParse(EndDate, out enddate);
-            //    return
-            //        (!startdateFilterSet || (startdate <= melt.MeltDate)) && (!enddateFilterSet || (melt.MeltDate <= enddate));
 
-            //}
-            //return false;
             return meltDateFilter(Item)&& meltNumberFilter(Item) ;
 
         }

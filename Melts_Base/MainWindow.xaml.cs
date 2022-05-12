@@ -39,13 +39,12 @@ namespace Melts_Base
         public MainWindow()
         {
             InitializeComponent();
-            //meltsViewSource = (CollectionViewSource)FindResource(nameof(meltsViewSource));
-            //observableMelts = (ObservableCollection<Melt>)FindResource(nameof(observableMelts));
             meltsPostgresViewSource = (CollectionViewSource)FindResource(nameof(meltsPostgresViewSource));
             meltsOracleViewSource = (CollectionViewSource)FindResource(nameof(meltsOracleViewSource));
-            //dateFilter = (DateFilter)FindResource(nameof(dateFilter));
-            
-            
+            meltsContext.Database.EnsureCreated();
+            meltsContext.Melts.Load();
+            observableMeltsViewModel = new ObservableMeltsViewModel(meltsContext.Melts.Local.ToObservableCollection());
+            this.DataContext = observableMeltsViewModel;
         }
 
         private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)
@@ -55,14 +54,9 @@ namespace Melts_Base
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            meltsContext.Database.EnsureCreated();
-            meltsContext.Melts.Load();
-            observableMeltsViewModel = new ObservableMeltsViewModel(meltsContext.Melts.Local.ToObservableCollection());
-            dataGrid1.DataContext = observableMeltsViewModel;
             MeltsStartDate.DataContext = observableMeltsViewModel;
             MeltsEndDate.DataContext = observableMeltsViewModel;
             MeltNumberSought.DataContext = observableMeltsViewModel;
-
 
 
             //Поставить проверку соединения
