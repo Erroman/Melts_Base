@@ -35,7 +35,7 @@ namespace Melts_Base
         private ObservableCollection<Melt> observableMelts;
         private CollectionViewSource meltsPostgresViewSource;
         private CollectionViewSource meltsOracleViewSource;
-        private DateFilter dateFilter;
+        //private DateFilter dateFilter;
         private ListCollectionView meltsForFiltering;
         private ObservableMeltsViewModel observableMeltsViewModel;
 
@@ -46,7 +46,7 @@ namespace Melts_Base
             observableMelts = (ObservableCollection<Melt>)FindResource(nameof(observableMelts));
             meltsPostgresViewSource = (CollectionViewSource)FindResource(nameof(meltsPostgresViewSource));
             meltsOracleViewSource = (CollectionViewSource)FindResource(nameof(meltsOracleViewSource));
-            dateFilter = (DateFilter)FindResource(nameof(dateFilter));
+            //dateFilter = (DateFilter)FindResource(nameof(dateFilter));
             
             
         }
@@ -63,8 +63,8 @@ namespace Melts_Base
             // meltsViewSource.Source = (ObservableCollection<Melt>)meltsContext.Melts.Local.ToObservableCollection();
             //(ObservableCollection<Melt>)meltsContext.Melts.Local.ToObservableCollection().CopyTo(meltsObservable);
             //meltsContext.Melts.Local.ToObservableCollection().CopyTo(meltsObservable);
-            dateFilter = (DateFilter)Resources[nameof(dateFilter)];
-            dateFilter.doFiltering += DateFilter_doFiltering;
+            //dateFilter = (DateFilter)Resources[nameof(dateFilter)];
+            //dateFilter.doFiltering += DateFilter_doFiltering;
             foreach (Melt melt in meltsContext.Melts.Local.ToArray()) observableMelts.Add(melt);
             //meltsForFiltering = (ListCollectionView)CollectionViewSource.GetDefaultView(dataGrid1.ItemsSource);
             //meltsForFiltering = new ListCollectionView(observableMelts);
