@@ -74,6 +74,7 @@ namespace Melts_Base
             dataGrid1.DataContext = observableMeltsViewModel;
             MeltsStartDate.DataContext = observableMeltsViewModel;
             MeltsEndDate.DataContext = observableMeltsViewModel;
+            MeltNumberSought.DataContext = observableMeltsViewModel;
 
 
 

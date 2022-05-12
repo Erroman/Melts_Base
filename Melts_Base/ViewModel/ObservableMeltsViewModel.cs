@@ -63,6 +63,18 @@ namespace Melts_Base.ViewModel
 
             }
         }
+        string meltNumberSought;
+        public string MeltNumberSought
+        {
+            get => meltNumberSought;
+            set 
+            { 
+                if(meltNumberSought == value) return;
+                meltNumberSought = value;
+                OnPropertyChanged();
+                View.Refresh();
+            }
+        }    
         private bool ListCollectionView_Filter(object Item)
         {
             //var melt = Item as Melt;
@@ -101,9 +113,13 @@ namespace Melts_Base.ViewModel
             var melt = Item as Melt;
             if (melt != null) 
             {
-                int meltnumber;
+                int meltnumbersought;
+                int current_meltnumber;
+                bool meltNumberGoodFormatted = Int32.TryParse(melt.MeltNumber, out current_meltnumber);
+                bool meltnumberFilterSet = Int32.TryParse(MeltNumberSought, out meltnumbersought);
+                return (!meltnumberFilterSet || meltNumberGoodFormatted && current_meltnumber == meltnumbersought);
             }
-            return true; 
+            return false; 
         }
     }
 }

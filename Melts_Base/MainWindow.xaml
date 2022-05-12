@@ -165,7 +165,7 @@
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.ColumnSpan="2">Номер плавки:</TextBlock>
-                                        <TextBox Grid.Row="1" Grid.ColumnSpan="2"/>
+                                        <TextBox Name="MeltNumberSought" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding MeltNumberSought,UpdateSourceTrigger=PropertyChanged}"/>
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
