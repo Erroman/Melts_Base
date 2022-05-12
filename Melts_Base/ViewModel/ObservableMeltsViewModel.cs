@@ -77,7 +77,7 @@ namespace Melts_Base.ViewModel
 
             //}
             //return false;
-            return meltDateFilter(Item)&&meltDateFilter(Item) ;
+            return meltDateFilter(Item)&& meltNumberFilter(Item) ;
 
         }
         private bool meltDateFilter(object Item) 
@@ -95,6 +95,15 @@ namespace Melts_Base.ViewModel
 
             }
             return false;
+        }
+        private bool meltNumberFilter(object Item) 
+        {
+            var melt = Item as Melt;
+            if (melt != null) 
+            {
+                int meltnumber;
+            }
+            return true; 
         }
     }
 }
