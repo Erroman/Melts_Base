@@ -31,24 +31,20 @@ namespace Melts_Base
         private readonly MeltContext meltsContext = new MeltContext();
         private readonly epasportContext meltsPostgresContext = new epasportContext();
         private readonly ModelContext meltsOracleContext = new ModelContext();
-        private CollectionViewSource meltsViewSource;
-        //private ObservableCollection<Melt> observableMelts;
         private CollectionViewSource meltsPostgresViewSource;
         private CollectionViewSource meltsOracleViewSource;
-        //private DateFilter dateFilter;
         private ListCollectionView meltsForFiltering;
         private ObservableMeltsViewModel observableMeltsViewModel;
 
         public MainWindow()
         {
             InitializeComponent();
-            meltsViewSource = (CollectionViewSource)FindResource(nameof(meltsViewSource));
-            //observableMelts = (ObservableCollection<Melt>)FindResource(nameof(observableMelts));
             meltsPostgresViewSource = (CollectionViewSource)FindResource(nameof(meltsPostgresViewSource));
             meltsOracleViewSource = (CollectionViewSource)FindResource(nameof(meltsOracleViewSource));
-            //dateFilter = (DateFilter)FindResource(nameof(dateFilter));
-            
-            
+            meltsContext.Database.EnsureCreated();
+            meltsContext.Melts.Load();
+            observableMeltsViewModel = new ObservableMeltsViewModel(meltsContext.Melts.Local.ToObservableCollection());
+            this.DataContext = observableMeltsViewModel;
         }
 
         private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)
@@ -58,25 +54,9 @@ namespace Melts_Base
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            meltsContext.Database.EnsureCreated();
-            meltsContext.Melts.Load();
-            // meltsViewSource.Source = (ObservableCollection<Melt>)meltsContext.Melts.Local.ToObservableCollection();
-            //(ObservableCollection<Melt>)meltsContext.Melts.Local.ToObservableCollection().CopyTo(meltsObservable);
-            //meltsContext.Melts.Local.ToObservableCollection().CopyTo(meltsObservable);
-            //dateFilter = (DateFilter)Resources[nameof(dateFilter)];
-            //dateFilter.doFiltering += DateFilter_doFiltering;
-            //foreach (Melt melt in meltsContext.Melts.Local.ToArray()) observableMelts.Add(melt);
-            //meltsForFiltering = (ListCollectionView)CollectionViewSource.GetDefaultView(dataGrid1.ItemsSource);
-            //meltsForFiltering = new ListCollectionView(observableMelts);
-            //meltsForFiltering.Filter = ListCollectionView_Filter;
-            //---!!!observableMeltsViewModel = new ObservableMeltsViewModel(observableMelts) 
-            //{MeltsStartDate = this.MeltsStartDate.Text,MeltsEndDate=this.MeltsEndDate.Text };
-            observableMeltsViewModel = new ObservableMeltsViewModel(meltsContext.Melts.Local.ToObservableCollection());
-            dataGrid1.DataContext = observableMeltsViewModel;
             MeltsStartDate.DataContext = observableMeltsViewModel;
             MeltsEndDate.DataContext = observableMeltsViewModel;
             MeltNumberSought.DataContext = observableMeltsViewModel;
-
 
 
             //Поставить проверку соединения
