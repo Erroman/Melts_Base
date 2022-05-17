@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace OracleConnection.OracleModels
+namespace Melts_Base.OracleModels
 {
     public partial class ModelContext : DbContext
     {
