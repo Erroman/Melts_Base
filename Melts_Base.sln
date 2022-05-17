@@ -9,7 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OracleConnection", "OracleC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OracleWebConnect", "OracleWebConnect\OracleWebConnect.csproj", "{DE1847A4-8CD3-461C-B05A-D430E4D26086}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OracleConsoleConnect", "OracleConsoleConnect\OracleConsoleConnect.csproj", "{3232228D-C883-4CDC-83CF-26C703F58E47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OracleConsoleConnect", "OracleConsoleConnect\OracleConsoleConnect.csproj", "{3232228D-C883-4CDC-83CF-26C703F58E47}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFInterface", "WPFInterface\WPFInterface.csproj", "{417B26A0-0036-4E64-813F-620A2E651911}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DGGroupSortFilterExample", "DGGroupSortFilterExample\DGGroupSortFilterExample.csproj", "{C27E5ED8-5A93-419D-AB9A-6623E0F1A3B2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SortFilter", "SortFilter\SortFilter.csproj", "{6A12015A-EF5C-436F-9391-1CE519853301}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +39,18 @@ Global
 		{3232228D-C883-4CDC-83CF-26C703F58E47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3232228D-C883-4CDC-83CF-26C703F58E47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3232228D-C883-4CDC-83CF-26C703F58E47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{417B26A0-0036-4E64-813F-620A2E651911}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{417B26A0-0036-4E64-813F-620A2E651911}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{417B26A0-0036-4E64-813F-620A2E651911}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{417B26A0-0036-4E64-813F-620A2E651911}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C27E5ED8-5A93-419D-AB9A-6623E0F1A3B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C27E5ED8-5A93-419D-AB9A-6623E0F1A3B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C27E5ED8-5A93-419D-AB9A-6623E0F1A3B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C27E5ED8-5A93-419D-AB9A-6623E0F1A3B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A12015A-EF5C-436F-9391-1CE519853301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A12015A-EF5C-436F-9391-1CE519853301}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A12015A-EF5C-436F-9391-1CE519853301}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A12015A-EF5C-436F-9391-1CE519853301}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

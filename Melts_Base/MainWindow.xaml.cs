@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Melts_Base.PostgresFiles;
 using Melts_Base.OracleModels;
+using Melts_Base.ViewModel;
 
 namespace Melts_Base
 {
@@ -30,14 +32,23 @@ namespace Melts_Base
         private readonly epasportContext meltsPostgresContext = new epasportContext();
         private readonly ModelContext meltsOracleContext = new ModelContext();
         private CollectionViewSource meltsViewSource;
+        private ObservableCollection<Melt> observableMelts;
         private CollectionViewSource meltsPostgresViewSource;
         private CollectionViewSource meltsOracleViewSource;
+        private DateFilter dateFilter;
+        private ListCollectionView meltsForFiltering;
+        private ObservableMeltsViewModel observableMeltsViewModel;
+
         public MainWindow()
         {
             InitializeComponent();
             meltsViewSource = (CollectionViewSource)FindResource(nameof(meltsViewSource));
+            observableMelts = (ObservableCollection<Melt>)FindResource(nameof(observableMelts));
             meltsPostgresViewSource = (CollectionViewSource)FindResource(nameof(meltsPostgresViewSource));
             meltsOracleViewSource = (CollectionViewSource)FindResource(nameof(meltsOracleViewSource));
+            dateFilter = (DateFilter)FindResource(nameof(dateFilter));
+            
+            
         }
 
         private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)
@@ -49,7 +60,22 @@ namespace Melts_Base
         {
             meltsContext.Database.EnsureCreated();
             meltsContext.Melts.Load();
-            meltsViewSource.Source = meltsContext.Melts.Local.ToObservableCollection();
+            // meltsViewSource.Source = (ObservableCollection<Melt>)meltsContext.Melts.Local.ToObservableCollection();
+            //(ObservableCollection<Melt>)meltsContext.Melts.Local.ToObservableCollection().CopyTo(meltsObservable);
+            //meltsContext.Melts.Local.ToObservableCollection().CopyTo(meltsObservable);
+            dateFilter = (DateFilter)Resources[nameof(dateFilter)];
+            dateFilter.doFiltering += DateFilter_doFiltering;
+            foreach (Melt melt in meltsContext.Melts.Local.ToArray()) observableMelts.Add(melt);
+            //meltsForFiltering = (ListCollectionView)CollectionViewSource.GetDefaultView(dataGrid1.ItemsSource);
+            //meltsForFiltering = new ListCollectionView(observableMelts);
+            //meltsForFiltering.Filter = ListCollectionView_Filter;
+            observableMeltsViewModel = new ObservableMeltsViewModel(observableMelts) 
+            {MeltsStartDate = this.MeltsStartDate.Text,MeltsEndDate=this.MeltsEndDate.Text };
+            dataGrid1.DataContext = observableMeltsViewModel;
+            MeltsStartDate.DataContext = observableMeltsViewModel;
+            MeltsEndDate.DataContext = observableMeltsViewModel;
+
+
 
             //Поставить проверку соединения
             if (meltsPostgresContext.Database.CanConnect()) { 
@@ -70,6 +96,12 @@ namespace Melts_Base
 
             }
             else MessageBox.Show("No connection with Oracle!");
+        }
+
+        private void DateFilter_doFiltering()
+        {
+            CollectionViewSource.GetDefaultView(dataGrid1.ItemsSource).Refresh();
+            //throw new NotImplementedException();
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -131,5 +163,36 @@ namespace Melts_Base
                 }
             }
         }
+
+        private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
+        {
+            var melt = e.Item as Melt;
+            if (melt != null)
+            {
+                DateOnly startdate;
+                DateOnly enddate;
+                bool startdateFilterSet = DateOnly.TryParse(this.MeltsStartDate.Text,out startdate);
+                bool enddateFilterSet   = DateOnly.TryParse(this.MeltsEndDate.Text, out enddate);
+                e.Accepted = 
+                    (!startdateFilterSet || (startdate <= melt.MeltDate)) && (!enddateFilterSet || (melt.MeltDate <=  enddate));
+
+            }
+            
+        }
+            private bool ListCollectionView_Filter(object Item)
+            {
+                var melt = Item as Melt;
+                if (melt != null)
+                {
+                    DateOnly startdate;
+                    DateOnly enddate;
+                    bool startdateFilterSet = DateOnly.TryParse(this.MeltsStartDate.Text, out startdate);
+                    bool enddateFilterSet = DateOnly.TryParse(this.MeltsEndDate.Text, out enddate);
+                    return
+                        (!startdateFilterSet || (startdate <= melt.MeltDate)) && (!enddateFilterSet || (melt.MeltDate <= enddate));
+
+                }return false;
+
+            }
     }
 }
