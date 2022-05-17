@@ -26,12 +26,12 @@
                     <RibbonApplicationMenuItem Header="Выход из программы" Click="RibbonApplicationMenuItem_Click" />
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
-            <RibbonTab Header="Данные из базы Oracle">
+            <RibbonTab Header="Данные из локальной базы Oracle">
                 <RibbonGroup x:Name="TheMainListOfMelts">
                                    </RibbonGroup>
             </RibbonTab>
-            <RibbonTab Header="Данные из базы Postgre">
-                <RibbonGroup x:Name="PostgresListOfMelts">
+            <RibbonTab Header="Данные из заводской базы Oracle">
+                <RibbonGroup x:Name="PlantOracleListOfMelts">
                 </RibbonGroup>
             </RibbonTab>
             <RibbonTab Header="Сводные данные" KeyTip="I">
