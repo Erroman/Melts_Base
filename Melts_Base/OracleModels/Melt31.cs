@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Melts_Base
+namespace Melts_Base.OracleModels
 {
-    public class Melt
+    public class Melt31
     {
         public int MeltId { get; set; }
         public string MeltNumber { get; set; }
