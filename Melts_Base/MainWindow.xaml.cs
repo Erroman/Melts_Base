@@ -71,7 +71,16 @@ namespace Melts_Base
             {
                 MessageBox.Show("Сonnection with Oracle granted!");
                 meltsOracleContext.Melts31s.Load();
-                meltsOracleViewSource.Source = meltsOracleContext.Melts31s.Local.ToObservableCollection();
+                //meltsOracleViewSource.Source = meltsOracleContext.Melts31s.Local.ToObservableCollection();
+                meltsOracleViewSource.Source = new ObservableCollection<Melts31>(meltsOracleContext.Melts31s.ToList<Melts31>());
+                meltsOracleContext.Melt31s.Load();
+                //meltsOracleViewSource.Source = new ObservableCollection<Melt31>(meltsOracleContext.Melt31s.ToList<Melt31>());
+                var PlantMelts = new ObservableCollection<Melt31>(meltsOracleContext.Melt31s.ToList<Melt31>());
+                //foreach (var melt in meltsOracleContext.Melt31s.ToList<Melt31>()) 
+                //{ 
+                //    PlantMelts.Add(melt); 
+                //}
+                meltsPostgresViewSource.Source = PlantMelts;
 
 
 
