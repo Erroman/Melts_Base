@@ -31,6 +31,7 @@ namespace Melts_Base
         private readonly MeltContext meltsContext = new MeltContext();
         private readonly epasportContext meltsPostgresContext = new epasportContext();
         private readonly ModelContext meltsOracleContext = new ModelContext();
+        private readonly ModelPlantContext meltsPlantOracleContext = new ModelPlantContext();
         private CollectionViewSource meltsPostgresViewSource;
         private CollectionViewSource meltsOracleViewSource;
         private ListCollectionView meltsForFiltering;
@@ -75,20 +76,18 @@ namespace Melts_Base
                 meltsOracleViewSource.Source = new ObservableCollection<Melts31>(meltsOracleContext.Melts31s.ToList<Melts31>());
                 meltsOracleContext.Melt31s.Load();
                 //meltsOracleViewSource.Source = new ObservableCollection<Melt31>(meltsOracleContext.Melt31s.ToList<Melt31>());
-                var PlantMelts = new ObservableCollection<Melt31>(meltsOracleContext.Melt31s.ToList<Melt31>());
+                //var PlantMelts = new ObservableCollection<Melt31>(meltsOracleContext.Melt31s.ToList<Melt31>());
                 //foreach (var melt in meltsOracleContext.Melt31s.ToList<Melt31>()) 
                 //{ 
                 //    PlantMelts.Add(melt); 
                 //}
-                meltsPostgresViewSource.Source = PlantMelts;
-
-
-
-
+               
             }
             else MessageBox.Show("No connection with Oracle!");
         }
-
+                //meltsPlantOracleContext.Melt31s.Load();
+                //var PlantMelts = new ObservableCollection<Melt31>(meltsPlantOracleContext.Melt31s.ToList<Melt31>());
+                //meltsPostgresViewSource.Source = PlantMelts;
         private void DateFilter_doFiltering()
         {
             CollectionViewSource.GetDefaultView(dataGrid1.ItemsSource).Refresh();
