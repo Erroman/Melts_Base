@@ -15,8 +15,9 @@ namespace OracleConnection.OracleModels
             : base(options)
         {
         }
-
+        public virtual DbSet<Melt31> Melt31s { get; set; } = null!;
         public virtual DbSet<Melts31> Melts31s { get; set; } = null!;
+        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

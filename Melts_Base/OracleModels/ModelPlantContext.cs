@@ -16,7 +16,7 @@ namespace Melts_Base.OracleModels
         {
         }
 
-        public virtual DbSet<Melt31>  Melt31s  { get; set; } = null!;
+        public virtual DbSet<V_NC24_PLAV31> Melt31s  { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -30,14 +30,14 @@ namespace Melts_Base.OracleModels
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("ROMANOVSKII_VG")
-                .UseCollation("USING_NLS_COMP");
+            modelBuilder.HasDefaultSchema("ROMANOVSKII_VG");
+//                .UseCollation("USING_NLS_COMP");
 
-            modelBuilder.Entity<Melt31>(entity =>
+            modelBuilder.Entity<V_NC24_PLAV31>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToTable("MELT31");
+                entity.ToTable("V_NC24_PLAV31");
 
                 entity.Property(e => e.DateClose)
                     .HasColumnType("DATE")
