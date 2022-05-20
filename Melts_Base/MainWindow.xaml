@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Ribbon x:Name="RibbonWin"  SelectedIndex="2">
+        <Ribbon x:Name="RibbonWin"  SelectedIndex="1">
             <!-- Help Pane, located at the right-hand side -->
             <Ribbon.HelpPaneContent>
                 <RibbonButton />
@@ -26,10 +26,6 @@
                     <RibbonApplicationMenuItem Header="Выход из программы" Click="RibbonApplicationMenuItem_Click" />
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
-            <RibbonTab Header="Данные из локальной базы Oracle">
-                <RibbonGroup x:Name="TheMainListOfMelts">
-                                   </RibbonGroup>
-            </RibbonTab>
             <RibbonTab Header="Данные из заводской базы Oracle">
                 <RibbonGroup x:Name="PlantOracleListOfMelts">
                 </RibbonGroup>
@@ -50,44 +46,6 @@
             <TabControl.SelectedIndex>
                 <Binding ElementName="RibbonWin" Path="SelectedIndex"/>
             </TabControl.SelectedIndex>
-            <TabItem Header="Данные из локальной базы Oracle">
-                <Grid Background="#FFE5E5E5">
-                    <!--DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"/-->
-                    <DataGrid ItemsSource = "{Binding Source={StaticResource meltsOracleViewSource}}"
-                              AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding MeltId}"
-                                    Header="Id плавки" Width="SizeToHeader"
-                                    IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Meltnumber}"  Width="*" Header="Номер плавки"/>
-                            <DataGridTextColumn Binding="{Binding Meltdate}" Header="Дата плавки" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Alloyname}" Header="Сплав" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Alloyindex}" Header="Индекс" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Mouldset}" Header="Номер комплекта" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Electrodediameter}" Header="Диаметр электрода" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Meltername}" Header="ФИО плавильщика" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Teknumber}" Header="№ ТЭК" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding IlUisShn}" Header="ИЛ / УиС / ШН" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Contract}" Header="Контракт" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Supplement}" Header="Приложение" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Purpose}" Header="Назначение" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Ingotdiameter}" Header="Диаметр слитка" 
-                                    Width="*"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-            </TabItem>
             <TabItem Header="Данные из заводской базы Oracle">
                 <Grid Background="#FFE5E5E5">
                     <!--DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"/-->

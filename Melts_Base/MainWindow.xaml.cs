@@ -33,14 +33,12 @@ namespace Melts_Base
         private readonly ModelContext meltsOracleContext = new ModelContext();
         private readonly ModelPlantContext meltsPlantOracleContext = new ModelPlantContext();
         private CollectionViewSource meltsPlantOracleViewSource;
-        private CollectionViewSource meltsOracleViewSource;
         private ObservableMeltsViewModel observableMeltsViewModel;
 
         public MainWindow()
         {
             InitializeComponent();
             meltsPlantOracleViewSource = (CollectionViewSource)FindResource(nameof(meltsPlantOracleViewSource));
-            meltsOracleViewSource = (CollectionViewSource)FindResource(nameof(meltsOracleViewSource));
             meltsContext.Database.EnsureCreated();
             meltsContext.Melts.Load();
             observableMeltsViewModel = new ObservableMeltsViewModel(meltsContext.Melts.Local.ToObservableCollection());
@@ -58,33 +56,10 @@ namespace Melts_Base
             MeltsEndDate.DataContext = observableMeltsViewModel;
             MeltNumberSought.DataContext = observableMeltsViewModel;
 
-
-            //Поставить проверку соединения
-            //if (meltsPostgresContext.Database.CanConnect()) { 
-
-            //meltsPostgresContext.Database.EnsureCreated();
-            //meltsPostgresContext.Melts.Load();
-            //meltsPostgresViewSource.Source = meltsPostgresContext.Melts.ToList();
-            //meltsPostgresViewSource.Source = meltsPostgresContext.Melts.Local.ToObservableCollection();
-            //}
-            if (meltsOracleContext.Database.CanConnect())
-            {
-                MessageBox.Show("Сonnection with Oracle granted!");
-                //Загружаются таблицы с локальной Оракл
-                //Моя пробная таблица с главным ключом
-                meltsOracleContext.Melts31s.Load();
-                meltsOracleViewSource.Source = new ObservableCollection<Melts31>(meltsOracleContext.Melts31s.ToList<Melts31>());
-                //Точная копия таблицы заводской базы данных с одной записью
-                meltsOracleContext.Melt31s.Load();
-                meltsPlantOracleViewSource.Source = new ObservableCollection<Melt31>(meltsOracleContext.Melt31s.ToList<Melt31>());
-            }
-            else MessageBox.Show("No connection with Oracle!");
             if (meltsPlantOracleContext.Database.CanConnect()) 
             {
                 MessageBox.Show("Сonnection with Plant's Oracle granted!");
                 meltsPlantOracleContext.Melt31s.Load();
-                //var observablePlatMelts = meltsPlantOracleContext.Melt31s.ToList<V_NC24_PLAV31>();
-                //var PlantMelts = new ObservableCollection<V_NC24_PLAV31>(observablePlatMelts);
                 meltsPlantOracleViewSource.Source = new ObservableCollection<V_NC24_PLAV31>(meltsPlantOracleContext.Melt31s.ToList<V_NC24_PLAV31>());
             }
             else MessageBox.Show("No connection with Plant's Oracle!");
