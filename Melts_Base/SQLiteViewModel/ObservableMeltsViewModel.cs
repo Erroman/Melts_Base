@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Data;
 using System.Collections.ObjectModel;
 
-namespace Melts_Base.ViewModel
+namespace Melts_Base.SQLiteViewModel
 {
     internal class ObservableMeltsViewModel : INotifyPropertyChanged
     {

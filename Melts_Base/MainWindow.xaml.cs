@@ -18,7 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Melts_Base.PostgresFiles;
 using Melts_Base.OracleModels;
-using Melts_Base.ViewModel;
+using Melts_Base.SQLiteViewModel;
 
 namespace Melts_Base
 {
