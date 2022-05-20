@@ -65,7 +65,7 @@
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Splav}" Header="Сплав" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Ins}" Header="Ins" 
+                            <DataGridTextColumn Binding="{Binding Ins}" Header="Индекс" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Tek}" Header="Tek" 
                                     Width="*"/>
@@ -176,10 +176,8 @@
                                     Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
-             
                 </Grid>
             </TabItem>
         </TabControl>
-
     </Grid>
 </Window>

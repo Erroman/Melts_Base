@@ -38,7 +38,6 @@ namespace Melts_Base
         public MainWindow()
         {
             InitializeComponent();
-            meltsPlantOracleViewSource = (CollectionViewSource)FindResource(nameof(meltsPlantOracleViewSource));
             meltsContext.Database.EnsureCreated();
             meltsContext.Melts.Load();
             observableMeltsViewModel = new ObservableMeltsViewModel(meltsContext.Melts.Local.ToObservableCollection());
@@ -60,6 +59,7 @@ namespace Melts_Base
             {
                 MessageBox.Show("Сonnection with Plant's Oracle granted!");
                 meltsPlantOracleContext.Melt31s.Load();
+                meltsPlantOracleViewSource = (CollectionViewSource)FindResource(nameof(meltsPlantOracleViewSource));
                 meltsPlantOracleViewSource.Source = new ObservableCollection<V_NC24_PLAV31>(meltsPlantOracleContext.Melt31s.ToList<V_NC24_PLAV31>());
             }
             else MessageBox.Show("No connection with Plant's Oracle!");
