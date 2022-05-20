@@ -85,7 +85,7 @@ namespace Melts_Base
                 meltsPlantOracleContext.Melt31s.Load();
                 //var observablePlatMelts = meltsPlantOracleContext.Melt31s.ToList<V_NC24_PLAV31>();
                 //var PlantMelts = new ObservableCollection<V_NC24_PLAV31>(observablePlatMelts);
-                //meltsPlantOracleViewSource.Source = PlantMelts;
+                meltsPlantOracleViewSource.Source = new ObservableCollection<V_NC24_PLAV31>(meltsPlantOracleContext.Melt31s.ToList<V_NC24_PLAV31>());
             }
             else MessageBox.Show("No connection with Plant's Oracle!");
         }

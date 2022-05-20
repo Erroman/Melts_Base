@@ -29,8 +29,8 @@ namespace Melts_Base.OracleModels
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("ROMANOVSKII_VG")
-                .UseCollation("USING_NLS_COMP");
+  //          modelBuilder.HasDefaultSchema("ROMANOVSKII_VG");
+//                .UseCollation("USING_NLS_COMP");
 
             modelBuilder.Entity<V_NC24_PLAV31>(entity =>
             {
