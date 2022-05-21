@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Melts_Base
+namespace Melts_Base.SQLiteModels
 {
     public class Melt
     {
@@ -20,9 +20,9 @@ namespace Melts_Base
         public string MelterName { get; set; }
         public string TEKNumber { get; set; }
         public string IL_UiS_SHN { get; set; }
-        public string Contract { get; set; }  
-        public string Supplement { get; set; }       
+        public string Contract { get; set; }
+        public string Supplement { get; set; }
         public string Purpose { get; set; }
         public short? IngotDiameter { get; set; }
     }
- }
+}

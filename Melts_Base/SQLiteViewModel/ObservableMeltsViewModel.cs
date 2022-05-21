@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Data;
 using System.Collections.ObjectModel;
+using Melts_Base.SQLiteModels;
 
 namespace Melts_Base.SQLiteViewModel
 {

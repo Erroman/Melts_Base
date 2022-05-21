@@ -17,7 +17,7 @@ namespace Melts_Base.PostgresFiles
         }
 
         public virtual DbSet<Epasport> Epasports { get; set; }
-        public virtual DbSet<Melt> Melts { get; set; }
+        public virtual DbSet<MeltPostgres> Melts { get; set; }
         public virtual DbSet<SprGlobalId> SprGlobalIds { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -145,7 +145,7 @@ namespace Melts_Base.PostgresFiles
                     .HasComment("предположительно\n0 - металл в работе\n1 - работа окончена\n2 - строка загружена в шину\n3 - строка обработана получателем");
             });
 
-            modelBuilder.Entity<Melt>(entity =>
+            modelBuilder.Entity<MeltPostgres>(entity =>
             {
                 entity.ToTable("melts");
 

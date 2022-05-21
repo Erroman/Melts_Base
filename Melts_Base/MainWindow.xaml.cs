@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using Melts_Base.PostgresFiles;
 using Melts_Base.OracleModels;
 using Melts_Base.SQLiteViewModel;
+using Melts_Base.SQLiteModels;
 
 namespace Melts_Base
 {
@@ -89,10 +90,10 @@ namespace Melts_Base
             }
             else MessageBox.Show("Соединение с цеховой базой Postgres нарушено!");
         }
-        private void PumpPostgresData(List<PostgresFiles.Melt> listPostgresMelts, List<Melt> listSqLiteMelts) 
+        private void PumpPostgresData(List<PostgresFiles.MeltPostgres> listPostgresMelts, List<Melt> listSqLiteMelts) 
         {
-            //var listNewMelts = new List<PostgresFiles.Melt>();
-            //var listChangedMelts = new List<PostgresFiles.Melt>();
+            //var listNewMelts = new List<PostgresFiles.MeltPostgres>();
+            //var listChangedMelts = new List<PostgresFiles.MeltPostgres>();
             var MeltFound = false;
             foreach (var postgresMelt in listPostgresMelts) 
             {

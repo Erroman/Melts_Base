@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Melts_Base.PostgresFiles
 {
-    public partial class Melt
+    public partial class MeltPostgres
     {
         /// <summary>
         /// Идентификатор записи
