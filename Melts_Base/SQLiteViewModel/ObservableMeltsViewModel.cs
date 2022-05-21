@@ -101,11 +101,15 @@ namespace Melts_Base.SQLiteViewModel
             var melt = Item as Melt;
             if (melt != null) 
             {
-                int meltnumbersought;
-                int current_meltnumber;
-                bool meltNumberGoodFormatted = Int32.TryParse(melt.MeltNumber, out current_meltnumber);
-                bool meltnumberFilterSet = Int32.TryParse(MeltNumberSought, out meltnumbersought);
-                return (!meltnumberFilterSet || meltNumberGoodFormatted && current_meltnumber == meltnumbersought);
+                //int meltnumbersought;
+                //int current_meltnumber;
+                //bool meltNumberGoodFormatted = Int32.TryParse(melt.MeltNumber, out current_meltnumber);
+                //bool meltnumberFilterSet = Int32.TryParse(MeltNumberSought, out meltnumbersought);
+                //return (!meltnumberFilterSet || meltNumberGoodFormatted && current_meltnumber == meltnumbersought);
+                if (String.IsNullOrEmpty(MeltNumberSought))
+                    return true;
+                else
+                    return (melt.MeltNumber.IndexOf(MeltNumberSought, StringComparison.OrdinalIgnoreCase) >= 0);
             }
             return false; 
         }
