@@ -75,7 +75,7 @@
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding DateZap, StringFormat=dd.MM.yyyy HH:mm}" Header="Время запуска" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding DateClose, StringFormat=dd.MM.yyyy HH:mm tt}" Header="Время завершения" 
+                            <DataGridTextColumn Binding="{Binding DateClose, StringFormat=dd.MM.yyyy HH:mm}" Header="Время завершения" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding SumVesZapusk}" Header="SumVesZapusk" 
                                     Width="*"/>

@@ -31,7 +31,6 @@ namespace Melts_Base
     {
         private readonly MeltContext meltsContext = new MeltContext();
         private readonly epasportContext meltsPostgresContext = new epasportContext();
-        private readonly ModelContext meltsOracleContext = new ModelContext();
         private readonly ModelPlantContext meltsPlantOracleContext = new ModelPlantContext();
         private CollectionViewSource meltsPlantOracleViewSource;
         private ObservableMeltsViewModel observableMeltsViewModel;
@@ -81,28 +80,28 @@ namespace Melts_Base
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (meltsPostgresContext.Database.CanConnect())
+            if (meltsPlantOracleContext.Database.CanConnect())
             {
                 var sqlightAllMelts = meltsContext.Melts.ToList();
-                var postgresAllMelts = meltsPostgresContext.Melts.ToList();
-                PumpPostgresData(postgresAllMelts, sqlightAllMelts);
+                var plantOracleAllMelts = meltsPlantOracleContext.Melt31s.ToList();
+                PumpPlantOracleData(plantOracleAllMelts, sqlightAllMelts);
                 MessageBox.Show("Подкачка выполнена!");
             }
-            else MessageBox.Show("Соединение с цеховой базой Postgres нарушено!");
+            else MessageBox.Show("Соединение с цеховой базой Oracle отсутствует!");
         }
-        private void PumpPostgresData(List<PostgresFiles.MeltPostgres> listPostgresMelts, List<Melt> listSqLiteMelts) 
+        private void PumpPlantOracleData(List<V_NC24_PLAV31> listOracleMelts, List<Melt> listSqLiteMelts) 
         {
             //var listNewMelts = new List<PostgresFiles.MeltPostgres>();
             //var listChangedMelts = new List<PostgresFiles.MeltPostgres>();
             var MeltFound = false;
-            foreach (var postgresMelt in listPostgresMelts) 
+            foreach (var oracleMelt in listOracleMelts) 
             {
                 //проверяем, есть ли запись в базе SqLite, соответствующая плавке в базе Postgres
                 //сравнение ведём по номеру плавки
                 //если записи такой нет, добавляем
                 foreach(var melt in listSqLiteMelts) 
                 { 
-                    if(postgresMelt.Nplav == melt.MeltNumber) 
+                    if(oracleMelt.Nplav == melt.MeltNumber) 
                     {
                         MeltFound = true;
                     }
@@ -112,19 +111,19 @@ namespace Melts_Base
                     //конструируется новая запись по плавке для SqLite
                     var newMelt = new Melt()
                     {
-                        MeltNumber = postgresMelt.Nplav,
-                        MeltDate = postgresMelt.Dpl,
-                        AlloyName = postgresMelt.Spl,
-                        AlloyIndex = postgresMelt.Ind,
-                        MouldSet = postgresMelt.Nkompl,
-                        ElectrodeDiameter = postgresMelt.Del,
-                        MelterNumber = postgresMelt.TabNPl,
-                        TEKNumber = postgresMelt.Ntek,
-                        IL_UiS_SHN = postgresMelt.NomInsp,
-                        Contract = postgresMelt.Kont,
-                        Supplement = postgresMelt.Pril,
-                        Purpose = postgresMelt.Nazn,
-                        IngotDiameter = postgresMelt.Diam
+                        //MeltNumber = postgresMelt.Nplav,
+                        //MeltDate = postgresMelt.Dpl,
+                        //AlloyName = postgresMelt.Spl,
+                        //AlloyIndex = postgresMelt.Ind,
+                        //MouldSet = postgresMelt.Nkompl,
+                        //ElectrodeDiameter = postgresMelt.Del,
+                        //MelterNumber = postgresMelt.TabNPl,
+                        //TEKNumber = postgresMelt.Ntek,
+                        //IL_UiS_SHN = postgresMelt.NomInsp,
+                        //Contract = postgresMelt.Kont,
+                        //Supplement = postgresMelt.Pril,
+                        //Purpose = postgresMelt.Nazn,
+                        //IngotDiameter = postgresMelt.Diam
 
                     };
                     meltsContext.Add<Melt>(newMelt);
