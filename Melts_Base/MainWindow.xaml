@@ -1,4 +1,4 @@
-﻿<Window x:Class="Melts_Base.MainWindow"
+﻿    <Window x:Class="Melts_Base.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -73,9 +73,9 @@
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding OkonchPereplav}" Header="Признак окончательного переплава" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding DateZap}" Header="Время запуска" 
+                            <DataGridTextColumn Binding="{Binding DateZap, StringFormat=dd.MM.yyyy HH:mm}" Header="Время запуска" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding DateClose}" Header="Время завершения" 
+                            <DataGridTextColumn Binding="{Binding DateClose, StringFormat=dd.MM.yyyy HH:mm tt}" Header="Время завершения" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding SumVesZapusk}" Header="SumVesZapusk" 
                                     Width="*"/>
