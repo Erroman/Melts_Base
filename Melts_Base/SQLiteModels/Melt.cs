@@ -14,11 +14,11 @@ namespace Melts_Base.SQLiteModels
         public DateTime? MeltDate { get; set; }
         public string AlloyName { get; set; }
         public string AlloyIndex { get; set; }
-        public short? MouldSet { get; set; }
-        public short? ElectrodeDiameter { get; set; }
-        public string MelterNumber { get; set; }
-        public string MelterName { get; set; }
-        public string TEKNumber { get; set; }
+        public short? MouldSet { get; set; }  //не найден
+        public short? ElectrodeDiameter { get; set; } //не найден
+        public string MelterNumber { get; set; } //не найден
+        public string MelterName { get; set; }   //не найден
+        public string TEKNumber { get; set; }   
         public string IL_UiS_SHN { get; set; }
         public string Contract { get; set; }
         public string Supplement { get; set; }

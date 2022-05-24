@@ -111,8 +111,8 @@ namespace Melts_Base
                     {
                         MeltNumber = oracleMelt.Nplav,
                         MeltDate = oracleMelt.DateZap,
-                        //AlloyName = oracleMelt.Spl,
-                        //AlloyIndex = oracleMelt.Ind,
+                        AlloyName = oracleMelt.Splav,
+                        AlloyIndex = oracleMelt.Ins,
                         //MouldSet = oracleMelt.Nkompl,
                         //ElectrodeDiameter = oracleMelt.Del,
                         //MelterNumber = oracleMelt.TabNPl,
