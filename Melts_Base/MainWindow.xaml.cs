@@ -109,19 +109,19 @@ namespace Melts_Base
                     //конструируется новая запись по плавке для SqLite
                     var newMelt = new Melt()
                     {
-                        //MeltNumber = postgresMelt.Nplav,
-                        //MeltDate = postgresMelt.Dpl,
-                        //AlloyName = postgresMelt.Spl,
-                        //AlloyIndex = postgresMelt.Ind,
-                        //MouldSet = postgresMelt.Nkompl,
-                        //ElectrodeDiameter = postgresMelt.Del,
-                        //MelterNumber = postgresMelt.TabNPl,
-                        //TEKNumber = postgresMelt.Ntek,
-                        //IL_UiS_SHN = postgresMelt.NomInsp,
-                        //Contract = postgresMelt.Kont,
-                        //Supplement = postgresMelt.Pril,
-                        //Purpose = postgresMelt.Nazn,
-                        //IngotDiameter = postgresMelt.Diam
+                        MeltNumber = oracleMelt.Nplav,
+                        //MeltDate = oracleMelt.DateZap,
+                        //AlloyName = oracleMelt.Spl,
+                        //AlloyIndex = oracleMelt.Ind,
+                        //MouldSet = oracleMelt.Nkompl,
+                        //ElectrodeDiameter = oracleMelt.Del,
+                        //MelterNumber = oracleMelt.TabNPl,
+                        //TEKNumber = oracleMelt.Ntek,
+                        //IL_UiS_SHN = oracleMelt.NomInsp,
+                        //Contract = oracleMelt.Kont,
+                        //Supplement = oracleMelt.Pril,
+                        //Purpose = oracleMelt.Nazn,
+                        //IngotDiameter = oracleMelt.Diam
 
                     };
                     meltsContext.Add<Melt>(newMelt);

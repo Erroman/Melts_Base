@@ -109,7 +109,10 @@ namespace Melts_Base.SQLiteViewModel
                 if (String.IsNullOrEmpty(MeltNumberSought))
                     return true;
                 else
-                    return (melt.MeltNumber.IndexOf(MeltNumberSought, StringComparison.OrdinalIgnoreCase) >= 0);
+                    if(melt.MeltNumber==null)
+                       return false;
+                    else
+                       return (melt.MeltNumber.IndexOf(MeltNumberSought, StringComparison.OrdinalIgnoreCase) >= 0);
             }
             return false; 
         }
