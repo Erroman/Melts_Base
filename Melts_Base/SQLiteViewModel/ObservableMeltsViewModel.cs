@@ -86,10 +86,10 @@ namespace Melts_Base.SQLiteViewModel
             var melt = Item as Melt;
             if (melt != null)
             {
-                DateOnly startdate;
-                DateOnly enddate;
-                bool startdateFilterSet = DateOnly.TryParse(StartDate, out startdate);
-                bool enddateFilterSet = DateOnly.TryParse(EndDate, out enddate);
+                DateTime startdate;
+                DateTime enddate;
+                bool startdateFilterSet = DateTime.TryParse(StartDate, out startdate);
+                bool enddateFilterSet = DateTime.TryParse(EndDate, out enddate);
                 return
                     (!startdateFilterSet || (startdate <= melt.MeltDate)) && (!enddateFilterSet || (melt.MeltDate <= enddate));
 

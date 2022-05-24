@@ -11,7 +11,7 @@ namespace Melts_Base.SQLiteModels
     {
         public int MeltId { get; set; }
         public string MeltNumber { get; set; }
-        public DateOnly? MeltDate { get; set; }
+        public DateTime? MeltDate { get; set; }
         public string AlloyName { get; set; }
         public string AlloyIndex { get; set; }
         public short? MouldSet { get; set; }

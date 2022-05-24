@@ -110,7 +110,7 @@ namespace Melts_Base
                     var newMelt = new Melt()
                     {
                         MeltNumber = oracleMelt.Nplav,
-                        //MeltDate = oracleMelt.DateZap,
+                        MeltDate = oracleMelt.DateZap,
                         //AlloyName = oracleMelt.Spl,
                         //AlloyIndex = oracleMelt.Ind,
                         //MouldSet = oracleMelt.Nkompl,
@@ -135,10 +135,10 @@ namespace Melts_Base
             var melt = e.Item as Melt;
             if (melt != null)
             {
-                DateOnly startdate;
-                DateOnly enddate;
-                bool startdateFilterSet = DateOnly.TryParse(this.MeltsStartDate.Text,out startdate);
-                bool enddateFilterSet   = DateOnly.TryParse(this.MeltsEndDate.Text, out enddate);
+                DateTime startdate;
+                DateTime enddate;
+                bool startdateFilterSet = DateTime.TryParse(this.MeltsStartDate.Text,out startdate);
+                bool enddateFilterSet   = DateTime.TryParse(this.MeltsEndDate.Text, out enddate);
                 e.Accepted = 
                     (!startdateFilterSet || (startdate <= melt.MeltDate)) && (!enddateFilterSet || (melt.MeltDate <=  enddate));
 
@@ -150,10 +150,10 @@ namespace Melts_Base
                 var melt = Item as Melt;
                 if (melt != null)
                 {
-                    DateOnly startdate;
-                    DateOnly enddate;
-                    bool startdateFilterSet = DateOnly.TryParse(this.MeltsStartDate.Text, out startdate);
-                    bool enddateFilterSet = DateOnly.TryParse(this.MeltsEndDate.Text, out enddate);
+                    DateTime startdate;
+                    DateTime enddate;
+                    bool startdateFilterSet = DateTime.TryParse(this.MeltsStartDate.Text, out startdate);
+                    bool enddateFilterSet = DateTime.TryParse(this.MeltsEndDate.Text, out enddate);
                     return
                         (!startdateFilterSet || (startdate <= melt.MeltDate)) && (!enddateFilterSet || (melt.MeltDate <= enddate));
 
