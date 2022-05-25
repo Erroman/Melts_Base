@@ -131,7 +131,9 @@ namespace Melts_Base
                         //IngotDiameter = oracleMelt.Diam
 
                     };
-                    listSqLiteMelts.Add(newMelt);
+                    listSqLiteMelts.Add(newMelt); //Эта строчка должна быть закоментирована,
+                                                  //чтобы полкачивались все записи,в том числе с
+                                                  //одинаковыми номерами плавок
                     meltsContext.Add<Melt>(newMelt);
                 }                    
             }
