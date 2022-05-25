@@ -131,6 +131,7 @@ namespace Melts_Base
                         //IngotDiameter = oracleMelt.Diam
 
                     };
+                    listSqLiteMelts.Add(newMelt);
                     meltsContext.Add<Melt>(newMelt);
                 }                    
             }
