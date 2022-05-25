@@ -91,14 +91,21 @@ namespace Melts_Base
         {
             //var listNewMelts = new List<PostgresFiles.MeltPostgres>();
             //var listChangedMelts = new List<PostgresFiles.MeltPostgres>();
-            var MeltFound = false;
+            int fullPlantCount = listOracleMelts.Count();               
+            int fullLocalCount = listSqLiteMelts.Count();
+            int meltPlantCount = 0;
+            int meltLocalCount = 0;
+
             foreach (var oracleMelt in listOracleMelts) 
             {
-                //проверяем, есть ли запись в базе SqLite, соответствующая плавке в базе Postgres
+                var MeltFound = false;
+                meltPlantCount++;
+                //проверяем, есть ли запись в базе SqLite, соответствующая плавке в базе Oracle
                 //сравнение ведём по номеру плавки
                 //если записи такой нет, добавляем
-                foreach(var melt in listSqLiteMelts) 
-                { 
+                foreach (var melt in listSqLiteMelts) 
+                {
+                    meltLocalCount++;
                     if(oracleMelt.Nplav == melt.MeltNumber) 
                     {
                         MeltFound = true;
@@ -125,9 +132,9 @@ namespace Melts_Base
 
                     };
                     meltsContext.Add<Melt>(newMelt);
-                    meltsContext.SaveChanges();
-                }
+                }                    
             }
+            meltsContext.SaveChanges();
         }
 
         private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
