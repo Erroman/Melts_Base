@@ -60,6 +60,9 @@ namespace Melts_Base
                 meltsPlantOracleContext.Melt31s.Load();
                 observableOracleMeltsViewModel = new ObservableOracleMeltsViewModel(new ObservableCollection<V_NC24_PLAV31>(meltsPlantOracleContext.Melt31s.ToList<V_NC24_PLAV31>()));
                 oracleGrid.DataContext = observableOracleMeltsViewModel;
+                ZapuskStartDate.DataContext = observableOracleMeltsViewModel;
+                ZapuskEndDate.DataContext = observableOracleMeltsViewModel;
+                PlantMeltNumberSought.DataContext = observableOracleMeltsViewModel;
             }
             else MessageBox.Show("No connection with Plant's Oracle!");
         }
@@ -133,36 +136,5 @@ namespace Melts_Base
             }
             meltsContext.SaveChanges();
         }
-
-        private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
-        {
-            var melt = e.Item as Melt;
-            if (melt != null)
-            {
-                DateTime startdate;
-                DateTime enddate;
-                bool startdateFilterSet = DateTime.TryParse(this.MeltsStartDate.Text,out startdate);
-                bool enddateFilterSet   = DateTime.TryParse(this.MeltsEndDate.Text, out enddate);
-                e.Accepted = 
-                    (!startdateFilterSet || (startdate <= melt.MeltDate)) && (!enddateFilterSet || (melt.MeltDate <=  enddate));
-
-            }
-            
-        }
-            private bool ListCollectionView_Filter(object Item)
-            {
-                var melt = Item as Melt;
-                if (melt != null)
-                {
-                    DateTime startdate;
-                    DateTime enddate;
-                    bool startdateFilterSet = DateTime.TryParse(this.MeltsStartDate.Text, out startdate);
-                    bool enddateFilterSet = DateTime.TryParse(this.MeltsEndDate.Text, out enddate);
-                    return
-                        (!startdateFilterSet || (startdate <= melt.MeltDate)) && (!enddateFilterSet || (melt.MeltDate <= enddate));
-
-                }return false;
-
-            }
     }
 }

@@ -53,8 +53,23 @@
                                     IsReadOnly="True"/>
                             <DataGridTextColumn Binding="{Binding Npech}" Header="Номер печи" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Nplav}" Header="Номер плавки" 
-                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Nplav}" 
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.ColumnSpan="2">Номер плавки:</TextBlock>
+                                        <TextBox Name="PlantMeltNumberSought" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding MeltNumberSought,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </Grid>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
                             <DataGridTextColumn Binding="{Binding Npart}" Header="Npart" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding RazmPasp}" Header="RazmPasp" 
@@ -69,8 +84,32 @@
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding OkonchPereplav}" Header="Признак окончательного переплава" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding DateZap, StringFormat=dd.MM.yyyy HH:mm}" Header="Время запуска" 
-                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding DateZap, StringFormat=dd.MM.yyyy HH:mm}" 
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock>Время запуска</TextBlock>
+                                        <Grid Grid.Row="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock  Grid.Row="0">От:</TextBlock>
+                                            <DatePicker Name="ZapuskStartDate" Grid.Column="1" Text="{Binding StartDate,Mode=OneWayToSource}"/>
+                                            <TextBlock  Grid.Row="1">До:</TextBlock>
+                                            <DatePicker Name="ZapuskEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding EndDate,Mode=OneWayToSource}"/>
+                                        </Grid>
+                                    </Grid>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
                             <DataGridTextColumn Binding="{Binding DateClose, StringFormat=dd.MM.yyyy HH:mm}" Header="Время завершения" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding SumVesZapusk}" Header="SumVesZapusk" 
