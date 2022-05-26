@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Melts_Base.OracleModels;
+using Melts_Base.OracleViewModel;
 using Melts_Base.SQLiteViewModel;
 using Melts_Base.SQLiteModels;
 
@@ -32,6 +33,7 @@ namespace Melts_Base
         private readonly ModelPlantContext meltsPlantOracleContext = new ModelPlantContext();
         private CollectionViewSource meltsPlantOracleViewSource;
         private ObservableMeltsViewModel observableMeltsViewModel;
+        private ObservableOracleMeltsViewModel observableOracleMeltsViewModel;
 
         public MainWindow()
         {
