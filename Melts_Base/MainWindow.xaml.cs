@@ -55,7 +55,7 @@ namespace Melts_Base
 
             if (meltsPlantOracleContext.Database.CanConnect()) 
             {
-                MessageBox.Show("Сonnection with Plant's Oracle granted!");
+                //MessageBox.Show("Сonnection with Plant's Oracle granted!");
                 meltsPlantOracleContext.Melt31s.Load();
                 meltsPlantOracleViewSource = (CollectionViewSource)FindResource(nameof(meltsPlantOracleViewSource));
                 meltsPlantOracleViewSource.Source = new ObservableCollection<V_NC24_PLAV31>(meltsPlantOracleContext.Melt31s.ToList<V_NC24_PLAV31>());
