@@ -62,6 +62,8 @@ namespace Melts_Base
                 oracleGrid.DataContext = observableOracleMeltsViewModel;
                 ZapuskStartDate.DataContext = observableOracleMeltsViewModel;
                 ZapuskEndDate.DataContext = observableOracleMeltsViewModel;
+                CloseStartDate.DataContext = observableOracleMeltsViewModel;
+                CloseEndDate.DataContext = observableOracleMeltsViewModel;
                 PlantMeltNumberSought.DataContext = observableOracleMeltsViewModel;
             }
             else MessageBox.Show("No connection with Plant's Oracle!");

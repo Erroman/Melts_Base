@@ -63,6 +63,32 @@ namespace Melts_Base.OracleViewModel
 
             }
         }
+        
+        string startCloseDate;
+        public string StartCloseDate
+        {
+            get => startCloseDate;
+            set
+            {
+                if (startCloseDate == value) return;
+                startCloseDate = value;
+                OnPropertyChanged();
+                View.Refresh();
+            }
+        }
+        string endCloseDate;
+        public string EndCloseDate
+        {
+            get => endCloseDate;
+            set
+            {
+                if (endCloseDate == value) return;
+                endCloseDate = value;
+                OnPropertyChanged();
+                View.Refresh();
+
+            }
+        }
         string meltNumberSought;
         public string MeltNumberSought
         {
@@ -78,7 +104,7 @@ namespace Melts_Base.OracleViewModel
         private bool ListCollectionView_Filter(object Item)
         {
 
-            return meltDateFilter(Item) && meltNumberFilter(Item);
+            return meltDateFilter(Item) && meltNumberFilter(Item) && meltCloseDateFilter(Item);
 
         }
         private bool meltDateFilter(object Item)
@@ -93,6 +119,22 @@ namespace Melts_Base.OracleViewModel
                 bool enddateFilterSet = DateTime.TryParse(EndDate, out enddate);
                 return
                     (!startdateFilterSet || (startdate <= melt.DateZap)) && (!enddateFilterSet || (melt.DateZap <= enddate));
+
+            }
+            return false;
+        }
+        private bool meltCloseDateFilter(object Item)
+        {
+
+            var melt = Item as V_NC24_PLAV31;
+            if (melt != null)
+            {
+                DateTime startdate;
+                DateTime enddate;
+                bool startdateFilterSet = DateTime.TryParse(StartCloseDate, out startdate);
+                bool enddateFilterSet = DateTime.TryParse(EndCloseDate, out enddate);
+                return
+                    (!startdateFilterSet || (startdate <= melt.DateClose)) && (!enddateFilterSet || (melt.DateClose <= enddate));
 
             }
             return false;

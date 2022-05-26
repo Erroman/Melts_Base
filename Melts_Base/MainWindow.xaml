@@ -110,8 +110,32 @@
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding DateClose, StringFormat=dd.MM.yyyy HH:mm}" Header="Время завершения" 
-                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding DateClose, StringFormat=dd.MM.yyyy HH:mm}" 
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock>Время завершения</TextBlock>
+                                        <Grid Grid.Row="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock  Grid.Row="0">От:</TextBlock>
+                                            <DatePicker Name="CloseStartDate" Grid.Column="1" Text="{Binding StartCloseDate,Mode=OneWayToSource}"/>
+                                            <TextBlock  Grid.Row="1">До:</TextBlock>
+                                            <DatePicker Name="CloseEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding EndCloseDate,Mode=OneWayToSource}"/>
+                                        </Grid>
+                                    </Grid>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
                             <DataGridTextColumn Binding="{Binding SumVesZapusk}" Header="SumVesZapusk" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Zapusk31}" Header="Zapusk31" 
