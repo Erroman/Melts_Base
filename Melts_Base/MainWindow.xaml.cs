@@ -62,14 +62,7 @@ namespace Melts_Base
             }
             else MessageBox.Show("No connection with Plant's Oracle!");
         }
-        
-                
-        private void DateFilter_doFiltering()
-        {
-            CollectionViewSource.GetDefaultView(dataGrid1.ItemsSource).Refresh();
-            //throw new NotImplementedException();
-        }
-
+     
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             meltsContext.SaveChanges();
