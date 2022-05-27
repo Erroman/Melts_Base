@@ -50,6 +50,12 @@ namespace Melts_Base
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            //            var x = Properties.Settings.Default.ColumnWidth;
+            //Properties.Settings.Default.ColumnWidth =5.551;
+            //Properties.Settings.Default.Save();
+            // oracleGrid.Columns[oracleGrid.Columns.Count - 1].Header = "";
+            dateZap.Width = new DataGridLength(120);
+            dateClose.Width = new DataGridLength(120);
             MeltsStartDate.DataContext = observableMeltsViewModel;
             MeltsEndDate.DataContext = observableMeltsViewModel;
             MeltNumberSought.DataContext = observableMeltsViewModel;

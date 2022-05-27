@@ -11,7 +11,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Ribbon x:Name="RibbonWin"  SelectedIndex="1">
+        <Ribbon x:Name="RibbonWin"  SelectedIndex="0    ">
             <!-- Help Pane, located at the right-hand side -->
             <Ribbon.HelpPaneContent>
                 <RibbonButton />
@@ -84,7 +84,7 @@
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding OkonchPereplav}" Header="Признак окончательного переплава" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding DateZap, StringFormat=dd.MM.yyyy HH:mm}" 
+                            <DataGridTextColumn x:Name="dateZap" Binding="{Binding DateZap, StringFormat=dd.MM.yyyy HH:mm}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <Grid>
@@ -110,7 +110,7 @@
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding DateClose, StringFormat=dd.MM.yyyy HH:mm}" 
+                            <DataGridTextColumn x:Name="dateClose" Binding="{Binding DateClose, StringFormat=dd.MM.yyyy HH:mm}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <Grid>
