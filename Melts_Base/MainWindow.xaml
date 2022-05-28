@@ -53,7 +53,7 @@
                                     IsReadOnly="True"/>
                             <DataGridTextColumn Binding="{Binding Npech}" Header="Номер печи" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Nplav}" 
+                            <DataGridTextColumn x:Name="nPlav" Binding="{Binding Nplav}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <Grid>

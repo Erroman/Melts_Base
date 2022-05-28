@@ -56,6 +56,7 @@ namespace Melts_Base
             // oracleGrid.Columns[oracleGrid.Columns.Count - 1].Header = "";
             dateZap.Width = new DataGridLength(120);
             dateClose.Width = new DataGridLength(120);
+            nPlav.Width = new DataGridLength(90);
             MeltsStartDate.DataContext = observableMeltsViewModel;
             MeltsEndDate.DataContext = observableMeltsViewModel;
             MeltNumberSought.DataContext = observableMeltsViewModel;
