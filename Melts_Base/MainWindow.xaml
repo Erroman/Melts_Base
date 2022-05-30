@@ -26,7 +26,7 @@
                 <RibbonGroup x:Name="PlantOracleListOfMelts">
                 </RibbonGroup>
             </RibbonTab>
-            <RibbonTab Header="Сводные данные" KeyTip="I">
+            <RibbonTab Header="Локальная база" KeyTip="I">
                 <RibbonGroup x:Name="SupplementaryData">
                     <Button Content="Подкачка данных" Click="Button_Click"/>
                 </RibbonGroup>
@@ -164,12 +164,19 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Сводные данные">
+            <TabItem Header="Локальная копия данных">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid Name="dataGrid1" ItemsSource = "{Binding View}" 
+                    <!--DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"/-->
+                    <DataGrid Name ="localcopyGrid" ItemsSource = "{Binding View}" 
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding MeltNumber}"  Width="*">
+                            <DataGridTextColumn Binding="{Binding PasportId}"
+                                    Header="Id плавки" Width="SizeToHeader"
+                                    IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Npech}" Header="Номер печи" 
+                                    Width="*"/>
+                            <DataGridTextColumn x:Name="mappednPlav" Binding="{Binding Nplav}" 
+                                    Width="*">
                                 <DataGridTextColumn.Header>
                                     <Grid>
                                         <Grid.RowDefinitions>
@@ -181,11 +188,25 @@
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.ColumnSpan="2">Номер плавки:</TextBlock>
-                                        <TextBox Name="MeltNumberSought" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding MeltNumberSought,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <TextBox Name="mappedPlantMeltNumberSought" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding MeltNumberSought,UpdateSourceTrigger=PropertyChanged}"/>
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding MeltDate, StringFormat=dd.MM.yyyy}"
+                            <DataGridTextColumn Binding="{Binding Npart}" Header="Npart" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding RazmPasp}" Header="RazmPasp" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Splav}" Header="Сплав" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Ins}" Header="Индекс" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Tek}" Header="Tek" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Pereplav}" Header="Номер переплава" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding OkonchPereplav}" Header="Признак окончательного переплава" 
+                                    Width="*"/>
+                            <DataGridTextColumn x:Name="mappeddateZap" Binding="{Binding DateZap, StringFormat=dd.MM.yyyy HH:mm}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <Grid>
@@ -193,7 +214,7 @@
                                             <RowDefinition/>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                        <TextBlock>Дата плавки</TextBlock>
+                                        <TextBlock>Время запуска</TextBlock>
                                         <Grid Grid.Row="1">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition/>
@@ -204,35 +225,63 @@
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock  Grid.Row="0">От:</TextBlock>
-                                            <DatePicker Name="MeltsStartDate" Grid.Column="1" Text="{Binding StartDate,Mode=OneWayToSource}"/>
+                                            <DatePicker Name="mappedZapuskStartDate" Grid.Column="1" Text="{Binding StartDate,Mode=OneWayToSource}"/>
                                             <TextBlock  Grid.Row="1">До:</TextBlock>
-                                            <DatePicker Name="MeltsEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding EndDate,Mode=OneWayToSource}"/>
+                                            <DatePicker Name="mappedZapuskEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding EndDate,Mode=OneWayToSource}"/>
                                         </Grid>
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding AlloyName}" Header="Сплав" 
+                            <DataGridTextColumn x:Name="mappeddateClose" Binding="{Binding DateClose, StringFormat=dd.MM.yyyy HH:mm}" 
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock>Время завершения</TextBlock>
+                                        <Grid Grid.Row="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock  Grid.Row="0">От:</TextBlock>
+                                            <DatePicker Name="mappedCloseStartDate" Grid.Column="1" Text="{Binding StartCloseDate,Mode=OneWayToSource}"/>
+                                            <TextBlock  Grid.Row="1">До:</TextBlock>
+                                            <DatePicker Name="mappedCloseEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding EndCloseDate,Mode=OneWayToSource}"/>
+                                        </Grid>
+                                    </Grid>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding SumVesZapusk}" Header="SumVesZapusk" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding AlloyIndex}" Header="Индекс" 
+                            <DataGridTextColumn Binding="{Binding Zapusk31}" Header="Zapusk31" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding MouldSet}" Header="Номер комплекта" 
+                            <DataGridTextColumn Binding="{Binding ZapuskNakl}" Header="ZapuskNakl" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding ElectrodeDiameter}" Header="Диаметр электрода" 
+                            <DataGridTextColumn Binding="{Binding ZapuskPpf}" Header="ZapuskPpf" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding MelterNumber}" Header="Т.Н. плавильщика" 
+                            <DataGridTextColumn Binding="{Binding VesSdch}" Header="Вес сдачи" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding TEKNumber}" Header="№ ТЭК" 
+                            <DataGridTextColumn Binding="{Binding RazmSdch}" Header="RazmSdch" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding IL_UiS_SHN}" Header="ИЛ / УиС / ШН" 
+                            <DataGridTextColumn Binding="{Binding MfgOrderId}" Header="MfgOrderId"/>
+                            <DataGridTextColumn Binding="{Binding DemandOrderId}" Header="DemandOrderId" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Contract}" Header="Контракт" 
+                            <DataGridTextColumn Binding="{Binding Poz}" Header="Poz" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Supplement}" Header="Приложение" 
+                            <DataGridTextColumn Binding="{Binding PozNaim}" Header="PozNaim" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Purpose}" Header="Назначение" 
+                            <DataGridTextColumn Binding="{Binding PozRazm}" Header="PozRazm" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding IngotDiameter}" Header="Диаметр слитка" 
+                            <DataGridTextColumn Binding="{Binding PozIl}" Header="PozIl" 
                                     Width="*"/>
+
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

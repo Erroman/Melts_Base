@@ -43,13 +43,18 @@ namespace Melts_Base
             meltsContext.Melts.Load();
             observableMeltsViewModel = new ObservableMeltsViewModel(meltsContext.Melts.Local.ToObservableCollection());
             this.DataContext = observableMeltsViewModel;
-            MeltsStartDate.DataContext = observableMeltsViewModel;
-            MeltsEndDate.DataContext = observableMeltsViewModel;
-            MeltNumberSought.DataContext = observableMeltsViewModel;
+            //MeltsStartDate.DataContext = observableMeltsViewModel;
+            //MeltsEndDate.DataContext = observableMeltsViewModel;
+            //MeltNumberSought.DataContext = observableMeltsViewModel;
             //mappedmeltContext.Database.EnsureCreated();
             //mappedmeltContext.Melts.Load();
             //observableMappedmeltsViewModel = new ObservableMappedmeltsViewModel(mappedmeltContext.Melts.Local.ToObservableCollection());
             //this.DataContext = observableMappedmeltsViewModel;
+            ZapuskStartDate.DataContext = observableOracleMeltsViewModel;
+            ZapuskEndDate.DataContext = observableOracleMeltsViewModel;
+            CloseStartDate.DataContext = observableOracleMeltsViewModel;
+            CloseEndDate.DataContext = observableOracleMeltsViewModel;
+            PlantMeltNumberSought.DataContext = observableOracleMeltsViewModel;
         }
 
         private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)
