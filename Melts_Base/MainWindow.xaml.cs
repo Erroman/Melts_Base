@@ -30,10 +30,9 @@ namespace Melts_Base
         
     {
         private readonly MeltContext meltsContext = new MeltContext();
-        private readonly MappedmeltContext mappedmeltContext = new MappedmeltContext();
+        private readonly MappedmeltContext localmeltContext = new MappedmeltContext();
         private readonly ModelPlantContext meltsPlantOracleContext = new ModelPlantContext();
         private ObservableMeltsViewModel observableMeltsViewModel;
-        private ObservableMappedmeltsViewModel observableMappedmeltsViewModel;
         private ObservableOracleMeltsViewModel observableOracleMeltsViewModel;
 
         public MainWindow()
@@ -42,19 +41,12 @@ namespace Melts_Base
             meltsContext.Database.EnsureCreated();
             meltsContext.Melts.Load();
             observableMeltsViewModel = new ObservableMeltsViewModel(meltsContext.Melts.Local.ToObservableCollection());
-            this.DataContext = observableMeltsViewModel;
-            //MeltsStartDate.DataContext = observableMeltsViewModel;
-            //MeltsEndDate.DataContext = observableMeltsViewModel;
-            //MeltNumberSought.DataContext = observableMeltsViewModel;
-            //mappedmeltContext.Database.EnsureCreated();
-            //mappedmeltContext.Melts.Load();
-            //observableMappedmeltsViewModel = new ObservableMappedmeltsViewModel(mappedmeltContext.Melts.Local.ToObservableCollection());
-            //this.DataContext = observableMappedmeltsViewModel;
-            ZapuskStartDate.DataContext = observableOracleMeltsViewModel;
-            ZapuskEndDate.DataContext = observableOracleMeltsViewModel;
-            CloseStartDate.DataContext = observableOracleMeltsViewModel;
-            CloseEndDate.DataContext = observableOracleMeltsViewModel;
-            PlantMeltNumberSought.DataContext = observableOracleMeltsViewModel;
+            localcopyGrid.DataContext = observableMeltsViewModel;
+            localZapuskStartDate.DataContext = observableMeltsViewModel;
+            localZapuskEndDate.DataContext = observableMeltsViewModel;
+            localCloseStartDate.DataContext = observableMeltsViewModel;
+            localCloseEndDate.DataContext = observableMeltsViewModel;
+            localPlantMeltNumberSought.DataContext = observableMeltsViewModel;
         }
 
         private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)
@@ -64,12 +56,10 @@ namespace Melts_Base
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //            var x = Properties.Settings.Default.ColumnWidth;
-            //Properties.Settings.Default.ColumnWidth =5.551;
-            //Properties.Settings.Default.Save();
-            // oracleGrid.Columns[oracleGrid.Columns.Count - 1].Header = "";
- 
-            
+
+            localdateZap.Width = new DataGridLength(120);
+            localdateClose.Width = new DataGridLength(120);
+            localnPlav.Width = new DataGridLength(90);
             if (meltsPlantOracleContext.Database.CanConnect()) 
             {
                 //MessageBox.Show("Сonnection with Plant's Oracle granted!");
@@ -124,7 +114,7 @@ namespace Melts_Base
                 foreach (var melt in listSqLiteMelts) 
                 {
                     meltLocalCount++;
-                    if(oracleMelt.Nplav == melt.MeltNumber) 
+                    if(oracleMelt.Nplav == melt.Nplav) 
                     {
                         MeltFound = true;
                     }
@@ -134,10 +124,11 @@ namespace Melts_Base
                     //конструируется новая запись по плавке для SqLite
                     var newMelt = new Melt()
                     {
-                        MeltNumber = oracleMelt.Nplav,
-                        MeltDate = oracleMelt.DateZap,
-                        AlloyName = oracleMelt.Splav,
-                        AlloyIndex = oracleMelt.Ins,
+                        Nplav = oracleMelt.Nplav,
+                        DateZap = oracleMelt.DateZap,
+                        DateClose = oracleMelt.DateClose,
+                        Splav = oracleMelt.Splav,
+                        Ins = oracleMelt.Ins,
                         //MouldSet = oracleMelt.Nkompl,
                         //ElectrodeDiameter = oracleMelt.Del,
                         //MelterNumber = oracleMelt.TabNPl,
@@ -150,7 +141,7 @@ namespace Melts_Base
 
                     };
                     listSqLiteMelts.Add(newMelt); //Эта строчка должна быть закоментирована,
-                                                  //чтобы полкачивались все записи,в том числе с
+                                                  //чтобы подкачивались все записи,в том числе с
                                                   //одинаковыми номерами плавок
                     meltsContext.Add<Melt>(newMelt);
                 }                    

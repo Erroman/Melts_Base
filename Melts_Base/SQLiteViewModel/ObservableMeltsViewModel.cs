@@ -62,6 +62,31 @@ namespace Melts_Base.SQLiteViewModel
 
             }
         }
+        string startCloseDate;
+        public string StartCloseDate
+        {
+            get => startCloseDate;
+            set
+            {
+                if (startCloseDate == value) return;
+                startCloseDate = value;
+                OnPropertyChanged();
+                View.Refresh();
+            }
+        }
+        string endCloseDate;
+        public string EndCloseDate
+        {
+            get => endCloseDate;
+            set
+            {
+                if (endCloseDate == value) return;
+                endCloseDate = value;
+                OnPropertyChanged();
+                View.Refresh();
+
+            }
+        }
         string meltNumberSought;
         public string MeltNumberSought
         {
@@ -77,7 +102,7 @@ namespace Melts_Base.SQLiteViewModel
         private bool ListCollectionView_Filter(object Item)
         {
 
-            return meltDateFilter(Item)&& meltNumberFilter(Item) ;
+            return meltDateFilter(Item) && meltNumberFilter(Item) && meltCloseDateFilter(Item);
 
         }
         private bool meltDateFilter(object Item) 
@@ -91,7 +116,23 @@ namespace Melts_Base.SQLiteViewModel
                 bool startdateFilterSet = DateTime.TryParse(StartDate, out startdate);
                 bool enddateFilterSet = DateTime.TryParse(EndDate, out enddate);
                 return
-                    (!startdateFilterSet || (startdate <= melt.MeltDate)) && (!enddateFilterSet || (melt.MeltDate <= enddate));
+                    (!startdateFilterSet || (startdate <= melt.DateZap)) && (!enddateFilterSet || (melt.DateZap <= enddate));
+
+            }
+            return false;
+        }
+        private bool meltCloseDateFilter(object Item)
+        {
+
+            var melt = Item as Melt;
+            if (melt != null)
+            {
+                DateTime startdate;
+                DateTime enddate;
+                bool startdateFilterSet = DateTime.TryParse(StartCloseDate, out startdate);
+                bool enddateFilterSet = DateTime.TryParse(EndCloseDate, out enddate);
+                return
+                    (!startdateFilterSet || (startdate <= melt.DateClose)) && (!enddateFilterSet || (melt.DateClose <= enddate));
 
             }
             return false;
@@ -109,10 +150,10 @@ namespace Melts_Base.SQLiteViewModel
                 if (String.IsNullOrEmpty(MeltNumberSought))
                     return true;
                 else
-                    if(melt.MeltNumber==null)
+                    if(melt.Nplav == null)
                        return false;
                     else
-                       return (melt.MeltNumber.IndexOf(MeltNumberSought, StringComparison.OrdinalIgnoreCase) >= 0);
+                       return (melt.Nplav.IndexOf(MeltNumberSought, StringComparison.OrdinalIgnoreCase) >= 0);
             }
             return false; 
         }

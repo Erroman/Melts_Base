@@ -170,12 +170,12 @@
                     <DataGrid Name ="localcopyGrid" ItemsSource = "{Binding View}" 
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding PasportId}"
+                            <DataGridTextColumn Binding="{Binding MeltId}"
                                     Header="Id плавки" Width="SizeToHeader"
                                     IsReadOnly="True"/>
                             <DataGridTextColumn Binding="{Binding Npech}" Header="Номер печи" 
                                     Width="*"/>
-                            <DataGridTextColumn x:Name="mappednPlav" Binding="{Binding Nplav}" 
+                            <DataGridTextColumn x:Name="localnPlav" Binding="{Binding Nplav}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <Grid>
@@ -188,7 +188,7 @@
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.ColumnSpan="2">Номер плавки:</TextBlock>
-                                        <TextBox Name="mappedPlantMeltNumberSought" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding MeltNumberSought,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <TextBox Name="localPlantMeltNumberSought" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding MeltNumberSought,UpdateSourceTrigger=PropertyChanged}"/>
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
@@ -206,7 +206,7 @@
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding OkonchPereplav}" Header="Признак окончательного переплава" 
                                     Width="*"/>
-                            <DataGridTextColumn x:Name="mappeddateZap" Binding="{Binding DateZap, StringFormat=dd.MM.yyyy HH:mm}" 
+                            <DataGridTextColumn x:Name="localdateZap" Binding="{Binding DateZap, StringFormat=dd.MM.yyyy HH:mm}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <Grid>
@@ -225,14 +225,14 @@
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock  Grid.Row="0">От:</TextBlock>
-                                            <DatePicker Name="mappedZapuskStartDate" Grid.Column="1" Text="{Binding StartDate,Mode=OneWayToSource}"/>
+                                            <DatePicker Name="localZapuskStartDate" Grid.Column="1" Text="{Binding StartDate,Mode=OneWayToSource}"/>
                                             <TextBlock  Grid.Row="1">До:</TextBlock>
-                                            <DatePicker Name="mappedZapuskEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding EndDate,Mode=OneWayToSource}"/>
+                                            <DatePicker Name="localZapuskEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding EndDate,Mode=OneWayToSource}"/>
                                         </Grid>
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn x:Name="mappeddateClose" Binding="{Binding DateClose, StringFormat=dd.MM.yyyy HH:mm}" 
+                            <DataGridTextColumn x:Name="localdateClose" Binding="{Binding DateClose, StringFormat=dd.MM.yyyy HH:mm}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <Grid>
@@ -251,9 +251,9 @@
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock  Grid.Row="0">От:</TextBlock>
-                                            <DatePicker Name="mappedCloseStartDate" Grid.Column="1" Text="{Binding StartCloseDate,Mode=OneWayToSource}"/>
+                                            <DatePicker Name="localCloseStartDate" Grid.Column="1" Text="{Binding StartCloseDate,Mode=OneWayToSource}"/>
                                             <TextBlock  Grid.Row="1">До:</TextBlock>
-                                            <DatePicker Name="mappedCloseEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding EndCloseDate,Mode=OneWayToSource}"/>
+                                            <DatePicker Name="localCloseEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding EndCloseDate,Mode=OneWayToSource}"/>
                                         </Grid>
                                     </Grid>
                                 </DataGridTextColumn.Header>

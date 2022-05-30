@@ -11,7 +11,7 @@ namespace Melts_Base.SQLiteModels
         public DbSet<Mappedmelt> Melts { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=mappedmelts.db");
+            optionsBuilder.UseSqlite("Data Source=localmelts.db");
             optionsBuilder.UseLazyLoadingProxies();
             base.OnConfiguring(optionsBuilder);
         }
