@@ -49,9 +49,9 @@
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding PasportId}"
-                                    Header="Id плавки" Width="SizeToHeader"
+                                    Header="PASPORT_ID" Width="SizeToHeader"
                                     IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Npech}" Header="Номер печи" 
+                            <DataGridTextColumn Binding="{Binding Npech}" Header="NPECH" 
                                     Width="*"/>
                             <DataGridTextColumn x:Name="nPlav" Binding="{Binding Nplav}" 
                                     Width="*">
@@ -65,24 +65,24 @@
                                             <ColumnDefinition />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.ColumnSpan="2">Номер плавки:</TextBlock>
+                                        <TextBlock Grid.ColumnSpan="2">NPLAV</TextBlock>
                                         <TextBox Name="PlantMeltNumberSought" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding MeltNumberSought,UpdateSourceTrigger=PropertyChanged}"/>
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding Npart}" Header="Npart" 
+                            <DataGridTextColumn Binding="{Binding Npart}" Header="NPART" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding RazmPasp}" Header="RazmPasp" 
+                            <DataGridTextColumn Binding="{Binding RazmPasp}" Header="RAZM_PASP" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Splav}" Header="Сплав" 
+                            <DataGridTextColumn Binding="{Binding Splav}" Header="SPLAV" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Ins}" Header="Индекс" 
+                            <DataGridTextColumn Binding="{Binding Ins}" Header="INS" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Tek}" Header="Tek" 
+                            <DataGridTextColumn Binding="{Binding Tek}" Header="TEK" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Pereplav}" Header="Номер переплава" 
+                            <DataGridTextColumn Binding="{Binding Pereplav}" Header="PEREPLAV" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding OkonchPereplav}" Header="Признак окончательного переплава" 
+                            <DataGridTextColumn Binding="{Binding OkonchPereplav}" Header="OKONCH_PEREPLAV" 
                                     Width="*"/>
                             <DataGridTextColumn x:Name="dateZap" Binding="{Binding DateZap, StringFormat=dd.MM.yyyy HH:mm}" 
                                     Width="*">
@@ -92,7 +92,7 @@
                                             <RowDefinition/>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                        <TextBlock>Время запуска</TextBlock>
+                                        <TextBlock>DATE_ZAP</TextBlock>
                                         <Grid Grid.Row="1">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition/>
@@ -118,7 +118,7 @@
                                             <RowDefinition/>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                        <TextBlock>Время завершения</TextBlock>
+                                        <TextBlock>DATE_CLOSE</TextBlock>
                                         <Grid Grid.Row="1">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition/>
@@ -136,28 +136,32 @@
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding SumVesZapusk}" Header="SumVesZapusk" 
+                            <DataGridTextColumn Binding="{Binding SumVesZapusk}" Header="SUM_VES_ZAPUSK" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Zapusk31}" Header="Zapusk31" 
+                            <DataGridTextColumn Binding="{Binding Zapusk31}" Header="ZAPUSK_31" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding ZapuskNakl}" Header="ZapuskNakl" 
+                            <DataGridTextColumn Binding="{Binding ZapuskNakl}" Header="ZAPUSK_NAKL" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding ZapuskPpf}" Header="ZapuskPpf" 
+                            <DataGridTextColumn Binding="{Binding ZapuskPpf}" Header="ZAPUSK_PPF" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding VesSdch}" Header="Вес сдачи" 
+                            <DataGridTextColumn Binding="{Binding Dsd}" Header="DSD" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding RazmSdch}" Header="RazmSdch" 
+                            <DataGridTextColumn Binding="{Binding Ncp}" Header="NCP" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding MfgOrderId}" Header="MfgOrderId"/>
-                            <DataGridTextColumn Binding="{Binding DemandOrderId}" Header="DemandOrderId" 
+                            <DataGridTextColumn Binding="{Binding VesSdch}" Header="VES_SDCH" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Poz}" Header="Poz" 
+                            <DataGridTextColumn Binding="{Binding RazmSdch}" Header="RAZM_SDCH" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding PozNaim}" Header="PozNaim" 
+                            <DataGridTextColumn Binding="{Binding MfgOrderId}" Header="MFG_ORDER_ID"/>
+                            <DataGridTextColumn Binding="{Binding DemandOrderId}" Header="DEMAND_ORDER_ID" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding PozRazm}" Header="PozRazm" 
+                            <DataGridTextColumn Binding="{Binding Poz}" Header="POZ" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding PozIl}" Header="PozIl" 
+                            <DataGridTextColumn Binding="{Binding PozNaim}" Header="POZ_NAIM" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding PozRazm}" Header="POZ_RAZM" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding PozIl}" Header="POZ_IL" 
                                     Width="*"/>
 
                         </DataGrid.Columns>
@@ -265,6 +269,10 @@
                             <DataGridTextColumn Binding="{Binding ZapuskNakl}" Header="ZapuskNakl" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding ZapuskPpf}" Header="ZapuskPpf" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Dsd}" Header="Дата сдачи" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Ncp}" Header="NCP" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding VesSdch}" Header="Вес сдачи" 
                                     Width="*"/>

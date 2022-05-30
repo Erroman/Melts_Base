@@ -149,7 +149,7 @@ namespace Melts_Base
                         PozRazm = oracleMelt.PozRazm,
                         PozIl = oracleMelt.PozIl,
                     };
-                    listSqLiteMelts.Add(newMelt); //Эта строчка должна быть закоментирована,
+                    //listSqLiteMelts.Add(newMelt); //Эта строчка должна быть закоментирована,
                                                   //чтобы подкачивались все записи,в том числе с
                                                   //одинаковыми номерами плавок
                     meltsContext.Add<Melt>(newMelt);
