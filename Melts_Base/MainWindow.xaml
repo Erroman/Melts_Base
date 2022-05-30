@@ -144,7 +144,7 @@
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding ZapuskPpf}" Header="ZAPUSK_PPF" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Dsd}" Header="DSD" 
+                            <DataGridTextColumn Binding="{Binding Dsd, StringFormat=dd.MM.yyyy}" Header="DSD" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Ncp}" Header="NCP" 
                                     Width="*"/>
@@ -270,7 +270,7 @@
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding ZapuskPpf}" Header="ZapuskPpf" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Dsd}" Header="Дата сдачи" 
+                            <DataGridTextColumn Binding="{Binding Dsd, StringFormat=dd.MM.yyyy}" Header="Дата сдачи" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Ncp}" Header="NCP" 
                                     Width="*"/>
