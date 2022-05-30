@@ -30,7 +30,6 @@ namespace Melts_Base
         
     {
         private readonly MeltContext meltsContext = new MeltContext();
-        private readonly MappedmeltContext localmeltContext = new MappedmeltContext();
         private readonly ModelPlantContext meltsPlantOracleContext = new ModelPlantContext();
         private ObservableMeltsViewModel observableMeltsViewModel;
         private ObservableOracleMeltsViewModel observableOracleMeltsViewModel;
@@ -124,21 +123,31 @@ namespace Melts_Base
                     //конструируется новая запись по плавке для SqLite
                     var newMelt = new Melt()
                     {
+                        Npech = oracleMelt.Npech,
                         Nplav = oracleMelt.Nplav,
-                        DateZap = oracleMelt.DateZap,
-                        DateClose = oracleMelt.DateClose,
+                        Npart = oracleMelt.Npart,
+                        RazmPasp = oracleMelt.RazmPasp,
                         Splav = oracleMelt.Splav,
                         Ins = oracleMelt.Ins,
-                        //MouldSet = oracleMelt.Nkompl,
-                        //ElectrodeDiameter = oracleMelt.Del,
-                        //MelterNumber = oracleMelt.TabNPl,
-                        //TEKNumber = oracleMelt.Ntek,
-                        //IL_UiS_SHN = oracleMelt.NomInsp,
-                        //Contract = oracleMelt.Kont,
-                        //Supplement = oracleMelt.Pril,
-                        //Purpose = oracleMelt.Nazn,
-                        //IngotDiameter = oracleMelt.Diam
-
+                        Tek = oracleMelt.Tek,
+                        Pereplav = oracleMelt.Pereplav,
+                        OkonchPereplav = oracleMelt.OkonchPereplav,
+                        DateZap = oracleMelt.DateZap,
+                        DateClose = oracleMelt.DateClose,
+                        SumVesZapusk = oracleMelt.SumVesZapusk,
+                        Zapusk31 = oracleMelt.Zapusk31,
+                        ZapuskNakl = oracleMelt.ZapuskNakl,
+                        ZapuskPpf = oracleMelt.ZapuskPpf,
+                        Dsd = oracleMelt.Dsd,
+                        Ncp = oracleMelt.Ncp,
+                        VesSdch = oracleMelt.VesSdch,
+                        RazmSdch = oracleMelt.RazmSdch,
+                        MfgOrderId = oracleMelt.MfgOrderId,
+                        DemandOrderId = oracleMelt.DemandOrderId,
+                        Poz = oracleMelt.Poz,
+                        PozNaim = oracleMelt.PozNaim,
+                        PozRazm = oracleMelt.PozRazm,
+                        PozIl = oracleMelt.PozIl,
                     };
                     listSqLiteMelts.Add(newMelt); //Эта строчка должна быть закоментирована,
                                                   //чтобы подкачивались все записи,в том числе с

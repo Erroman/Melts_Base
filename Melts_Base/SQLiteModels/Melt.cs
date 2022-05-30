@@ -37,7 +37,7 @@ namespace Melts_Base.SQLiteModels
         public string OkonchPereplav { get; set; }
         public DateTime DateZap { get; set; }
         public DateTime? DateClose { get; set; }
-        public decimal SumVesZapusk { get; set; }
+        public decimal? SumVesZapusk { get; set; }
         public string? Zapusk31 { get; set; }
         public string? ZapuskNakl { get; set; }
         public string? ZapuskPpf { get; set; }
