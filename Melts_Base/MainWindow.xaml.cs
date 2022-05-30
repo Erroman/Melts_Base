@@ -30,8 +30,10 @@ namespace Melts_Base
         
     {
         private readonly MeltContext meltsContext = new MeltContext();
+        private readonly MappedmeltContext mappedmeltContext = new MappedmeltContext();
         private readonly ModelPlantContext meltsPlantOracleContext = new ModelPlantContext();
         private ObservableMeltsViewModel observableMeltsViewModel;
+        private ObservableMappedmeltsViewModel observableMappedmeltsViewModel;
         private ObservableOracleMeltsViewModel observableOracleMeltsViewModel;
 
         public MainWindow()
@@ -41,6 +43,13 @@ namespace Melts_Base
             meltsContext.Melts.Load();
             observableMeltsViewModel = new ObservableMeltsViewModel(meltsContext.Melts.Local.ToObservableCollection());
             this.DataContext = observableMeltsViewModel;
+            MeltsStartDate.DataContext = observableMeltsViewModel;
+            MeltsEndDate.DataContext = observableMeltsViewModel;
+            MeltNumberSought.DataContext = observableMeltsViewModel;
+            //mappedmeltContext.Database.EnsureCreated();
+            //mappedmeltContext.Melts.Load();
+            //observableMappedmeltsViewModel = new ObservableMappedmeltsViewModel(mappedmeltContext.Melts.Local.ToObservableCollection());
+            //this.DataContext = observableMappedmeltsViewModel;
         }
 
         private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)
@@ -54,16 +63,14 @@ namespace Melts_Base
             //Properties.Settings.Default.ColumnWidth =5.551;
             //Properties.Settings.Default.Save();
             // oracleGrid.Columns[oracleGrid.Columns.Count - 1].Header = "";
-            dateZap.Width = new DataGridLength(120);
-            dateClose.Width = new DataGridLength(120);
-            nPlav.Width = new DataGridLength(90);
-            MeltsStartDate.DataContext = observableMeltsViewModel;
-            MeltsEndDate.DataContext = observableMeltsViewModel;
-            MeltNumberSought.DataContext = observableMeltsViewModel;
-
+ 
+            
             if (meltsPlantOracleContext.Database.CanConnect()) 
             {
                 //MessageBox.Show("Сonnection with Plant's Oracle granted!");
+                dateZap.Width = new DataGridLength(120);
+                dateClose.Width = new DataGridLength(120);
+                nPlav.Width = new DataGridLength(90);
                 meltsPlantOracleContext.Melt31s.Load();
                 observableOracleMeltsViewModel = new ObservableOracleMeltsViewModel(new ObservableCollection<V_NC24_PLAV31>(meltsPlantOracleContext.Melt31s.ToList<V_NC24_PLAV31>()));
                 oracleGrid.DataContext = observableOracleMeltsViewModel;
