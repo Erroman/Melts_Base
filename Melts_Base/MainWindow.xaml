@@ -11,7 +11,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Ribbon x:Name="RibbonWin"  SelectedIndex="0    ">
+        <Ribbon x:Name="RibbonWin"  SelectedIndex="1">
             <!-- Help Pane, located at the right-hand side -->
             <Ribbon.HelpPaneContent>
                 <RibbonButton />
@@ -28,7 +28,11 @@
             </RibbonTab>
             <RibbonTab Header="Локальная база" KeyTip="I">
                 <RibbonGroup x:Name="SupplementaryData">
-                    <Button Content="Подкачка данных" Click="Button_Click"/>
+                    <StackPanel>
+                        <Button Content="Подкачка данных" Margin="10,5" Click="Button_Click"/>
+                        <Button Content="Экспорт в Excel" Margin="10,5" Click="ExportToExcel"/>
+                    </StackPanel>
+                    
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
