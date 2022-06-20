@@ -25,6 +25,7 @@ namespace ODBCConnection
         {
             InitializeComponent();
             String connectionString = "DSN = sybase";
+            //String connectionString = "DSN = Sybase SQL Anywhere 5.0";
             ReadRow(connectionString);
 
         }
@@ -32,7 +33,13 @@ namespace ODBCConnection
         {
             //string queryString =
             //    "INSERT INTO Customers (CustomerID, CompanyName) Values('NWIND', 'Northwind Traders')";
-            using (OdbcConnection connection = new OdbcConnection(connectionString))
+            OdbcConnectionStringBuilder constr = new OdbcConnectionStringBuilder()
+            {
+                ["Dsn"] = "sybase",
+                ["uid"] = "romanovskii",
+                ["pwd"] = "12345"
+            };
+            using (OdbcConnection connection = new OdbcConnection(constr.ToString()))
             {
                 //OdbcCommand command = new OdbcCommand(queryString);
                 //command.Connection = connection;
