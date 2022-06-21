@@ -39,7 +39,7 @@ namespace ODBCConnection
                 ["uid"] = "romanovskii",
                 ["pwd"] = "12345"
             };
-            using (OdbcConnection connection = new OdbcConnection(constr.ToString()))
+            using (OdbcConnection connection = new OdbcConnection(constr.ConnectionString))
             {
                 //OdbcCommand command = new OdbcCommand(queryString);
                 //command.Connection = connection;

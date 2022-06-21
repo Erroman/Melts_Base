@@ -20,6 +20,7 @@ using Melts_Base.OracleModels;
 using Melts_Base.OracleViewModel;
 using Melts_Base.SQLiteViewModel;
 using Melts_Base.SQLiteModels;
+using System.Data.Odbc;
 //using Microsoft.Office.Interop.Excel;
 
 namespace Melts_Base
@@ -76,8 +77,26 @@ namespace Melts_Base
                 PlantMeltNumberSought.DataContext = observableOracleMeltsViewModel;
             }
             else MessageBox.Show("No connection with Plant's Oracle!");
+            OdbcConnectionStringBuilder constr = new OdbcConnectionStringBuilder()
+            {
+                ["Dsn"] = "sybase",
+                ["uid"] = "romanovskii",
+                ["pwd"] = "12345"
+            };
+            using (OdbcConnection connection = new OdbcConnection(constr.ConnectionString))
+            {
+                //OdbcCommand command = new OdbcCommand(queryString);
+                //command.Connection = connection;
+                connection.Open();
+                MessageBox.Show(connection.State.ToString());
+                //command.ExecuteNonQuery();
+
+                // The connection is automatically closed at
+                // the end of the Using block.
+            }
+
         }
-     
+
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             meltsContext.SaveChanges();
