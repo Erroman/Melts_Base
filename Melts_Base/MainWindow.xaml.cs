@@ -88,7 +88,7 @@ namespace Melts_Base
                 //OdbcCommand command = new OdbcCommand(queryString);
                 //command.Connection = connection;
                 connection.Open();
-                MessageBox.Show(connection.State.ToString());
+                MessageBox.Show("The connection to Sybase is "+connection.State.ToString());
                 //command.ExecuteNonQuery();
 
                 // The connection is automatically closed at
