@@ -11,7 +11,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Ribbon x:Name="RibbonWin"  SelectedIndex="1">
+        <Ribbon x:Name="RibbonWin"  SelectedIndex="2">
             <!-- Help Pane, located at the right-hand side -->
             <Ribbon.HelpPaneContent>
                 <RibbonButton />
@@ -24,6 +24,10 @@
             </Ribbon.ApplicationMenu>
             <RibbonTab Header="Данные из заводской базы Oracle">
                 <RibbonGroup x:Name="PlantOracleListOfMelts">
+                </RibbonGroup>
+            </RibbonTab>
+            <RibbonTab Header="Данные из цеховой базы Sybase">
+                <RibbonGroup x:Name="Shop31SybaseListOfMelts">
                 </RibbonGroup>
             </RibbonTab>
             <RibbonTab Header="Локальная база" KeyTip="I">
@@ -172,6 +176,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
+            <TabItem Header="Данные из цеховой базы Sybase"/>
             <TabItem Header="Локальная копия данных">
                 <Grid Background="#FFE5E5E5">
                     <!--DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"/-->
