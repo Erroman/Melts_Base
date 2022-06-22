@@ -133,7 +133,7 @@ namespace Melts_Base
                 foreach (var melt in listSqLiteMelts) 
                 {
                     meltLocalCount++;
-                    if(oracleMelt.Nplav == melt.Nplav) 
+                    if(oracleMelt.Nplav == melt.Nplav & oracleMelt.GetHashCode()==melt.GetHashCode()) 
                     {
                         MeltFound = true;
                     }
