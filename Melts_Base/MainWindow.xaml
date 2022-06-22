@@ -176,7 +176,132 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Данные из цеховой базы Sybase"/>
+            <TabItem Header="Данные из цеховой базы Sybase">
+                <Grid Background="#FFE5E5E5">
+                    <!--DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"/-->
+                    <DataGrid Name ="shop31Grid" ItemsSource = "{Binding View}" 
+                              AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding MeltId}"
+                                    Header="Id плавки" Width="SizeToHeader"
+                                    IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Npech}" Header="Номер печи" 
+                                    Width="*"/>
+                            <DataGridTextColumn x:Name="shop31nPlav" Binding="{Binding Nplav}" 
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.ColumnSpan="2">Номер плавки:</TextBlock>
+                                        <TextBox Name="shop31PlantMeltNumberSought" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding MeltNumberSought,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </Grid>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Npart}" Header="Npart" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding RazmPasp}" Header="RazmPasp" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Splav}" Header="Сплав" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Ins}" Header="Индекс" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Tek}" Header="Tek" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Pereplav}" Header="Номер переплава" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding OkonchPereplav}" Header="Признак окончательного переплава" 
+                                    Width="*"/>
+                            <DataGridTextColumn x:Name="shop31dateZap" Binding="{Binding DateZap, StringFormat=dd.MM.yyyy HH:mm}" 
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock>Время запуска</TextBlock>
+                                        <Grid Grid.Row="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock  Grid.Row="0">От:</TextBlock>
+                                            <DatePicker Name="shop31ZapuskStartDate" Grid.Column="1" Text="{Binding StartDate,Mode=OneWayToSource}"/>
+                                            <TextBlock  Grid.Row="1">До:</TextBlock>
+                                            <DatePicker Name="shop31ZapuskEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding EndDate,Mode=OneWayToSource}"/>
+                                        </Grid>
+                                    </Grid>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn x:Name="shop31dateClose" Binding="{Binding DateClose, StringFormat=dd.MM.yyyy HH:mm}" 
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock>Время завершения</TextBlock>
+                                        <Grid Grid.Row="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock  Grid.Row="0">От:</TextBlock>
+                                            <DatePicker Name="shop31CloseStartDate" Grid.Column="1" Text="{Binding StartCloseDate,Mode=OneWayToSource}"/>
+                                            <TextBlock  Grid.Row="1">До:</TextBlock>
+                                            <DatePicker Name="shop31CloseEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding EndCloseDate,Mode=OneWayToSource}"/>
+                                        </Grid>
+                                    </Grid>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding SumVesZapusk}" Header="SumVesZapusk" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Zapusk31}" Header="Zapusk31" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding ZapuskNakl}" Header="ZapuskNakl" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding ZapuskPpf}" Header="ZapuskPpf" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Dsd, StringFormat=dd.MM.yyyy}" Header="Дата сдачи" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Ncp}" Header="NCP" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding VesSdch}" Header="Вес сдачи" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding RazmSdch}" Header="RazmSdch" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding MfgOrderId}" Header="MfgOrderId"/>
+                            <DataGridTextColumn Binding="{Binding DemandOrderId}" Header="DemandOrderId" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Poz}" Header="Poz" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding PozNaim}" Header="PozNaim" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding PozRazm}" Header="PozRazm" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding PozIl}" Header="PozIl" 
+                                    Width="*"/>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
             <TabItem Header="Локальная копия данных">
                 <Grid Background="#FFE5E5E5">
                     <!--DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"/-->
