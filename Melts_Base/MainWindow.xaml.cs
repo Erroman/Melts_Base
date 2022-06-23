@@ -85,11 +85,12 @@ namespace Melts_Base
             };
             using (OdbcConnection connection = new OdbcConnection(constr.ConnectionString))
             {
-                //OdbcCommand command = new OdbcCommand(queryString);
-                //command.Connection = connection;
+                string queryString = @"SELECT * FROM ""DBA"".""rmelts""";
+                OdbcCommand command = new OdbcCommand(queryString);
+                command.Connection = connection;
                 connection.Open();
                 MessageBox.Show("The connection to Sybase is "+connection.State.ToString());
-                //command.ExecuteNonQuery();
+                OdbcDataReader odbcDataReader = command.ExecuteReader();
 
                 // The connection is automatically closed at
                 // the end of the Using block.
@@ -127,8 +128,8 @@ namespace Melts_Base
             {
                 var MeltFound = false;
                 meltPlantCount++;
-                //проверяем, есть ли запись в базе SqLite, соответствующая плавке в базе Oracle
-                //сравнение ведём по номеру плавки
+                //проверяем, есть ли запись в локальной базе SqLite, соответствующая плавке в базе Oracle
+                //сравнение ведём по номеру плавки и hash-коду
                 //если записи такой нет, добавляем
                 foreach (var melt in listSqLiteMelts) 
                 {
@@ -169,9 +170,6 @@ namespace Melts_Base
                         PozRazm = oracleMelt.PozRazm,
                         PozIl = oracleMelt.PozIl,
                     };
-                    //listSqLiteMelts.Add(newMelt); //Эта строчка должна быть закоментирована,
-                                                  //чтобы подкачивались все записи,в том числе с
-                                                  //одинаковыми номерами плавок
                     meltsContext.Add<Melt>(newMelt);
                 }                    
             }
