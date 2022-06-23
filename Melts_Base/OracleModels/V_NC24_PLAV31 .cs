@@ -31,5 +31,17 @@ namespace Melts_Base.OracleModels
         public string? PozNaim { get; set; }
         public string? PozRazm { get; set; }
         public string? PozIl { get; set; }
+        public int MyHashCode()
+        {
+            return Npech?.GetHashCode()??0 + Nplav?.GetHashCode()??0 +
+                Npart?.GetHashCode()??0 + RazmPasp?.GetHashCode()??0 + Splav?.GetHashCode()??0 +
+                Ins?.GetHashCode()??0 + Tek?.GetHashCode()??0 + Pereplav?.GetHashCode()??0 +
+                OkonchPereplav?.GetHashCode()??0 + DateZap.GetHashCode() + DateClose.GetHashCode() +
+                SumVesZapusk?.GetHashCode()??0 + Zapusk31?.GetHashCode()??0 + ZapuskNakl?.GetHashCode()??0 +
+                ZapuskPpf?.GetHashCode()??0 + Dsd.GetHashCode() + Ncp?.GetHashCode()??0 +
+                VesSdch?.GetHashCode()??0 + RazmSdch?.GetHashCode()??0 + MfgOrderId?.GetHashCode()??0 +
+                DemandOrderId?.GetHashCode()??0 + Poz?.GetHashCode()??0 + PozNaim?.GetHashCode()??0 +
+                PozRazm?.GetHashCode()??0 * PozIl?.GetHashCode()??0;
+        }
     }
 }
