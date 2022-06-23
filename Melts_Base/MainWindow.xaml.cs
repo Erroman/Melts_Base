@@ -91,6 +91,10 @@ namespace Melts_Base
                 connection.Open();
                 MessageBox.Show("The connection to Sybase is "+connection.State.ToString());
                 OdbcDataReader odbcDataReader = command.ExecuteReader();
+                while (odbcDataReader.Read()) 
+                {
+                    var melt_number = odbcDataReader["me_num"];
+                }
 
                 // The connection is automatically closed at
                 // the end of the Using block.
