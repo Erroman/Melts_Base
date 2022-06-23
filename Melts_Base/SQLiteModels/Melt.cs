@@ -61,7 +61,7 @@ namespace Melts_Base.SQLiteModels
                ZapuskPpf?.GetHashCode() ?? 0 + Dsd.GetHashCode() + Ncp?.GetHashCode() ?? 0 +
                VesSdch?.GetHashCode() ?? 0 + RazmSdch?.GetHashCode() ?? 0 + MfgOrderId?.GetHashCode() ?? 0 +
                DemandOrderId?.GetHashCode() ?? 0 + Poz?.GetHashCode() ?? 0 + PozNaim?.GetHashCode() ?? 0 +
-               PozRazm?.GetHashCode() ?? 0 * PozIl?.GetHashCode() ?? 0;
+               PozRazm?.GetHashCode() ?? 0 + PozIl?.GetHashCode() ?? 0;
         }
     }
 }
