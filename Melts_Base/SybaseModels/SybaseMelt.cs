@@ -9,5 +9,6 @@ namespace Melts_Base.SybaseModels
     internal class SybaseMelt
     {
         public string? Nplav;
+        public string? Npech;
     }
 }

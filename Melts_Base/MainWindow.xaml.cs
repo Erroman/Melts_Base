@@ -21,6 +21,7 @@ using Melts_Base.OracleViewModel;
 using Melts_Base.SQLiteViewModel;
 using Melts_Base.SQLiteModels;
 using System.Data.Odbc;
+using System.Data;
 using Melts_Base.SybaseModels;
 //using Microsoft.Office.Interop.Excel;
 
@@ -85,24 +86,30 @@ namespace Melts_Base
                 ["pwd"] = "12345"
             };
             using (OdbcConnection connection = new OdbcConnection(constr.ConnectionString))
-            {
-                string queryString = @"SELECT * FROM ""DBA"".""rmelts""";
-                OdbcCommand command = new OdbcCommand(queryString);
-                command.Connection = connection;
+            {                
                 connection.Open();
-                MessageBox.Show("The connection to Sybase is "+connection.State.ToString());
-                OdbcDataReader odbcDataReader = command.ExecuteReader();
-                List<SybaseMelt> sybaseMelts = new List<SybaseMelt>();
-                while (odbcDataReader.Read()) 
-                {
+                if (connection.State == ConnectionState.Open) 
+                { 
+                    string queryString = @"SELECT * FROM ""DBA"".""rmelts""";
+                    OdbcCommand command = new OdbcCommand(queryString);
+                    command.Connection = connection;
 
-                    sybaseMelts.Add(new SybaseMelt 
-                    { 
-                        Nplav = odbcDataReader["me_num"].ToString() }) ;
+                    
+                    OdbcDataReader odbcDataReader = command.ExecuteReader();
+                    List<SybaseMelt> sybaseMelts = new List<SybaseMelt>();
+                    while (odbcDataReader.Read()) 
+                    {
+
+                        sybaseMelts.Add(new SybaseMelt 
+                        { 
+                            Nplav = odbcDataReader["me_num"].ToString(),
+                            Npech = odbcDataReader["eq_id"].ToString(),
+                        }) ;
+                    }
                 }
-
-                // The connection is automatically closed at
-                // the end of the Using block.
+                else MessageBox.Show("The connection to Sybase is "+connection.State.ToString());
+                    // The connection is automatically closed at
+                    // the end of the Using block.
             }
 
         }
