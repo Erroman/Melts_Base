@@ -16,13 +16,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Melts_Base.OracleModels;
 using Melts_Base.OracleViewModel;
+using Melts_Base.OracleModels;
+using Melts_Base.SybaseViewModel;
+using Melts_Base.SybaseModels;
 using Melts_Base.SQLiteViewModel;
 using Melts_Base.SQLiteModels;
 using System.Data.Odbc;
 using System.Data;
-using Melts_Base.SybaseModels;
+
 //using Microsoft.Office.Interop.Excel;
 
 namespace Melts_Base
@@ -37,6 +39,7 @@ namespace Melts_Base
         private readonly ModelPlantContext meltsPlantOracleContext = new ModelPlantContext();
         private ObservableMeltsViewModel observableMeltsViewModel;
         private ObservableOracleMeltsViewModel observableOracleMeltsViewModel;
+        private ObservableSybaseMeltsViewModel  observableSybaseMeltsViewModel;
 
         public MainWindow()
         {
@@ -93,8 +96,6 @@ namespace Melts_Base
                     string queryString = @"SELECT * FROM ""DBA"".""rmelts""";
                     OdbcCommand command = new OdbcCommand(queryString);
                     command.Connection = connection;
-
-                    
                     OdbcDataReader odbcDataReader = command.ExecuteReader();
                     List<SybaseMelt> sybaseMelts = new List<SybaseMelt>();
                     while (odbcDataReader.Read()) 
