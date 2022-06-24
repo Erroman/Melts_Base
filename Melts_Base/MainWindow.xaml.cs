@@ -21,6 +21,7 @@ using Melts_Base.OracleViewModel;
 using Melts_Base.SQLiteViewModel;
 using Melts_Base.SQLiteModels;
 using System.Data.Odbc;
+using Melts_Base.SybaseModels;
 //using Microsoft.Office.Interop.Excel;
 
 namespace Melts_Base
@@ -91,9 +92,13 @@ namespace Melts_Base
                 connection.Open();
                 MessageBox.Show("The connection to Sybase is "+connection.State.ToString());
                 OdbcDataReader odbcDataReader = command.ExecuteReader();
+                List<SybaseMelt> sybaseMelts = new List<SybaseMelt>();
                 while (odbcDataReader.Read()) 
                 {
-                    var melt_number = odbcDataReader["me_num"];
+
+                    sybaseMelts.Add(new SybaseMelt 
+                    { 
+                        Nplav = odbcDataReader["me_num"].ToString() }) ;
                 }
 
                 // The connection is automatically closed at
