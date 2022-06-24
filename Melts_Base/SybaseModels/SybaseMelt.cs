@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Melts_Base.SybaseModels
 {
-    internal class SybaseMelt
+    public class SybaseMelt
     {
-        public string? Nplav;
-        public string? Npech;
+        public string? Nplav { get; set; }
+        public string? Npech { get; set; }
     }
 }

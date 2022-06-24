@@ -182,9 +182,6 @@
                     <DataGrid Name ="shop31Grid" ItemsSource = "{Binding View}" 
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding MeltId}"
-                                    Header="Id плавки" Width="SizeToHeader"
-                                    IsReadOnly="True"/>
                             <DataGridTextColumn Binding="{Binding Npech}" Header="Номер печи" 
                                     Width="*"/>
                             <DataGridTextColumn x:Name="shop31nPlav" Binding="{Binding Nplav}" 

@@ -108,7 +108,8 @@ namespace Melts_Base
                         }) ;
                     }
                     observableSybaseMeltsViewModel = new ObservableSybaseMeltsViewModel(new ObservableCollection<SybaseMelt>(sybaseMelts));
-                    //shop31Grid.DataContext = 
+                    shop31Grid.DataContext = observableSybaseMeltsViewModel;
+                    //shop31Grid.DataContext = observableOracleMeltsViewModel;
                 }
                 else MessageBox.Show("The connection to Sybase is "+connection.State.ToString());
                     // The connection is automatically closed at
