@@ -107,6 +107,8 @@ namespace Melts_Base
                             Npech = odbcDataReader["eq_id"].ToString(),
                         }) ;
                     }
+                    observableSybaseMeltsViewModel = new ObservableSybaseMeltsViewModel(new ObservableCollection<SybaseMelt>(sybaseMelts));
+                    //shop31Grid.DataContext = 
                 }
                 else MessageBox.Show("The connection to Sybase is "+connection.State.ToString());
                     // The connection is automatically closed at
