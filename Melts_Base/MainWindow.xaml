@@ -182,9 +182,9 @@
                     <DataGrid Name ="shop31Grid" ItemsSource = "{Binding View}" 
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Npech}" Header="Номер печи" 
+                            <DataGridTextColumn Binding="{Binding eq_id}" Header="Номер печи" 
                                     Width="*"/>
-                            <DataGridTextColumn x:Name="shop31nPlav" Binding="{Binding Nplav}" 
+                            <DataGridTextColumn x:Name="shop31nPlav" Binding="{Binding me_num}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <Grid>
@@ -198,6 +198,32 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.ColumnSpan="2">Номер плавки:</TextBlock>
                                         <TextBox Name="shop31PlantMeltNumberSought" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding MeltNumberSought,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </Grid>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn x:Name="shop31me_beg" Binding="{Binding me_beg, StringFormat=dd.MM.yyyy HH:mm}" 
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock>Время начала плавки</TextBlock>
+                                        <Grid Grid.Row="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock  Grid.Row="0">От:</TextBlock>
+                                            <DatePicker Name="shop31ZapuskStartDate" Grid.Column="1" Text="{Binding StartDate,Mode=OneWayToSource}"/>
+                                            <TextBlock  Grid.Row="1">До:</TextBlock>
+                                            <DatePicker Name="shop31ZapuskEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding EndDate,Mode=OneWayToSource}"/>
+                                        </Grid>
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
@@ -234,9 +260,9 @@
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock  Grid.Row="0">От:</TextBlock>
-                                            <DatePicker Name="shop31ZapuskStartDate" Grid.Column="1" Text="{Binding StartDate,Mode=OneWayToSource}"/>
+                                            <DatePicker Name="shop31StartTime" Grid.Column="1" Text="{Binding StartDate,Mode=OneWayToSource}"/>
                                             <TextBlock  Grid.Row="1">До:</TextBlock>
-                                            <DatePicker Name="shop31ZapuskEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding EndDate,Mode=OneWayToSource}"/>
+                                            <DatePicker Name="shop31EndTime" Grid.Row="1" Grid.Column="1" Text="{Binding EndDate,Mode=OneWayToSource}"/>
                                         </Grid>
                                     </Grid>
                                 </DataGridTextColumn.Header>

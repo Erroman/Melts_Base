@@ -101,11 +101,12 @@ namespace Melts_Base
                     while (odbcDataReader.Read()) 
                     {
 
-                        sybaseMelts.Add(new SybaseMelt 
-                        { 
-                            Nplav = odbcDataReader["me_num"].ToString(),
-                            Npech = odbcDataReader["eq_id"].ToString(),
-                        }) ;
+                        sybaseMelts.Add(new SybaseMelt
+                        {
+                            me_num = odbcDataReader["me_num"].ToString(),
+                            eq_id = odbcDataReader["eq_id"].ToString(),
+                            me_beg = DateTime.Parse(odbcDataReader["me_beg"].ToString()),
+                        }); ;
                     }
                     observableSybaseMeltsViewModel = new ObservableSybaseMeltsViewModel(new ObservableCollection<SybaseMelt>(sybaseMelts));
                     shop31Grid.DataContext = observableSybaseMeltsViewModel;

@@ -152,10 +152,10 @@ namespace Melts_Base.SybaseViewModel
                 if (String.IsNullOrEmpty(MeltNumberSought))
                     return true;
                 else
-                    if (melt.Nplav == null)
+                    if (melt.me_num == null)
                     return false;
                 else
-                    return (melt.Nplav.IndexOf(MeltNumberSought, StringComparison.OrdinalIgnoreCase) >= 0);
+                    return (melt.me_num.IndexOf(MeltNumberSought, StringComparison.OrdinalIgnoreCase) >= 0);
             }
             return false;
         }
