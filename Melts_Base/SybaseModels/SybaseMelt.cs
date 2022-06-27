@@ -12,6 +12,8 @@ namespace Melts_Base.SybaseModels
         public string? me_num { get; set; }  //номер плавки
         public DateTime me_beg { get; set; } //время начала плавки
         public DateTime? me_end { get; set; } //время конца плавки
+        public string? me_splav { get; set; } //наменование сплава
+        public string? sp_name { get; set; }  //полное наименование сплава
                                              
     }
 }

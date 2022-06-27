@@ -11,7 +11,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Ribbon x:Name="RibbonWin"  SelectedIndex="2">
+        <Ribbon x:Name="RibbonWin"  SelectedIndex="1">
             <!-- Help Pane, located at the right-hand side -->
             <Ribbon.HelpPaneContent>
                 <RibbonButton />
@@ -182,7 +182,7 @@
                     <DataGrid Name ="shop31Grid" ItemsSource = "{Binding View}" 
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding eq_id}" Header="Номер печи" 
+                            <DataGridTextColumn Binding="{Binding eq_id}" Header="eq_id Номер печи" 
                                     Width="*"/>
                             <DataGridTextColumn x:Name="shop31nPlav" Binding="{Binding me_num}" 
                                     Width="*">
@@ -196,7 +196,7 @@
                                             <ColumnDefinition />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.ColumnSpan="2">Номер плавки:</TextBlock>
+                                        <TextBlock Grid.ColumnSpan="2">me_num Номер плавки:</TextBlock>
                                         <TextBox Name="shop31PlantMeltNumberSought" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding MeltNumberSought,UpdateSourceTrigger=PropertyChanged}"/>
                                     </Grid>
                                 </DataGridTextColumn.Header>
@@ -209,7 +209,7 @@
                                             <RowDefinition/>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                        <TextBlock>Время начала плавки</TextBlock>
+                                        <TextBlock>me_beg Время начала плавки</TextBlock>
                                         <Grid Grid.Row="1">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition/>
@@ -235,7 +235,7 @@
                                             <RowDefinition/>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                        <TextBlock>Время завершения</TextBlock>
+                                        <TextBlock><Run>me_end</Run></TextBlock>
                                         <Grid Grid.Row="1">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition/>
@@ -253,11 +253,13 @@
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding Npart}" Header="Npart" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding RazmPasp}" Header="RazmPasp" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Splav}" Header="Сплав" 
+                            <DataGridTextColumn Binding="{Binding me_splav}" 
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <Run>me_splav</Run>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding sp_name}" Header="sp_name" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Ins}" Header="Индекс" 
                                     Width="*"/>
