@@ -279,10 +279,26 @@
                                     <Run>sp_name</Run>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding Ins}" Header="Индекс" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Tek}" Header="Tek" 
-                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding me_mould}"
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <TextBlock>
+                                    <Run>me_mould</Run>
+                                        <LineBreak/>
+                                    <Run>№ комплекта</Run>
+                                    </TextBlock>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding me_diam}"
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <TextBlock>
+                                    <Run>me_diam</Run>
+                                        <LineBreak/>
+                                    <Run>Диаметр электрода</Run>
+                                    </TextBlock>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
                             <DataGridTextColumn Binding="{Binding Pereplav}" Header="Номер переплава" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding OkonchPereplav}" Header="Признак окончательного переплава" 

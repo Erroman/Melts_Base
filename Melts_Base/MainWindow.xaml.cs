@@ -110,6 +110,8 @@ namespace Melts_Base
                             me_end = melt_end == DateTime.Parse("01.01.0001") ?null:melt_end,
                             me_splav = odbcDataReader["me_splav"].ToString(),
                             sp_name = odbcDataReader["sp_name"].ToString(),
+                            me_mould = odbcDataReader["me_mould"].ToString(),
+                            me_diam = odbcDataReader["me_diam"].ToString(),
                         };
                         sybaseMelts.Add(melt_sybase); ;
                     }

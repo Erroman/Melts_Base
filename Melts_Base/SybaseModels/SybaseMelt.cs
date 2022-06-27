@@ -14,6 +14,8 @@ namespace Melts_Base.SybaseModels
         public DateTime? me_end { get; set; } //время конца плавки
         public string? me_splav { get; set; } //наменование сплава
         public string? sp_name { get; set; }  //полное наименование сплава
+        public string? me_mould { get;set; } //предположительно номер комплекта
+        public string? me_diam { get; set; } //предположительно диаметр электрода  
                                              
     }
 }
