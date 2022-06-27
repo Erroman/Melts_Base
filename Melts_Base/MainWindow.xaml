@@ -227,6 +227,32 @@
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
+                            <DataGridTextColumn x:Name="shop31me_end" Binding="{Binding me_end, StringFormat=dd.MM.yyyy HH:mm}" 
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock>Время завершения</TextBlock>
+                                        <Grid Grid.Row="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock  Grid.Row="0">От:</TextBlock>
+                                            <DatePicker Name="shop31CloseStartDate" Grid.Column="1" Text="{Binding StartCloseDate,Mode=OneWayToSource}"/>
+                                            <TextBlock  Grid.Row="1">До:</TextBlock>
+                                            <DatePicker Name="shop31CloseEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding EndCloseDate,Mode=OneWayToSource}"/>
+                                        </Grid>
+                                    </Grid>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
                             <DataGridTextColumn Binding="{Binding Npart}" Header="Npart" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding RazmPasp}" Header="RazmPasp" 
@@ -260,9 +286,9 @@
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock  Grid.Row="0">От:</TextBlock>
-                                            <DatePicker Name="shop31StartTime" Grid.Column="1" Text="{Binding StartDate,Mode=OneWayToSource}"/>
+                                            <DatePicker Name="shop31StartBegTime" Grid.Column="1" Text="{Binding StartDate,Mode=OneWayToSource}"/>
                                             <TextBlock  Grid.Row="1">До:</TextBlock>
-                                            <DatePicker Name="shop31EndTime" Grid.Row="1" Grid.Column="1" Text="{Binding EndDate,Mode=OneWayToSource}"/>
+                                            <DatePicker Name="shop31EndBegTime" Grid.Row="1" Grid.Column="1" Text="{Binding EndDate,Mode=OneWayToSource}"/>
                                         </Grid>
                                     </Grid>
                                 </DataGridTextColumn.Header>
@@ -286,9 +312,9 @@
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock  Grid.Row="0">От:</TextBlock>
-                                            <DatePicker Name="shop31CloseStartDate" Grid.Column="1" Text="{Binding StartCloseDate,Mode=OneWayToSource}"/>
+                                            <DatePicker Name="shop31StartEndTime" Grid.Column="1" Text="{Binding StartCloseDate,Mode=OneWayToSource}"/>
                                             <TextBlock  Grid.Row="1">До:</TextBlock>
-                                            <DatePicker Name="shop31CloseEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding EndCloseDate,Mode=OneWayToSource}"/>
+                                            <DatePicker Name="shop31EndEndTime" Grid.Row="1" Grid.Column="1" Text="{Binding EndCloseDate,Mode=OneWayToSource}"/>
                                         </Grid>
                                     </Grid>
                                 </DataGridTextColumn.Header>

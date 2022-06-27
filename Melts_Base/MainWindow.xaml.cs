@@ -100,13 +100,16 @@ namespace Melts_Base
                     List<SybaseMelt> sybaseMelts = new List<SybaseMelt>();
                     while (odbcDataReader.Read()) 
                     {
-
-                        sybaseMelts.Add(new SybaseMelt
+                        DateTime melt_end;
+                        DateTime.TryParse(odbcDataReader["me_end"].ToString(), out melt_end);
+                        var melt_sybase = new SybaseMelt
                         {
                             me_num = odbcDataReader["me_num"].ToString(),
                             eq_id = odbcDataReader["eq_id"].ToString(),
                             me_beg = DateTime.Parse(odbcDataReader["me_beg"].ToString()),
-                        }); ;
+                            me_end = melt_end == DateTime.Parse("01.01.0001") ?null:melt_end
+                        };
+                        sybaseMelts.Add(melt_sybase); ;
                     }
                     observableSybaseMeltsViewModel = new ObservableSybaseMeltsViewModel(new ObservableCollection<SybaseMelt>(sybaseMelts));
                     shop31Grid.DataContext = observableSybaseMeltsViewModel;
