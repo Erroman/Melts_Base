@@ -182,8 +182,16 @@
                     <DataGrid Name ="shop31Grid" ItemsSource = "{Binding View}" 
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding eq_id}" Header="eq_id Номер печи" 
-                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding eq_id}" 
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <TextBlock>
+                                    <Run>eq_id</Run>
+                                        <LineBreak/>
+                                    <Run>Номер печи:</Run>
+                                    </TextBlock>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
                             <DataGridTextColumn x:Name="shop31nPlav" Binding="{Binding me_num}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
@@ -196,7 +204,10 @@
                                             <ColumnDefinition />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.ColumnSpan="2">me_num Номер плавки:</TextBlock>
+                                        <TextBlock Grid.ColumnSpan="2">
+                                            <Run>me_num</Run>
+                                            <LineBreak/>
+                                            <Run> Номер плавки:</Run></TextBlock>
                                         <TextBox Name="shop31PlantMeltNumberSought" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding MeltNumberSought,UpdateSourceTrigger=PropertyChanged}"/>
                                     </Grid>
                                 </DataGridTextColumn.Header>
@@ -209,7 +220,10 @@
                                             <RowDefinition/>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                        <TextBlock>me_beg Время начала плавки</TextBlock>
+                                        <TextBlock>
+                                            <Run>me_beg</Run>
+                                            <LineBreak/>
+                                            <Run>Время начала плавки</Run></TextBlock>
                                         <Grid Grid.Row="1">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition/>
@@ -259,8 +273,12 @@
                                     <Run>me_splav</Run>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding sp_name}" Header="sp_name" 
-                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding sp_name}"
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <Run>sp_name</Run>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
                             <DataGridTextColumn Binding="{Binding Ins}" Header="Индекс" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Tek}" Header="Tek" 
