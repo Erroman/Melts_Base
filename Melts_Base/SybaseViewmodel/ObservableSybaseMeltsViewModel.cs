@@ -64,32 +64,7 @@ namespace Melts_Base.SybaseViewModel
             }
         }
         
-        string startCloseDate;
-        public string StartCloseDate
-        {
-            get => startCloseDate;
-            set
-            {
-                if (startCloseDate == value) return;
-                startCloseDate = value;
-                OnPropertyChanged();
-                View.Refresh();
-            }
-        }
-        string endCloseDate;
-        public string EndCloseDate
-        {
-            get => endCloseDate;
-            set
-            {
-                if (endCloseDate == value) return;
-                endCloseDate = value;
-                OnPropertyChanged();
-                View.Refresh();
-
-            }
-        }
-        string meltNumberSought;
+       string meltNumberSought;
         public string MeltNumberSought
         {
             get => meltNumberSought;
@@ -104,7 +79,7 @@ namespace Melts_Base.SybaseViewModel
         private bool ListCollectionView_Filter(object Item)
         {
 
-            return meltDateFilter(Item) && meltNumberFilter(Item) && meltCloseDateFilter(Item);
+            return meltDateFilter(Item) && meltNumberFilter(Item);
 
         }
         private bool meltDateFilter(object Item)
@@ -117,38 +92,18 @@ namespace Melts_Base.SybaseViewModel
                 DateTime enddate;
                 bool startdateFilterSet = DateTime.TryParse(StartDate, out startdate);
                 bool enddateFilterSet = DateTime.TryParse(EndDate, out enddate);
-                return true;
-//                    (!startdateFilterSet || (startdate <= melt.DateZap)) && (!enddateFilterSet || (melt.DateZap <= enddate));
+                return 
+                    (!startdateFilterSet || (startdate <= melt.me_beg)) && (!enddateFilterSet || (melt.me_beg <= enddate));
 
             }
             return false;
         }
-        private bool meltCloseDateFilter(object Item)
-        {
-
-            var melt = Item as SybaseMelt;
-            if (melt != null)
-            {
-                DateTime startdate;
-                DateTime enddate;
-                bool startdateFilterSet = DateTime.TryParse(StartCloseDate, out startdate);
-                bool enddateFilterSet = DateTime.TryParse(EndCloseDate, out enddate);
-                return true;
-//                    (!startdateFilterSet || (startdate <= melt.DateClose)) && (!enddateFilterSet || (melt.DateClose <= enddate));
-
-            }
-            return false;
-        }
+        
         private bool meltNumberFilter(object Item)
         {
             var melt = Item as SybaseMelt;
             if (melt != null)
             {
-                //int meltnumbersought;
-                //int current_meltnumber;
-                //bool meltNumberGoodFormatted = Int32.TryParse(melt.MeltNumber, out current_meltnumber);
-                //bool meltnumberFilterSet = Int32.TryParse(MeltNumberSought, out meltnumbersought);
-                //return (!meltnumberFilterSet || meltNumberGoodFormatted && current_meltnumber == meltnumbersought);
                 if (String.IsNullOrEmpty(MeltNumberSought))
                     return true;
                 else
