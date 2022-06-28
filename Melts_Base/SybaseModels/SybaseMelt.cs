@@ -18,5 +18,7 @@ namespace Melts_Base.SybaseModels
         public string? me_del { get; set; } //предположительно диаметр электрода  
         public string? me_weigth { get; set; } //предположительно вес слитка
         public string? me_ukaz { get; set; }   //Указание
+        public string? me_kont { get;set; }    //предположительно контракт
+        //Key = "me_kont"
     }
 }

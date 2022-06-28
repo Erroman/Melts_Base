@@ -309,6 +309,16 @@
                                     </TextBlock>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding me_kont}"
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <TextBlock>
+                                    <Run>me_kont</Run>
+                                        <LineBreak/>
+                                    <Run>Контракт</Run>
+                                    </TextBlock>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
                             <DataGridTextColumn Binding="{Binding me_weigth}"
                                     Width="*">
                                 <DataGridTextColumn.Header>
@@ -371,14 +381,11 @@
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding ZapuskPpf}" Header="ZapuskPpf" 
-                                    Width="*"/>
+
                             <DataGridTextColumn Binding="{Binding Dsd, StringFormat=dd.MM.yyyy}" Header="Дата сдачи" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Ncp}" Header="NCP" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding VesSdch}" Header="Вес сдачи" 
-                                    Width="*"/>
+
+
                             <DataGridTextColumn Binding="{Binding RazmSdch}" Header="RazmSdch" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding MfgOrderId}" Header="MfgOrderId"/>

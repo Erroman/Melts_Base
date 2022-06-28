@@ -107,13 +107,14 @@ namespace Melts_Base
                             me_num = odbcDataReader["me_num"].ToString(),
                             eq_id = odbcDataReader["eq_id"].ToString(),
                             me_beg = DateTime.Parse(odbcDataReader["me_beg"].ToString()),
-                            me_end = melt_end == DateTime.Parse("01.01.0001") ?null:melt_end,
+                            me_end = melt_end == DateTime.Parse("01.01.0001") ? null : melt_end,
                             me_splav = odbcDataReader["me_splav"].ToString(),
                             sp_name = odbcDataReader["sp_name"].ToString(),
                             me_mould = odbcDataReader["me_mould"].ToString(),
                             me_del = odbcDataReader["me_del"].ToString(),
                             me_weigth = odbcDataReader["me_weigth"].ToString(),
                             me_ukaz = odbcDataReader["me_ukaz"].ToString(),
+                            me_kont = odbcDataReader["me_kont"].ToString(),
                         };
                         sybaseMelts.Add(melt_sybase); ;
                     }
