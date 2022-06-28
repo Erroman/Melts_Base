@@ -20,5 +20,8 @@ namespace Melts_Base.SybaseModels
         public string? me_ukaz { get; set; }   //Указание
         public string? me_kont { get;set; }    //предположительно контракт
         //Key = "me_kont"
+        public string? me_pril { get; set; }    //возможно приложение
+        public string? me_nazn { get; set; }    //назначение
+        public string? me_diam { get; set; }    //предположительно диаметр слитка
     }
 }

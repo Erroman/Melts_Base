@@ -319,6 +319,36 @@
                                     </TextBlock>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding me_pril}"
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <TextBlock>
+                                    <Run>me_pril</Run>
+                                        <LineBreak/>
+                                    <Run></Run>
+                                    </TextBlock>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding me_nazn}"
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <TextBlock>
+                                    <Run>me_nazn</Run>
+                                        <LineBreak/>
+                                    <Run>Назначение</Run>
+                                    </TextBlock>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding me_diam}"
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <TextBlock>
+                                    <Run>me_diam</Run>
+                                        <LineBreak/>
+                                    <Run>Диаметр слитка</Run>
+                                    </TextBlock>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
                             <DataGridTextColumn Binding="{Binding me_weigth}"
                                     Width="*">
                                 <DataGridTextColumn.Header>
@@ -329,7 +359,7 @@
                                     </TextBlock>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                                  <DataGridTextColumn x:Name="shop31dateZap" Binding="{Binding DateZap, StringFormat=dd.MM.yyyy HH:mm}" 
+                            <DataGridTextColumn x:Name="shop31dateZap" Binding="{Binding DateZap, StringFormat=dd.MM.yyyy HH:mm}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <Grid>
@@ -381,24 +411,6 @@
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-
-                            <DataGridTextColumn Binding="{Binding Dsd, StringFormat=dd.MM.yyyy}" Header="Дата сдачи" 
-                                    Width="*"/>
-
-
-                            <DataGridTextColumn Binding="{Binding RazmSdch}" Header="RazmSdch" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding MfgOrderId}" Header="MfgOrderId"/>
-                            <DataGridTextColumn Binding="{Binding DemandOrderId}" Header="DemandOrderId" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Poz}" Header="Poz" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding PozNaim}" Header="PozNaim" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding PozRazm}" Header="PozRazm" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding PozIl}" Header="PozIl" 
-                                    Width="*"/>
 
                         </DataGrid.Columns>
                     </DataGrid>
