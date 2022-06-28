@@ -89,8 +89,12 @@ namespace Melts_Base
                 ["pwd"] = "12345"
             };
             using (OdbcConnection connection = new OdbcConnection(constr.ConnectionString))
-            {                
-                connection.Open();
+            {
+                try
+                {
+                    connection.Open();
+                            
+                
                 if (connection.State == ConnectionState.Open) 
                 { 
                     string queryString = @"SELECT * FROM ""DBA"".""rmelts""";
@@ -134,8 +138,8 @@ namespace Melts_Base
                 else MessageBox.Show("The connection to Sybase is "+connection.State.ToString());
                     // The connection is automatically closed at
                     // the end of the Using block.
-            }
-
+                }catch { MessageBox.Show("No connection with Sybase."); }
+            } 
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)

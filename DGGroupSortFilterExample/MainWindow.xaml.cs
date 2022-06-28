@@ -67,7 +67,7 @@ namespace DGGroupSortFilterExample
                     e.Accepted = false;
                 else
                     e.Accepted = true;
-                ""
+    
             }
         }
     }
