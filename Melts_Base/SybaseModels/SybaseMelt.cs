@@ -15,7 +15,8 @@ namespace Melts_Base.SybaseModels
         public string? me_splav { get; set; } //наменование сплава
         public string? sp_name { get; set; }  //полное наименование сплава
         public string? me_mould { get;set; } //предположительно номер комплекта
-        public string? me_diam { get; set; } //предположительно диаметр электрода  
-                                             
+        public string? me_del { get; set; } //предположительно диаметр электрода  
+        public string? me_weigth { get; set; } //предположительно вес слитка
+        public string? me_ukaz { get; set; }   //Указание
     }
 }

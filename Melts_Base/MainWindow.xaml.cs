@@ -111,7 +111,9 @@ namespace Melts_Base
                             me_splav = odbcDataReader["me_splav"].ToString(),
                             sp_name = odbcDataReader["sp_name"].ToString(),
                             me_mould = odbcDataReader["me_mould"].ToString(),
-                            me_diam = odbcDataReader["me_diam"].ToString(),
+                            me_del = odbcDataReader["me_del"].ToString(),
+                            me_weigth = odbcDataReader["me_weigth"].ToString(),
+                            me_ukaz = odbcDataReader["me_ukaz"].ToString(),
                         };
                         sybaseMelts.Add(melt_sybase); ;
                     }

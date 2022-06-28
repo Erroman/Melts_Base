@@ -289,21 +289,37 @@
                                     </TextBlock>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding me_diam}"
+                            <DataGridTextColumn Binding="{Binding me_del}"
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <TextBlock>
-                                    <Run>me_diam</Run>
+                                    <Run>me_del</Run>
                                         <LineBreak/>
                                     <Run>Диаметр электрода</Run>
                                     </TextBlock>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding Pereplav}" Header="Номер переплава" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding OkonchPereplav}" Header="Признак окончательного переплава" 
-                                    Width="*"/>
-                            <DataGridTextColumn x:Name="shop31dateZap" Binding="{Binding DateZap, StringFormat=dd.MM.yyyy HH:mm}" 
+                            <DataGridTextColumn Binding="{Binding me_ukaz}"
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <TextBlock>
+                                    <Run>me_ukaz</Run>
+                                        <LineBreak/>
+                                    <Run>ИЛ/УиС/ШН</Run>
+                                    </TextBlock>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding me_weigth}"
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <TextBlock>
+                                    <Run>me_weight</Run>
+                                        <LineBreak/>
+                                    <Run>Вес</Run>
+                                    </TextBlock>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+                                  <DataGridTextColumn x:Name="shop31dateZap" Binding="{Binding DateZap, StringFormat=dd.MM.yyyy HH:mm}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <Grid>
@@ -355,12 +371,6 @@
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding SumVesZapusk}" Header="SumVesZapusk" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Zapusk31}" Header="Zapusk31" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding ZapuskNakl}" Header="ZapuskNakl" 
-                                    Width="*"/>
                             <DataGridTextColumn Binding="{Binding ZapuskPpf}" Header="ZapuskPpf" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Dsd, StringFormat=dd.MM.yyyy}" Header="Дата сдачи" 
