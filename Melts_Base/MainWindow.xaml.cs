@@ -72,23 +72,12 @@ namespace Melts_Base
             localdateZap.Width = new DataGridLength(120);
             localdateClose.Width = new DataGridLength(120);
             localnPlav.Width = new DataGridLength(90);
-            if (meltsPlantOracleContext.Database.CanConnect()) 
-            {
-                //MessageBox.Show("Сonnection with Plant's Oracle granted!");
-                dateZap.Width = new DataGridLength(120);
-                dateClose.Width = new DataGridLength(120);
-                nPlav.Width = new DataGridLength(90);
-                meltsPlantOracleContext.Melt31s.Load();
-                observableOracleMeltsViewModel = new ObservableOracleMeltsViewModel(new ObservableCollection<V_NC24_PLAV31>(meltsPlantOracleContext.Melt31s.ToList<V_NC24_PLAV31>()));
-                oracleGrid.DataContext = observableOracleMeltsViewModel;
-                ZapuskStartDate.DataContext = observableOracleMeltsViewModel;
-                ZapuskEndDate.DataContext = observableOracleMeltsViewModel;
-                CloseStartDate.DataContext = observableOracleMeltsViewModel;
-                CloseEndDate.DataContext = observableOracleMeltsViewModel;
-                PlantMeltNumberSought.DataContext = observableOracleMeltsViewModel;
-            }
-            else MessageBox.Show("No connection with Plant's Oracle!");
+            dateZap.Width = new DataGridLength(120);
+            dateClose.Width = new DataGridLength(120);
+            nPlav.Width = new DataGridLength(90);
+ 
             readFromSybase();
+            readFromOracle();
         }
         private void readFromSybase() 
         {
@@ -146,11 +135,24 @@ namespace Melts_Base
                 catch { MessageBox.Show("No connection with Sybase."); }
             }
         }
-        private List<SybaseMelt> produceSybaseMeltsList() 
+        private void readFromOracle() 
         {
-            var sybaseMelts = new List<SybaseMelt>();
-            return sybaseMelts; 
+            if (meltsPlantOracleContext.Database.CanConnect())
+            {
+                //MessageBox.Show("Сonnection with Plant's Oracle granted!");
+
+                meltsPlantOracleContext.Melt31s.Load();
+                observableOracleMeltsViewModel = new ObservableOracleMeltsViewModel(new ObservableCollection<V_NC24_PLAV31>(meltsPlantOracleContext.Melt31s.ToList<V_NC24_PLAV31>()));
+                oracleGrid.DataContext = observableOracleMeltsViewModel;
+                ZapuskStartDate.DataContext = observableOracleMeltsViewModel;
+                ZapuskEndDate.DataContext = observableOracleMeltsViewModel;
+                CloseStartDate.DataContext = observableOracleMeltsViewModel;
+                CloseEndDate.DataContext = observableOracleMeltsViewModel;
+                PlantMeltNumberSought.DataContext = observableOracleMeltsViewModel;
+            }
+            else MessageBox.Show("No connection with Plant's Oracle!");
         }
+        
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             meltsContext.SaveChanges();
