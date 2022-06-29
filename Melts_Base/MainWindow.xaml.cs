@@ -46,9 +46,9 @@ namespace Melts_Base
             ["uid"] = "romanovskii",
             ["pwd"] = "12345"
         };
-        List<Melt> localSQLLiteMelts = new List<Melt>();
+        ObservableCollection<Melt> localSQLLiteMelts = null;
         List<SybaseMelt> sybaseMelts = new List<SybaseMelt>();
-        List<V_NC24_PLAV31> oracleMelts = new List<V_NC24_PLAV31>();
+        List<V_NC24_PLAV31> oracleMelts = null;
         public MainWindow()
         {
             InitializeComponent();
@@ -78,7 +78,8 @@ namespace Melts_Base
         {
             meltsContext.Database.EnsureCreated();
             meltsContext.Melts.Load();
-            observableMeltsViewModel = new ObservableMeltsViewModel(meltsContext.Melts.Local.ToObservableCollection());
+            localSQLLiteMelts = meltsContext.Melts.Local.ToObservableCollection();
+            observableMeltsViewModel = new ObservableMeltsViewModel(localSQLLiteMelts);
             localcopyGrid.DataContext = observableMeltsViewModel;
             localZapuskStartDate.DataContext = observableMeltsViewModel;
             localZapuskEndDate.DataContext = observableMeltsViewModel;
@@ -171,8 +172,10 @@ namespace Melts_Base
             //using (OdbcConnection connection = new OdbcConnection(constr.ConnectionString)) { }
                 if (meltsPlantOracleContext.Database.CanConnect())
             {
-                var sqlightAllMelts = meltsContext.Melts.ToList();
-                var plantOracleAllMelts = meltsPlantOracleContext.Melt31s.ToList();
+                //var sqlightAllMelts = meltsContext.Melts.ToList();
+                //var plantOracleAllMelts = meltsPlantOracleContext.Melt31s.ToList();
+                var sqlightAllMelts = localSQLLiteMelts.ToList();
+                var plantOracleAllMelts = oracleMelts;
                 PumpPlantOracleData(plantOracleAllMelts, sqlightAllMelts);
                 MessageBox.Show("Подкачка выполнена!");
             }
@@ -204,7 +207,8 @@ namespace Melts_Base
                 }
                 if (!MeltFound) 
                 {
-                    //конструируется новая запись по плавке для SqLite
+                    //конструируется новая запись по плавке для SqLite,
+                    //дополнительные поля берутся из Oracle,основной список полей берём из Sybase
                     var newMelt = new Melt()
                     {
                         Npech = oracleMelt.Npech,
@@ -235,6 +239,67 @@ namespace Melts_Base
                     };
                     meltsContext.Add<Melt>(newMelt);
                 }                    
+            }
+            meltsContext.SaveChanges();
+        }
+        private void PumpPlantSybaseData(List<SybaseMelt> listSybaseMelts,List<V_NC24_PLAV31> listOracleMelts, List<Melt> listSqLiteMelts)
+        {
+            //var listNewMelts = new List<PostgresFiles.MeltPostgres>();
+            //var listChangedMelts = new List<PostgresFiles.MeltPostgres>();
+            int fullPlantCount = listOracleMelts.Count();
+            int fullLocalCount = listSqLiteMelts.Count();
+            int meltPlantCount = 0;
+            int meltLocalCount = 0;
+
+            foreach (var oracleMelt in listOracleMelts)
+            {
+                var MeltFound = false;
+                meltPlantCount++;
+                //проверяем, есть ли запись в локальной базе SqLite, соответствующая плавке в базе Oracle
+                //сравнение ведём по номеру плавки и hash-коду
+                //если записи такой нет, добавляем
+                foreach (var melt in listSqLiteMelts)
+                {
+                    meltLocalCount++;
+                    if (oracleMelt.Nplav == melt.Nplav && oracleMelt.MyHashCode() == melt.MyHashCode())
+                    {
+                        MeltFound = true;
+                    }
+                }
+                if (!MeltFound)
+                {
+                    //конструируется новая запись по плавке для SqLite,
+                    //дополнительные поля берутся из Oracle,основной список полей берём из Sybase
+                    var newMelt = new Melt()
+                    {
+                        Npech = oracleMelt.Npech,
+                        Nplav = oracleMelt.Nplav,
+                        Npart = oracleMelt.Npart,
+                        RazmPasp = oracleMelt.RazmPasp,
+                        Splav = oracleMelt.Splav,
+                        Ins = oracleMelt.Ins,
+                        Tek = oracleMelt.Tek,
+                        Pereplav = oracleMelt.Pereplav,
+                        OkonchPereplav = oracleMelt.OkonchPereplav,
+                        DateZap = oracleMelt.DateZap,
+                        DateClose = oracleMelt.DateClose,
+                        SumVesZapusk = oracleMelt.SumVesZapusk,
+                        Zapusk31 = oracleMelt.Zapusk31,
+                        ZapuskNakl = oracleMelt.ZapuskNakl,
+                        ZapuskPpf = oracleMelt.ZapuskPpf,
+                        Dsd = oracleMelt.Dsd,
+                        Ncp = oracleMelt.Ncp,
+                        VesSdch = oracleMelt.VesSdch,
+                        RazmSdch = oracleMelt.RazmSdch,
+                        MfgOrderId = oracleMelt.MfgOrderId,
+                        DemandOrderId = oracleMelt.DemandOrderId,
+                        Poz = oracleMelt.Poz,
+                        PozNaim = oracleMelt.PozNaim,
+                        PozRazm = oracleMelt.PozRazm,
+                        PozIl = oracleMelt.PozIl,
+                    };
+                    meltsContext.Add<Melt>(newMelt);
+                }
             }
             meltsContext.SaveChanges();
         }
