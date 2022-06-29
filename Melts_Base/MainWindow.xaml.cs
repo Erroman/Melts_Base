@@ -46,7 +46,9 @@ namespace Melts_Base
             ["uid"] = "romanovskii",
             ["pwd"] = "12345"
         };
-
+        List<Melt> localSQLLiteMelts = new List<Melt>();
+        List<SybaseMelt> sybaseMelts = new List<SybaseMelt>();
+        List<V_NC24_PLAV31> oracleMelts = new List<V_NC24_PLAV31>();
         public MainWindow()
         {
             InitializeComponent();
@@ -99,7 +101,6 @@ namespace Melts_Base
                         OdbcCommand command = new OdbcCommand(queryString);
                         command.Connection = connection;
                         OdbcDataReader odbcDataReader = command.ExecuteReader();
-                        List<SybaseMelt> sybaseMelts = new List<SybaseMelt>();
                         while (odbcDataReader.Read())
                         {
                             DateTime melt_end;
@@ -147,7 +148,8 @@ namespace Melts_Base
                 //MessageBox.Show("Сonnection with Plant's Oracle granted!");
 
                 meltsPlantOracleContext.Melt31s.Load();
-                observableOracleMeltsViewModel = new ObservableOracleMeltsViewModel(new ObservableCollection<V_NC24_PLAV31>(meltsPlantOracleContext.Melt31s.ToList<V_NC24_PLAV31>()));
+                oracleMelts = meltsPlantOracleContext.Melt31s.ToList<V_NC24_PLAV31>();
+                observableOracleMeltsViewModel = new ObservableOracleMeltsViewModel(new ObservableCollection<V_NC24_PLAV31>(oracleMelts));
                 oracleGrid.DataContext = observableOracleMeltsViewModel;
                 ZapuskStartDate.DataContext = observableOracleMeltsViewModel;
                 ZapuskEndDate.DataContext = observableOracleMeltsViewModel;
