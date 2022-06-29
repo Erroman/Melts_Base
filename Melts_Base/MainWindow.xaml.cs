@@ -40,6 +40,12 @@ namespace Melts_Base
         private ObservableMeltsViewModel observableMeltsViewModel;
         private ObservableOracleMeltsViewModel observableOracleMeltsViewModel;
         private ObservableSybaseMeltsViewModel  observableSybaseMeltsViewModel;
+        OdbcConnectionStringBuilder constr = new OdbcConnectionStringBuilder()
+        {
+            ["Dsn"] = "sybase",
+            ["uid"] = "romanovskii",
+            ["pwd"] = "12345"
+        };
 
         public MainWindow()
         {
@@ -82,12 +88,7 @@ namespace Melts_Base
                 PlantMeltNumberSought.DataContext = observableOracleMeltsViewModel;
             }
             else MessageBox.Show("No connection with Plant's Oracle!");
-            OdbcConnectionStringBuilder constr = new OdbcConnectionStringBuilder()
-            {
-                ["Dsn"] = "sybase",
-                ["uid"] = "romanovskii",
-                ["pwd"] = "12345"
-            };
+      
             using (OdbcConnection connection = new OdbcConnection(constr.ConnectionString))
             {
                 try
@@ -101,7 +102,7 @@ namespace Melts_Base
                     OdbcCommand command = new OdbcCommand(queryString);
                     command.Connection = connection;
                     OdbcDataReader odbcDataReader = command.ExecuteReader();
-                    List<SybaseMelt> sybaseMelts = new List<SybaseMelt>();
+                    List<SybaseMelt> sybaseMelts = produceSybaseMeltsList();
                     while (odbcDataReader.Read()) 
                     {
                         DateTime melt_end;
@@ -141,7 +142,7 @@ namespace Melts_Base
                 }catch { MessageBox.Show("No connection with Sybase."); }
             } 
         }
-
+        private List<SybaseMelt> produceSybaseMeltsList() { return new List<SybaseMelt>(); }
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             meltsContext.SaveChanges();
@@ -150,7 +151,8 @@ namespace Melts_Base
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (meltsPlantOracleContext.Database.CanConnect())
+            using (OdbcConnection connection = new OdbcConnection(constr.ConnectionString)) { }
+                if (meltsPlantOracleContext.Database.CanConnect())
             {
                 var sqlightAllMelts = meltsContext.Melts.ToList();
                 var plantOracleAllMelts = meltsPlantOracleContext.Melt31s.ToList();
