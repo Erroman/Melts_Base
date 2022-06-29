@@ -50,15 +50,7 @@ namespace Melts_Base
         public MainWindow()
         {
             InitializeComponent();
-            meltsContext.Database.EnsureCreated();
-            meltsContext.Melts.Load();
-            observableMeltsViewModel = new ObservableMeltsViewModel(meltsContext.Melts.Local.ToObservableCollection());
-            localcopyGrid.DataContext = observableMeltsViewModel;
-            localZapuskStartDate.DataContext = observableMeltsViewModel;
-            localZapuskEndDate.DataContext = observableMeltsViewModel;
-            localCloseStartDate.DataContext = observableMeltsViewModel;
-            localCloseEndDate.DataContext = observableMeltsViewModel;
-            localPlantMeltNumberSought.DataContext = observableMeltsViewModel;
+
         }
 
         private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)
@@ -75,9 +67,22 @@ namespace Melts_Base
             dateZap.Width = new DataGridLength(120);
             dateClose.Width = new DataGridLength(120);
             nPlav.Width = new DataGridLength(90);
- 
+
+            readFromSQLiteLocal();
             readFromSybase();
             readFromOracle();
+        }
+        private void readFromSQLiteLocal() 
+        {
+            meltsContext.Database.EnsureCreated();
+            meltsContext.Melts.Load();
+            observableMeltsViewModel = new ObservableMeltsViewModel(meltsContext.Melts.Local.ToObservableCollection());
+            localcopyGrid.DataContext = observableMeltsViewModel;
+            localZapuskStartDate.DataContext = observableMeltsViewModel;
+            localZapuskEndDate.DataContext = observableMeltsViewModel;
+            localCloseStartDate.DataContext = observableMeltsViewModel;
+            localCloseEndDate.DataContext = observableMeltsViewModel;
+            localPlantMeltNumberSought.DataContext = observableMeltsViewModel;
         }
         private void readFromSybase() 
         {
@@ -161,7 +166,7 @@ namespace Melts_Base
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            using (OdbcConnection connection = new OdbcConnection(constr.ConnectionString)) { }
+            //using (OdbcConnection connection = new OdbcConnection(constr.ConnectionString)) { }
                 if (meltsPlantOracleContext.Database.CanConnect())
             {
                 var sqlightAllMelts = meltsContext.Melts.ToList();
