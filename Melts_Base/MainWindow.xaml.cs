@@ -88,61 +88,69 @@ namespace Melts_Base
                 PlantMeltNumberSought.DataContext = observableOracleMeltsViewModel;
             }
             else MessageBox.Show("No connection with Plant's Oracle!");
-      
+            readFromSybase();
+        }
+        private void readFromSybase() 
+        {
             using (OdbcConnection connection = new OdbcConnection(constr.ConnectionString))
             {
                 try
                 {
                     connection.Open();
-                            
-                
-                if (connection.State == ConnectionState.Open) 
-                { 
-                    string queryString = @"SELECT * FROM ""DBA"".""rmelts""";
-                    OdbcCommand command = new OdbcCommand(queryString);
-                    command.Connection = connection;
-                    OdbcDataReader odbcDataReader = command.ExecuteReader();
-                    List<SybaseMelt> sybaseMelts = produceSybaseMeltsList();
-                    while (odbcDataReader.Read()) 
+
+
+                    if (connection.State == ConnectionState.Open)
                     {
-                        DateTime melt_end;
-                        DateTime.TryParse(odbcDataReader["me_end"].ToString(), out melt_end);
-                        var melt_sybase = new SybaseMelt
+                        string queryString = @"SELECT * FROM ""DBA"".""rmelts""";
+                        OdbcCommand command = new OdbcCommand(queryString);
+                        command.Connection = connection;
+                        OdbcDataReader odbcDataReader = command.ExecuteReader();
+                        List<SybaseMelt> sybaseMelts = new List<SybaseMelt>();
+                        while (odbcDataReader.Read())
                         {
-                            me_num = odbcDataReader["me_num"].ToString(),
-                            eq_id = odbcDataReader["eq_id"].ToString(),
-                            me_beg = DateTime.Parse(odbcDataReader["me_beg"].ToString()),
-                            me_end = melt_end == DateTime.Parse("01.01.0001") ? null : melt_end,
-                            me_splav = odbcDataReader["me_splav"].ToString(),
-                            sp_name = odbcDataReader["sp_name"].ToString(),
-                            me_mould = odbcDataReader["me_mould"].ToString(),
-                            me_del = odbcDataReader["me_del"].ToString(),
-                            me_weigth = odbcDataReader["me_weigth"].ToString(),
-                            me_ukaz = odbcDataReader["me_ukaz"].ToString(),
-                            me_kont = odbcDataReader["me_kont"].ToString(),
-                            me_pril = odbcDataReader["me_pril"].ToString(),
-                            me_nazn = odbcDataReader["me_nazn"].ToString(),
-                            me_diam = odbcDataReader["me_diam"].ToString(),
-                            me_pos = odbcDataReader["me_pos"].ToString(),
-                            me_kat = odbcDataReader["me_kat"].ToString(),
-                            sp_id = odbcDataReader["sp_id"].ToString(),
-                            me_energy = odbcDataReader["me_energy"].ToString(),
-                        };
-                        sybaseMelts.Add(melt_sybase); ;
+                            DateTime melt_end;
+                            DateTime.TryParse(odbcDataReader["me_end"].ToString(), out melt_end);
+                            var melt_sybase = new SybaseMelt
+                            {
+                                me_num = odbcDataReader["me_num"].ToString(),
+                                eq_id = odbcDataReader["eq_id"].ToString(),
+                                me_beg = DateTime.Parse(odbcDataReader["me_beg"].ToString()),
+                                me_end = melt_end == DateTime.Parse("01.01.0001") ? null : melt_end,
+                                me_splav = odbcDataReader["me_splav"].ToString(),
+                                sp_name = odbcDataReader["sp_name"].ToString(),
+                                me_mould = odbcDataReader["me_mould"].ToString(),
+                                me_del = odbcDataReader["me_del"].ToString(),
+                                me_weigth = odbcDataReader["me_weigth"].ToString(),
+                                me_ukaz = odbcDataReader["me_ukaz"].ToString(),
+                                me_kont = odbcDataReader["me_kont"].ToString(),
+                                me_pril = odbcDataReader["me_pril"].ToString(),
+                                me_nazn = odbcDataReader["me_nazn"].ToString(),
+                                me_diam = odbcDataReader["me_diam"].ToString(),
+                                me_pos = odbcDataReader["me_pos"].ToString(),
+                                me_kat = odbcDataReader["me_kat"].ToString(),
+                                sp_id = odbcDataReader["sp_id"].ToString(),
+                                me_energy = odbcDataReader["me_energy"].ToString(),
+                            };
+                            sybaseMelts.Add(melt_sybase); ;
+                        }
+                        observableSybaseMeltsViewModel = new ObservableSybaseMeltsViewModel(new ObservableCollection<SybaseMelt>(sybaseMelts));
+                        shop31Grid.DataContext = observableSybaseMeltsViewModel;
+                        shop31PlantMeltNumberSought.DataContext = observableSybaseMeltsViewModel;
+                        shop31ZapuskStartDate.DataContext = observableSybaseMeltsViewModel;
+                        shop31ZapuskEndDate.DataContext = observableSybaseMeltsViewModel;
                     }
-                    observableSybaseMeltsViewModel = new ObservableSybaseMeltsViewModel(new ObservableCollection<SybaseMelt>(sybaseMelts));
-                    shop31Grid.DataContext = observableSybaseMeltsViewModel;
-                    shop31PlantMeltNumberSought.DataContext = observableSybaseMeltsViewModel;
-                    shop31ZapuskStartDate.DataContext=observableSybaseMeltsViewModel;
-                    shop31ZapuskEndDate.DataContext=observableSybaseMeltsViewModel;
-                }
-                else MessageBox.Show("The connection to Sybase is "+connection.State.ToString());
+                    else MessageBox.Show("The connection to Sybase is " + connection.State.ToString());
                     // The connection is automatically closed at
                     // the end of the Using block.
-                }catch { MessageBox.Show("No connection with Sybase."); }
-            } 
+                }
+                catch { MessageBox.Show("No connection with Sybase."); }
+            }
         }
-        private List<SybaseMelt> produceSybaseMeltsList() { return new List<SybaseMelt>(); }
+        private List<SybaseMelt> produceSybaseMeltsList() 
+        {
+            var sybaseMelts = new List<SybaseMelt>();
+            return sybaseMelts; 
+        }
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             meltsContext.SaveChanges();
