@@ -170,16 +170,17 @@ namespace Melts_Base
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //using (OdbcConnection connection = new OdbcConnection(constr.ConnectionString)) { }
-                if (meltsPlantOracleContext.Database.CanConnect())
-            {
+            //    if (meltsPlantOracleContext.Database.CanConnect())
+            //{
                 //var sqlightAllMelts = meltsContext.Melts.ToList();
                 //var plantOracleAllMelts = meltsPlantOracleContext.Melt31s.ToList();
-                var sqlightAllMelts = localSQLLiteMelts.ToList();
-                var plantOracleAllMelts = oracleMelts;
-                PumpPlantOracleData(plantOracleAllMelts, sqlightAllMelts);
+                //var sqlightAllMelts = localSQLLiteMelts.ToList();
+                //var plantOracleAllMelts = oracleMelts;
+                //PumpPlantOracleData(plantOracleAllMelts, sqlightAllMelts);
+                PumpPlantData(sybaseMelts,oracleMelts,localSQLLiteMelts.ToList());
                 MessageBox.Show("Подкачка выполнена!");
-            }
-            else MessageBox.Show("Соединение с цеховой базой Oracle отсутствует!");
+            //}
+            //else MessageBox.Show("Соединение с цеховой базой Oracle отсутствует!");
         }
         private void PumpPlantOracleData(List<V_NC24_PLAV31> listOracleMelts, List<Melt> listSqLiteMelts) 
         {
@@ -242,12 +243,14 @@ namespace Melts_Base
             }
             meltsContext.SaveChanges();
         }
-        private void PumpPlantSybaseData(List<SybaseMelt> listSybaseMelts,List<V_NC24_PLAV31> listOracleMelts, List<Melt> listSqLiteMelts)
+        private void PumpPlantData(List<SybaseMelt> listSybaseMelts,List<V_NC24_PLAV31> listOracleMelts, List<Melt> listSqLiteMelts)
         {
             //var listNewMelts = new List<PostgresFiles.MeltPostgres>();
             //var listChangedMelts = new List<PostgresFiles.MeltPostgres>();
-            int fullPlantCount = listOracleMelts.Count();
+            int fullPlantOracleCount = listOracleMelts.Count();
+            int fullPlantSybaseCount = listSybaseMelts.Count();
             int fullLocalCount = listSqLiteMelts.Count();
+            return; 
             int meltPlantCount = 0;
             int meltLocalCount = 0;
 
