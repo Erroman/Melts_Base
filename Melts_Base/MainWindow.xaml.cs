@@ -254,17 +254,20 @@ namespace Melts_Base
             int meltPlantCount = 0;
             int meltLocalCount = 0;
 
-            foreach (var oracleMelt in listOracleMelts)
+            foreach (var sybaseMelt in listSybaseMelts)
             {
                 var MeltFound = false;
                 meltPlantCount++;
-                //проверяем, есть ли запись в локальной базе SqLite, соответствующая плавке в базе Oracle
+                //проверяем, есть ли запись в локальной базе SqLite, соответствующая плавке в базе Sybase
                 //сравнение ведём по номеру плавки и hash-коду
-                //если записи такой нет, добавляем
+                //если записи такой нет, добавляем запись с данным номером плавки, формируя её из 
+                //записи в Sybase и полей записи в Oracle, если такова будет найдена для этого номера плавки.
                 foreach (var melt in listSqLiteMelts)
                 {
                     meltLocalCount++;
-                    if (oracleMelt.Nplav == melt.Nplav && oracleMelt.MyHashCode() == melt.MyHashCode())
+                    //находим данную плавку в listSybaseMelts, составляем полную плавку,найдя 
+                    //потом определяем её hashcode
+                    if (sybaseMelt.me_num == melt.Nplav && sybaseMelt.MyHashCode() == melt.MyHashCode())
                     {
                         MeltFound = true;
                     }
@@ -275,31 +278,31 @@ namespace Melts_Base
                     //дополнительные поля берутся из Oracle,основной список полей берём из Sybase
                     var newMelt = new Melt()
                     {
-                        Npech = oracleMelt.Npech,
-                        Nplav = oracleMelt.Nplav,
-                        Npart = oracleMelt.Npart,
-                        RazmPasp = oracleMelt.RazmPasp,
-                        Splav = oracleMelt.Splav,
-                        Ins = oracleMelt.Ins,
-                        Tek = oracleMelt.Tek,
-                        Pereplav = oracleMelt.Pereplav,
-                        OkonchPereplav = oracleMelt.OkonchPereplav,
-                        DateZap = oracleMelt.DateZap,
-                        DateClose = oracleMelt.DateClose,
-                        SumVesZapusk = oracleMelt.SumVesZapusk,
-                        Zapusk31 = oracleMelt.Zapusk31,
-                        ZapuskNakl = oracleMelt.ZapuskNakl,
-                        ZapuskPpf = oracleMelt.ZapuskPpf,
-                        Dsd = oracleMelt.Dsd,
-                        Ncp = oracleMelt.Ncp,
-                        VesSdch = oracleMelt.VesSdch,
-                        RazmSdch = oracleMelt.RazmSdch,
-                        MfgOrderId = oracleMelt.MfgOrderId,
-                        DemandOrderId = oracleMelt.DemandOrderId,
-                        Poz = oracleMelt.Poz,
-                        PozNaim = oracleMelt.PozNaim,
-                        PozRazm = oracleMelt.PozRazm,
-                        PozIl = oracleMelt.PozIl,
+                        Npech = sybaseMelt.eq_id,
+                        Nplav = sybaseMelt.me_num,
+                       // Npart = sybaseMelt.Npart,
+                        //RazmPasp = sybaseMelt.RazmPasp,
+                        //Splav = sybaseMelt.Splav,
+                        //Ins = sybaseMelt.Ins,
+                        //Tek = sybaseMelt.Tek,
+                        //Pereplav = sybaseMelt.Pereplav,
+                        //OkonchPereplav = sybaseMelt.OkonchPereplav,
+                        //DateZap = sybaseMelt.DateZap,
+                        //DateClose = sybaseMelt.DateClose,
+                        //SumVesZapusk = sybaseMelt.SumVesZapusk,
+                        //Zapusk31 = sybaseMelt.Zapusk31,
+                        //ZapuskNakl = sybaseMelt.ZapuskNakl,
+                        //ZapuskPpf = sybaseMelt.ZapuskPpf,
+                        //Dsd = sybaseMelt.Dsd,
+                        //Ncp = sybaseMelt.Ncp,
+                        //VesSdch = sybaseMelt.VesSdch,
+                        //RazmSdch = sybaseMelt.RazmSdch,
+                        //MfgOrderId = sybaseMelt.MfgOrderId,
+                        //DemandOrderId = sybaseMelt.DemandOrderId,
+                        //Poz = sybaseMelt.Poz,
+                        //PozNaim = sybaseMelt.PozNaim,
+                        //PozRazm = sybaseMelt.PozRazm,
+                        //PozIl = sybaseMelt.PozIl,
                     };
                     meltsContext.Add<Melt>(newMelt);
                 }

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace Melts_Base.SybaseModels
 {
@@ -28,6 +31,16 @@ namespace Melts_Base.SybaseModels
         public string? me_kat { get; set; }   // ?
         public string? sp_id { get; set; }   // ?
         public string? me_energy { get; set; }   // ?
+        public int MyHashCode()
+        {
+            return eq_id?.GetHashCode() ?? 0 + me_num?.GetHashCode() ?? 0 +
+               me_beg.GetHashCode() + me_end.GetHashCode() + me_splav?.GetHashCode() ?? 0 +
+               sp_name?.GetHashCode() ?? 0 + me_mould?.GetHashCode() ?? 0 + me_del?.GetHashCode() ?? 0 +
+               me_ukaz?.GetHashCode() ?? 0 + me_kont?.GetHashCode() ?? 0 + me_pril?.GetHashCode() ?? 0 +
+               me_nazn?.GetHashCode() ?? 0 + me_diam?.GetHashCode() ?? 0 + me_weigth?.GetHashCode() ?? 0 +
+               me_zakaz?.GetHashCode() ?? 0 + me_pos.GetHashCode() + me_kat?.GetHashCode() ?? 0 +
+               sp_id?.GetHashCode() ?? 0 + me_energy?.GetHashCode() ?? 0;
+        }
 
 
     }

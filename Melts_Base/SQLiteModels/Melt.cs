@@ -11,7 +11,7 @@ namespace Melts_Base.SQLiteModels
     {
         public int MeltId { get; set; }
         public string Npech { get; set; }
-        public string Nplav { get; set; }
+        public string Nplav { get; set; }      // 1
         public string Npart { get; set; }
         public string RazmPasp { get; set; }
         public string Splav { get; set; }
