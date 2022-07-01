@@ -182,67 +182,6 @@ namespace Melts_Base
             //}
             //else MessageBox.Show("Соединение с цеховой базой Oracle отсутствует!");
         }
-        private void PumpPlantOracleData(List<OracleMelt> listOracleMelts, List<Melt> listSqLiteMelts) 
-        {
-            //var listNewMelts = new List<PostgresFiles.MeltPostgres>();
-            //var listChangedMelts = new List<PostgresFiles.MeltPostgres>();
-            int fullPlantCount = listOracleMelts.Count();               
-            int fullLocalCount = listSqLiteMelts.Count();
-            int meltPlantCount = 0;
-            int meltLocalCount = 0;
-
-            foreach (var oracleMelt in listOracleMelts) 
-            {
-                var MeltFound = false;
-                meltPlantCount++;
-                //проверяем, есть ли запись в локальной базе SqLite, соответствующая плавке в базе Oracle
-                //сравнение ведём по номеру плавки и hash-коду
-                //если записи такой нет, добавляем
-                foreach (var melt in listSqLiteMelts) 
-                {
-                    meltLocalCount++;
-                    if(oracleMelt.Nplav == melt.Nplav && oracleMelt.MyHashCode()==melt.MyHashCode()) 
-                    {
-                        MeltFound = true;
-                    }
-                }
-                if (!MeltFound) 
-                {
-                    //конструируется новая запись по плавке для SqLite,
-                    //дополнительные поля берутся из Oracle,основной список полей берём из Sybase
-                    var newMelt = new Melt()
-                    {
-                        Npech = oracleMelt.Npech,
-                        Nplav = oracleMelt.Nplav,
-                        Npart = oracleMelt.Npart,
-                        RazmPasp = oracleMelt.RazmPasp,
-                        Splav = oracleMelt.Splav,
-                        Ins = oracleMelt.Ins,
-                        Tek = oracleMelt.Tek,
-                        Pereplav = oracleMelt.Pereplav,
-                        OkonchPereplav = oracleMelt.OkonchPereplav,
-                        DateZap = oracleMelt.DateZap,
-                        DateClose = oracleMelt.DateClose,
-                        SumVesZapusk = oracleMelt.SumVesZapusk,
-                        Zapusk31 = oracleMelt.Zapusk31,
-                        ZapuskNakl = oracleMelt.ZapuskNakl,
-                        ZapuskPpf = oracleMelt.ZapuskPpf,
-                        Dsd = oracleMelt.Dsd,
-                        Ncp = oracleMelt.Ncp,
-                        VesSdch = oracleMelt.VesSdch,
-                        RazmSdch = oracleMelt.RazmSdch,
-                        MfgOrderId = oracleMelt.MfgOrderId,
-                        DemandOrderId = oracleMelt.DemandOrderId,
-                        Poz = oracleMelt.Poz,
-                        PozNaim = oracleMelt.PozNaim,
-                        PozRazm = oracleMelt.PozRazm,
-                        PozIl = oracleMelt.PozIl,
-                    };
-                    meltsContext.Add<Melt>(newMelt);
-                }                    
-            }
-            meltsContext.SaveChanges();
-        }
         private void PumpPlantData(List<SybaseMelt> listSybaseMelts,List<OracleMelt> listOracleMelts, List<Melt> listSqLiteMelts)
         {
             //var listNewMelts = new List<PostgresFiles.MeltPostgres>();
@@ -274,7 +213,7 @@ namespace Melts_Base
                 {
                     meltLocalCount++;
 
-                    if (sybaseMelt.me_num == melt.Nplav && sybaseMelt.MyHashCode() == melt.MyHashCode())
+                    if (sybaseMelt.me_num == melt.me_num && sybaseMelt.MyHashCode() == melt.MyHashCode())
                     {
                         MeltFound = true;
                     }
@@ -285,8 +224,8 @@ namespace Melts_Base
                     //дополнительные поля берутся из Oracle,основной список полей берём из Sybase
                     var newMelt = new Melt()
                     {
-                        Npech = sybaseMelt.eq_id,
-                        Nplav = sybaseMelt.me_num,
+                        eq_id = sybaseMelt.eq_id,
+                        me_num = sybaseMelt.me_num,
                        // Npart = sybaseMelt.Npart,
                         //RazmPasp = sybaseMelt.RazmPasp,
                         //Splav = sybaseMelt.Splav,

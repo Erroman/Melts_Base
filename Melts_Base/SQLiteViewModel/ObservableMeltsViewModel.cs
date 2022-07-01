@@ -116,7 +116,7 @@ namespace Melts_Base.SQLiteViewModel
                 bool startdateFilterSet = DateTime.TryParse(StartDate, out startdate);
                 bool enddateFilterSet = DateTime.TryParse(EndDate, out enddate);
                 return
-                    (!startdateFilterSet || (startdate <= melt.DateZap)) && (!enddateFilterSet || (melt.DateZap <= enddate));
+                    (!startdateFilterSet || (startdate <= melt.me_beg)) && (!enddateFilterSet || (melt.me_beg <= enddate));
 
             }
             return false;
@@ -132,7 +132,7 @@ namespace Melts_Base.SQLiteViewModel
                 bool startdateFilterSet = DateTime.TryParse(StartCloseDate, out startdate);
                 bool enddateFilterSet = DateTime.TryParse(EndCloseDate, out enddate);
                 return
-                    (!startdateFilterSet || (startdate <= melt.DateClose)) && (!enddateFilterSet || (melt.DateClose <= enddate));
+                    (!startdateFilterSet || (startdate <= melt.me_end)) && (!enddateFilterSet || (melt.me_end <= enddate));
 
             }
             return false;
@@ -150,10 +150,10 @@ namespace Melts_Base.SQLiteViewModel
                 if (String.IsNullOrEmpty(MeltNumberSought))
                     return true;
                 else
-                    if(melt.Nplav == null)
+                    if(melt.me_num == null)
                        return false;
                     else
-                       return (melt.Nplav.IndexOf(MeltNumberSought, StringComparison.OrdinalIgnoreCase) >= 0);
+                       return (melt.me_num.IndexOf(MeltNumberSought, StringComparison.OrdinalIgnoreCase) >= 0);
             }
             return false; 
         }

@@ -10,42 +10,40 @@ namespace Melts_Base.SQLiteModels
     public class Melt
     {
         public int MeltId { get; set; }
-        public string Npech { get; set; }
-        public string Nplav { get; set; }      // 1
-        public string Npart { get; set; }
-        public string RazmPasp { get; set; }
-        public string Splav { get; set; }
-        public string Ins { get; set; }
-        public string Tek { get; set; }
-        public string Pereplav { get; set; }
-        public string OkonchPereplav { get; set; }
-        public DateTime DateZap { get; set; }
-        public DateTime? DateClose { get; set; }
-        public decimal? SumVesZapusk { get; set; }
-        public string? Zapusk31 { get; set; }
-        public string? ZapuskNakl { get; set; }
-        public string? ZapuskPpf { get; set; }
-        public DateTime? Dsd { get; set; }
-        public string? Ncp { get; set; }
-        public decimal? VesSdch { get; set; }
-        public string? RazmSdch { get; set; }
-        public string? MfgOrderId { get; set; }
-        public string? DemandOrderId { get; set; }
-        public string? Poz { get; set; }
-        public string? PozNaim { get; set; }
-        public string? PozRazm { get; set; }
-        public string? PozIl { get; set; }
+        public string? eq_id { get; set; }   //номер печи
+        public string? me_num { get; set; }  //номер плавки
+        public DateTime me_beg { get; set; } //время начала плавки
+        public DateTime? me_end { get; set; } //время конца плавки
+        public string? me_splav { get; set; } //наменование сплава
+        public string? sp_name { get; set; }  //полное наименование сплава
+        public string? me_mould { get; set; } //предположительно номер комплекта
+        public string? me_del { get; set; } //предположительно диаметр электрода  
+        public string? me_ukaz { get; set; }   //Указание
+        public string? me_kont { get; set; }    //предположительно контракт
+        //Key = "me_kont"
+        public string? me_pril { get; set; }    //возможно приложение
+        public string? me_nazn { get; set; }    //назначение
+        public string? me_diam { get; set; }    //предположительно диаметр слитка
+        public string? me_weigth { get; set; } //предположительно вес слитка
+        public string? me_zakaz { get; set; } // ?
+        public string? me_pos { get; set; }   // ?
+        public string? me_kat { get; set; }   // ?
+        public string? sp_id { get; set; }   // ?
+        public string? me_energy { get; set; }   // ?
+        public string? oracle_Ins { get; set; } //индекс сплава из Оракл
+        public string? oracle_Tek { get; set; } //№ТЕК из Оракл
         public int MyHashCode()
         {
-            return Npech?.GetHashCode() ?? 0 + Nplav?.GetHashCode() ?? 0 +
-               Npart?.GetHashCode() ?? 0 + RazmPasp?.GetHashCode() ?? 0 + Splav?.GetHashCode() ?? 0 +
-               Ins?.GetHashCode() ?? 0 + Tek?.GetHashCode() ?? 0 + Pereplav?.GetHashCode() ?? 0 +
-               OkonchPereplav?.GetHashCode() ?? 0 + DateZap.GetHashCode() + DateClose.GetHashCode() +
-               SumVesZapusk?.GetHashCode() ?? 0 + Zapusk31?.GetHashCode() ?? 0 + ZapuskNakl?.GetHashCode() ?? 0 +
-               ZapuskPpf?.GetHashCode() ?? 0 + Dsd.GetHashCode() + Ncp?.GetHashCode() ?? 0 +
-               VesSdch?.GetHashCode() ?? 0 + RazmSdch?.GetHashCode() ?? 0 + MfgOrderId?.GetHashCode() ?? 0 +
-               DemandOrderId?.GetHashCode() ?? 0 + Poz?.GetHashCode() ?? 0 + PozNaim?.GetHashCode() ?? 0 +
-               PozRazm?.GetHashCode() ?? 0 + PozIl?.GetHashCode() ?? 0;
+            return eq_id?.GetHashCode() ?? 0 + me_num?.GetHashCode() ?? 0 +
+               me_beg.GetHashCode() + me_end.GetHashCode() + me_splav?.GetHashCode() ?? 0 +
+               sp_name?.GetHashCode() ?? 0 + me_mould?.GetHashCode() ?? 0 + me_del?.GetHashCode() ?? 0 +
+               me_ukaz?.GetHashCode() ?? 0 + me_kont?.GetHashCode() ?? 0 + me_pril?.GetHashCode() ?? 0 +
+               me_nazn?.GetHashCode() ?? 0 + me_diam?.GetHashCode() ?? 0 + me_weigth?.GetHashCode() ?? 0 +
+               me_zakaz?.GetHashCode() ?? 0 + me_pos.GetHashCode() + me_kat?.GetHashCode() ?? 0 +
+               sp_id?.GetHashCode() ?? 0 + me_energy?.GetHashCode() ?? 0 +
+               oracle_Ins?.GetHashCode() ?? 0 + oracle_Tek?.GetHashCode() ?? 0;
         }
+
+
     }
 }
