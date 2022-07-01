@@ -398,9 +398,9 @@
                             <DataGridTextColumn Binding="{Binding MeltId}"
                                     Header="Id плавки" Width="SizeToHeader"
                                     IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Npech}" Header="Номер печи" 
+                            <DataGridTextColumn Binding="{Binding eq_id}" Header="Номер печи" 
                                     Width="*"/>
-                            <DataGridTextColumn x:Name="localnPlav" Binding="{Binding Nplav}" 
+                            <DataGridTextColumn x:Name="localnPlav" Binding="{Binding me_num}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <Grid>
@@ -417,21 +417,7 @@
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding Npart}" Header="Npart" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding RazmPasp}" Header="RazmPasp" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Splav}" Header="Сплав" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Ins}" Header="Индекс" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Tek}" Header="Tek" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Pereplav}" Header="Номер переплава" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding OkonchPereplav}" Header="Признак окончательного переплава" 
-                                    Width="*"/>
-                            <DataGridTextColumn x:Name="localdateZap" Binding="{Binding DateZap, StringFormat=dd.MM.yyyy HH:mm}" 
+                            <DataGridTextColumn x:Name="localdateZap" Binding="{Binding me_beg, StringFormat=dd.MM.yyyy HH:mm}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <Grid>
@@ -456,7 +442,18 @@
                                         </Grid>
                                     </Grid>
                                 </DataGridTextColumn.Header>
-                            </DataGridTextColumn>
+                            </DataGridTextColumn>                            
+                            <DataGridTextColumn Binding="{Binding Splav}" Header="Сплав" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Ins}" Header="Индекс" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Tek}" Header="Tek" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Pereplav}" Header="Номер переплава" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding OkonchPereplav}" Header="Признак окончательного переплава" 
+                                    Width="*"/>
+
                             <DataGridTextColumn x:Name="localdateClose" Binding="{Binding DateClose, StringFormat=dd.MM.yyyy HH:mm}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
