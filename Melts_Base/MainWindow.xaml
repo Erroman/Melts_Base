@@ -425,7 +425,7 @@
                                             <RowDefinition/>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                        <TextBlock>Время запуска</TextBlock>
+                                        <TextBlock>Время начала плавки</TextBlock>
                                         <Grid Grid.Row="1">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition/>
@@ -442,19 +442,9 @@
                                         </Grid>
                                     </Grid>
                                 </DataGridTextColumn.Header>
-                            </DataGridTextColumn>                            
-                            <DataGridTextColumn Binding="{Binding Splav}" Header="Сплав" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Ins}" Header="Индекс" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Tek}" Header="Tek" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Pereplav}" Header="Номер переплава" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding OkonchPereplav}" Header="Признак окончательного переплава" 
-                                    Width="*"/>
+                            </DataGridTextColumn>
 
-                            <DataGridTextColumn x:Name="localdateClose" Binding="{Binding DateClose, StringFormat=dd.MM.yyyy HH:mm}" 
+                            <DataGridTextColumn x:Name="localdateClose" Binding="{Binding me_end, StringFormat=dd.MM.yyyy HH:mm}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <Grid>
@@ -462,7 +452,7 @@
                                             <RowDefinition/>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                        <TextBlock>Время завершения</TextBlock>
+                                        <TextBlock>Время завершения плавки</TextBlock>
                                         <Grid Grid.Row="1">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition/>
@@ -480,35 +470,28 @@
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding SumVesZapusk}" Header="SumVesZapusk" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Zapusk31}" Header="Zapusk31" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding ZapuskNakl}" Header="ZapuskNakl" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding ZapuskPpf}" Header="ZapuskPpf" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Dsd, StringFormat=dd.MM.yyyy}" Header="Дата сдачи" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Ncp}" Header="NCP" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding VesSdch}" Header="Вес сдачи" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding RazmSdch}" Header="RazmSdch" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding MfgOrderId}" Header="MfgOrderId"/>
-                            <DataGridTextColumn Binding="{Binding DemandOrderId}" Header="DemandOrderId" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Poz}" Header="Poz" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding PozNaim}" Header="PozNaim" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding PozRazm}" Header="PozRazm" 
-                                    Width="*"/>
-                            <DataGridTextColumn Binding="{Binding PozIl}" Header="PozIl" 
-                                    Width="*"/>
 
-                        </DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding sp_name}" Header="Сплав" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding oracle_Ins}" Header="Индекс" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding me_mould}" Header="Номер комплекта" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding me_del}" Header="Диаметр расходуемого электрода" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding oracle_Tek}" Header="№ТЭК" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding me_ukaz}" Header="ИЛ/УиС/ШН" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding me_kont}" Header="Контракт" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding me_pril}" Header="Приложение" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding me_nazn}" Header="Назначение" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding me_diam}" Header="Диаметр слитка" 
+                                    Width="*"/>
+                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </TabItem>
