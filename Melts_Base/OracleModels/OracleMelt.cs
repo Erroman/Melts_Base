@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Melts_Base.OracleModels
 {
-    public partial class V_NC24_PLAV31
+    public partial class OracleMelt
     {
         public int PasportId { get; set; }
         public string? Npech { get; set; }

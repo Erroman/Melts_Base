@@ -19,15 +19,15 @@ namespace Melts_Base.OracleViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public ObservableOracleMeltsViewModel(ObservableCollection<V_NC24_PLAV31> melts)
+        public ObservableOracleMeltsViewModel(ObservableCollection<OracleMelt> melts)
         {
             Melts = melts;
 
             _view = new ListCollectionView(melts);
             _view.Filter = ListCollectionView_Filter;
         }
-        private ObservableCollection<V_NC24_PLAV31> _melts;
-        public ObservableCollection<V_NC24_PLAV31> Melts
+        private ObservableCollection<OracleMelt> _melts;
+        public ObservableCollection<OracleMelt> Melts
         {
             get => _melts;
             set { _melts = value; OnPropertyChanged(); }
@@ -110,7 +110,7 @@ namespace Melts_Base.OracleViewModel
         private bool meltDateFilter(object Item)
         {
 
-            var melt = Item as V_NC24_PLAV31;
+            var melt = Item as OracleMelt;
             if (melt != null)
             {
                 DateTime startdate;
@@ -126,7 +126,7 @@ namespace Melts_Base.OracleViewModel
         private bool meltCloseDateFilter(object Item)
         {
 
-            var melt = Item as V_NC24_PLAV31;
+            var melt = Item as OracleMelt;
             if (melt != null)
             {
                 DateTime startdate;
@@ -141,7 +141,7 @@ namespace Melts_Base.OracleViewModel
         }
         private bool meltNumberFilter(object Item)
         {
-            var melt = Item as V_NC24_PLAV31;
+            var melt = Item as OracleMelt;
             if (melt != null)
             {
                 //int meltnumbersought;

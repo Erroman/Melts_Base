@@ -48,7 +48,7 @@ namespace Melts_Base
         };
         ObservableCollection<Melt> localSQLLiteMelts = null;
         List<SybaseMelt> sybaseMelts = new List<SybaseMelt>();
-        List<V_NC24_PLAV31> oracleMelts = null;
+        List<OracleMelt> oracleMelts = null;
         public MainWindow()
         {
             InitializeComponent();
@@ -149,8 +149,8 @@ namespace Melts_Base
                 //MessageBox.Show("Сonnection with Plant's Oracle granted!");
 
                 meltsPlantOracleContext.Melt31s.Load();
-                oracleMelts = meltsPlantOracleContext.Melt31s.ToList<V_NC24_PLAV31>();
-                observableOracleMeltsViewModel = new ObservableOracleMeltsViewModel(new ObservableCollection<V_NC24_PLAV31>(oracleMelts));
+                oracleMelts = meltsPlantOracleContext.Melt31s.ToList<OracleMelt>();
+                observableOracleMeltsViewModel = new ObservableOracleMeltsViewModel(new ObservableCollection<OracleMelt>(oracleMelts));
                 oracleGrid.DataContext = observableOracleMeltsViewModel;
                 ZapuskStartDate.DataContext = observableOracleMeltsViewModel;
                 ZapuskEndDate.DataContext = observableOracleMeltsViewModel;
@@ -182,7 +182,7 @@ namespace Melts_Base
             //}
             //else MessageBox.Show("Соединение с цеховой базой Oracle отсутствует!");
         }
-        private void PumpPlantOracleData(List<V_NC24_PLAV31> listOracleMelts, List<Melt> listSqLiteMelts) 
+        private void PumpPlantOracleData(List<OracleMelt> listOracleMelts, List<Melt> listSqLiteMelts) 
         {
             //var listNewMelts = new List<PostgresFiles.MeltPostgres>();
             //var listChangedMelts = new List<PostgresFiles.MeltPostgres>();
@@ -243,7 +243,7 @@ namespace Melts_Base
             }
             meltsContext.SaveChanges();
         }
-        private void PumpPlantData(List<SybaseMelt> listSybaseMelts,List<V_NC24_PLAV31> listOracleMelts, List<Melt> listSqLiteMelts)
+        private void PumpPlantData(List<SybaseMelt> listSybaseMelts,List<OracleMelt> listOracleMelts, List<Melt> listSqLiteMelts)
         {
             //var listNewMelts = new List<PostgresFiles.MeltPostgres>();
             //var listChangedMelts = new List<PostgresFiles.MeltPostgres>();

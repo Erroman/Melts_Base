@@ -16,7 +16,7 @@ namespace Melts_Base.OracleModels
         {
         }
 
-        public virtual DbSet<V_NC24_PLAV31> Melt31s  { get; set; } = null!;
+        public virtual DbSet<OracleMelt> Melt31s  { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,7 +32,7 @@ namespace Melts_Base.OracleModels
   //          modelBuilder.HasDefaultSchema("ROMANOVSKII_VG");
 //                .UseCollation("USING_NLS_COMP");
 
-            modelBuilder.Entity<V_NC24_PLAV31>(entity =>
+            modelBuilder.Entity<OracleMelt>(entity =>
             {
                 entity.HasNoKey();
 
