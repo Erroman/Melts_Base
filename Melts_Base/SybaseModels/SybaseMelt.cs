@@ -31,6 +31,8 @@ namespace Melts_Base.SybaseModels
         public string? me_kat { get; set; }   // ?
         public string? sp_id { get; set; }   // ?
         public string? me_energy { get; set; }   // ?
+        public string? oracle_Ins { get; set; } //индекс сплава из Оракл
+        public string? oracle_Tek { get; set; } //№ТЕК из Оракл
         public int MyHashCode()
         {
             return eq_id?.GetHashCode() ?? 0 + me_num?.GetHashCode() ?? 0 +

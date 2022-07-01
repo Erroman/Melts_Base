@@ -258,9 +258,14 @@ namespace Melts_Base
             {
                 var MeltFound = false;
                 meltPlantCount++;
-                //находим данную плавку в listOracleMelts,если нашли,составляем полную плавку,
-                //добавляя поля из найденной
+                //находим информацию по плавке с данным номером в listOracleMelts,если нашли,составляем полную плавку,
+                //добавляя поля из найденной записи.
                 var oracleMelt = listOracleMelts.Where<OracleMelt>(p => p.Nplav == sybaseMelt.me_num).FirstOrDefault<OracleMelt>();
+                if (oracleMelt != null) 
+                { 
+                
+
+                }
                 //потом определяем её hashcode
                 //OracleMelt oracleMelt = from p in listOracleMelts select p;
                 //проверяем, есть ли запись в локальной базе SqLite, соответствующая плавке в базе Sybase
