@@ -41,7 +41,8 @@ namespace Melts_Base.SybaseModels
                me_ukaz?.GetHashCode() ?? 0 + me_kont?.GetHashCode() ?? 0 + me_pril?.GetHashCode() ?? 0 +
                me_nazn?.GetHashCode() ?? 0 + me_diam?.GetHashCode() ?? 0 + me_weigth?.GetHashCode() ?? 0 +
                me_zakaz?.GetHashCode() ?? 0 + me_pos.GetHashCode() + me_kat?.GetHashCode() ?? 0 +
-               sp_id?.GetHashCode() ?? 0 + me_energy?.GetHashCode() ?? 0;
+               sp_id?.GetHashCode() ?? 0 + me_energy?.GetHashCode() ?? 0 +
+               oracle_Ins?.GetHashCode() ?? 0 +oracle_Tek?.GetHashCode() ?? 0;
         }
 
 

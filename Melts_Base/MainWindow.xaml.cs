@@ -262,17 +262,14 @@ namespace Melts_Base
                 //добавляя поля из найденной записи.
                 var oracleMelt = listOracleMelts.Where<OracleMelt>(p => p.Nplav == sybaseMelt.me_num).FirstOrDefault<OracleMelt>();
                 if (oracleMelt != null) 
-                { 
-                
-
+                {
+                    sybaseMelt.oracle_Ins = oracleMelt.Ins;
+                    sybaseMelt.oracle_Tek = oracleMelt.Tek;
                 }
-                //потом определяем её hashcode
-                //OracleMelt oracleMelt = from p in listOracleMelts select p;
                 //проверяем, есть ли запись в локальной базе SqLite, соответствующая плавке в базе Sybase
-                //сравнение ведём по номеру плавки
-
-                //если записи такой нет, добавляем запись с данным номером плавки, формируя её из 
-                //записи в Sybase и полей записи в Oracle, если такова будет найдена для этого номера плавки.
+                //сравнение ведём по номеру плавки и hash-коду.
+                //если записи такой нет, добавляем запись с данным номером плавки, содержащую
+                //информацию из Sybase м Oracle
                 foreach (var melt in listSqLiteMelts)
                 {
                     meltLocalCount++;
