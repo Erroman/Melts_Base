@@ -250,7 +250,7 @@ namespace Melts_Base
             int fullPlantOracleCount = listOracleMelts.Count();
             int fullPlantSybaseCount = listSybaseMelts.Count();
             int fullLocalCount = listSqLiteMelts.Count();
-            return; 
+            //return; 
             int meltPlantCount = 0;
             int meltLocalCount = 0;
 
@@ -258,15 +258,20 @@ namespace Melts_Base
             {
                 var MeltFound = false;
                 meltPlantCount++;
+                //находим данную плавку в listOracleMelts,если нашли,составляем полную плавку,
+                //добавляя поля из найденной
+                var oracleMelt = listOracleMelts.Where<OracleMelt>(p => p.Nplav == sybaseMelt.me_num).FirstOrDefault<OracleMelt>();
+                //потом определяем её hashcode
+                //OracleMelt oracleMelt = from p in listOracleMelts select p;
                 //проверяем, есть ли запись в локальной базе SqLite, соответствующая плавке в базе Sybase
-                //сравнение ведём по номеру плавки и hash-коду
+                //сравнение ведём по номеру плавки
+
                 //если записи такой нет, добавляем запись с данным номером плавки, формируя её из 
                 //записи в Sybase и полей записи в Oracle, если такова будет найдена для этого номера плавки.
                 foreach (var melt in listSqLiteMelts)
                 {
                     meltLocalCount++;
-                    //находим данную плавку в listSybaseMelts, составляем полную плавку,найдя 
-                    //потом определяем её hashcode
+
                     if (sybaseMelt.me_num == melt.Nplav && sybaseMelt.MyHashCode() == melt.MyHashCode())
                     {
                         MeltFound = true;
