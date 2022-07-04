@@ -87,7 +87,7 @@ namespace Melts_Base
             localCloseEndDate.DataContext = observableMeltsViewModel;
             localPlantMeltNumberSought.DataContext = observableMeltsViewModel;
         }
-        private void readFromSybase() 
+        private bool readFromSybase() 
         {
             using (OdbcConnection connection = new OdbcConnection(constr.ConnectionString))
             {
@@ -135,15 +135,16 @@ namespace Melts_Base
                         shop31PlantMeltNumberSought.DataContext = observableSybaseMeltsViewModel;
                         shop31ZapuskStartDate.DataContext = observableSybaseMeltsViewModel;
                         shop31ZapuskEndDate.DataContext = observableSybaseMeltsViewModel;
+                        return true;
                     }
-                    else MessageBox.Show("The connection to Sybase is " + connection.State.ToString());
+                    else { MessageBox.Show("The connection to Sybase is " + connection.State.ToString()); return true; }
                     // The connection is automatically closed at
                     // the end of the Using block.
                 }
-                catch { MessageBox.Show("No connection with Sybase."); }
+                catch { MessageBox.Show("No connection with Sybase."); return false; }
             }
         }
-        private void readFromOracle() 
+        private bool readFromOracle() 
         {
             if (meltsPlantOracleContext.Database.CanConnect())
             {
@@ -158,8 +159,9 @@ namespace Melts_Base
                 CloseStartDate.DataContext = observableOracleMeltsViewModel;
                 CloseEndDate.DataContext = observableOracleMeltsViewModel;
                 PlantMeltNumberSought.DataContext = observableOracleMeltsViewModel;
+                return true;
             }
-            else MessageBox.Show("No connection with Plant's Oracle!");
+            else { MessageBox.Show("No connection with Plant's Oracle!"); return false; }
         }
         
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -170,18 +172,11 @@ namespace Melts_Base
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //using (OdbcConnection connection = new OdbcConnection(constr.ConnectionString)) { }
-            //    if (meltsPlantOracleContext.Database.CanConnect())
-            //{
-                //var sqlightAllMelts = meltsContext.Melts.ToList();
-                //var plantOracleAllMelts = meltsPlantOracleContext.Melt31s.ToList();
-                //var sqlightAllMelts = localSQLLiteMelts.ToList();
-                //var plantOracleAllMelts = oracleMelts;
-                //PumpPlantOracleData(plantOracleAllMelts, sqlightAllMelts);
+            if(readFromSybase() && readFromOracle()) {
                 PumpPlantData(sybaseMelts,oracleMelts,localSQLLiteMelts.ToList());
                 MessageBox.Show("Подкачка выполнена!");
-            //}
-            //else MessageBox.Show("Соединение с цеховой базой Oracle отсутствует!");
+            }
+            else MessageBox.Show("Подкачка невозможна!");
         }
         private void PumpPlantData(List<SybaseMelt> listSybaseMelts,List<OracleMelt> listOracleMelts, List<Melt> listSqLiteMelts)
         {
