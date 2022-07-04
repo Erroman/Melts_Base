@@ -108,6 +108,7 @@ namespace Melts_Base
                             DateTime.TryParse(odbcDataReader["me_end"].ToString(), out melt_end);
                             var melt_sybase = new SybaseMelt
                             {
+                                me_id = odbcDataReader["me_id"].ToString(),
                                 me_num = odbcDataReader["me_num"].ToString(),
                                 eq_id = odbcDataReader["eq_id"].ToString(),
                                 me_beg = DateTime.Parse(odbcDataReader["me_beg"].ToString()),

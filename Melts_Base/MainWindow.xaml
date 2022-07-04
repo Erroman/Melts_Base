@@ -182,6 +182,16 @@
                     <DataGrid Name ="shop31Grid" ItemsSource = "{Binding View}" 
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding me_id}" 
+                                    Width="*">
+                                <DataGridTextColumn.Header>
+                                    <TextBlock>
+                                    <Run>me_id</Run>
+                                        <LineBreak/>
+                                    <Run>Номер записи:</Run>
+                                    </TextBlock>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>                            
                             <DataGridTextColumn Binding="{Binding eq_id}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
@@ -396,7 +406,7 @@
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding MeltId}"
-                                    Header="Id плавки" Width="SizeToHeader"
+                                    Header="Номер записи" Width="SizeToHeader"
                                     IsReadOnly="True"/>
                             <DataGridTextColumn Binding="{Binding eq_id}" Header="Номер печи" 
                                     Width="*"/>

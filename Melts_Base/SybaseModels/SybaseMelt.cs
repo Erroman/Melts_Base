@@ -11,6 +11,7 @@ namespace Melts_Base.SybaseModels
 {
     public class SybaseMelt
     {
+        public string? me_id { get; set; }   //номер записи
         public string? eq_id { get; set; }   //номер печи
         public string? me_num { get; set; }  //номер плавки
         public DateTime me_beg { get; set; } //время начала плавки
