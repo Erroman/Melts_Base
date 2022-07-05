@@ -24,6 +24,8 @@ using Melts_Base.SQLiteViewModel;
 using Melts_Base.SQLiteModels;
 using System.Data.Odbc;
 using System.Data;
+using Excel = Microsoft.Office.Interop.Excel;       //microsoft Excel 14 object in references-> COM tab
+
 
 //using Microsoft.Office.Interop.Excel;
 
@@ -251,9 +253,9 @@ namespace Melts_Base
         private void ExportToExcel(object sender, RoutedEventArgs e)
         {
             
-                //Excel.Application excel = new Excel.Application();
-                //excel.Visible = true;
-                //Workbook workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
+                Excel.Application excel = new Excel.Application();
+                excel.Visible = true;
+                Excel.Workbook workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
                 //Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
 
                 //for (int j = 0; j < DataGridParam.Columns.Count; j++)
