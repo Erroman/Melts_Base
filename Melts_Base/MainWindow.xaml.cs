@@ -52,6 +52,7 @@ namespace Melts_Base
         ObservableCollection<Melt> localSQLLiteMelts = null;
         List<SybaseMelt> sybaseMelts = new List<SybaseMelt>();
         List<OracleMelt> oracleMelts = null;
+        Int64 MeltsCount = 0; //Количество плавок, отображающихся на главном экране пользователя
         public MainWindow()
         {
             InitializeComponent();
@@ -189,13 +190,10 @@ namespace Melts_Base
             int fullPlantSybaseCount = listSybaseMelts.Count();
             int fullLocalCount = listSqLiteMelts.Count();
             //return; 
-            int meltPlantCount = 0;
-            int meltLocalCount = 0;
 
             foreach (var sybaseMelt in listSybaseMelts)
             {
                 var MeltFound = false;
-                meltPlantCount++;
                 //находим информацию по плавке с данным номером в listOracleMelts,если нашли,составляем полную плавку,
                 //добавляя поля из найденной записи.
                 var oracleMelt = listOracleMelts.Where<OracleMelt>(p => p.Nplav == sybaseMelt.me_num).FirstOrDefault<OracleMelt>();
@@ -210,7 +208,7 @@ namespace Melts_Base
                 //информацию из Sybase м Oracle
                 foreach (var melt in listSqLiteMelts)
                 {
-                    meltLocalCount++;
+                    MeltsCount++;
 
                     if (sybaseMelt.me_num == melt.me_num && sybaseMelt.MyHashCode() == melt.MyHashCode())
                     {
@@ -247,17 +245,26 @@ namespace Melts_Base
                     };
                     meltsContext.Add<Melt>(newMelt);
                 }
+
             }
             meltsContext.SaveChanges();
         }
 
         private void ExportToExcel(object sender, RoutedEventArgs e)
         {
-            
-                Excel.Application excel = new Excel.Application();
-                excel.Visible = true;
-                Excel.Workbook workbook = excel.Workbooks.Add();
-                Excel.Worksheet sheet1 = (Excel.Worksheet)workbook.Sheets[1];
+            Excel.Application excel = new Excel.Application();
+            excel.Visible = true;
+            Excel.Workbook workbook = excel.Workbooks.Add();
+            Excel.Worksheet sheet1 = (Excel.Worksheet)workbook.Sheets[1];
+            var numberOfColumns =  localcopyGrid.Columns.Count;
+            for(int j = 1; j < numberOfColumns; j++)
+            {
+                //Range myRange = (Range)sheet1.Cells[1, j];
+                sheet1.Cells[1, j].Font.Bold = true;
+                sheet1.Columns[j].ColumnWidth = 15;
+                sheet1.Cells[1,j] = localcopyGrid.Columns[j-1].Header;
+            }
+
 
                 //for (int j = 0; j < DataGridParam.Columns.Count; j++)
                 //{
