@@ -52,7 +52,7 @@ namespace Melts_Base
         ObservableCollection<Melt> localSQLLiteMelts = null;
         List<SybaseMelt> sybaseMelts = new List<SybaseMelt>();
         List<OracleMelt> oracleMelts = null;
-        Int64 MeltsCount = 0; //Количество плавок, отображающихся на главном экране пользователя
+
         public MainWindow()
         {
             InitializeComponent();
@@ -208,7 +208,6 @@ namespace Melts_Base
                 //информацию из Sybase м Oracle
                 foreach (var melt in listSqLiteMelts)
                 {
-                    MeltsCount++;
 
                     if (sybaseMelt.me_num == melt.me_num && sybaseMelt.MyHashCode() == melt.MyHashCode())
                     {
@@ -257,33 +256,26 @@ namespace Melts_Base
             Excel.Workbook workbook = excel.Workbooks.Add();
             Excel.Worksheet sheet1 = (Excel.Worksheet)workbook.Sheets[1];
             var numberOfColumns =  localcopyGrid.Columns.Count;
-            for(int j = 1; j < numberOfColumns; j++)
+            var numberOfRows = localcopyGrid.Items.Count;
+            for(int j = 0; j < numberOfColumns; j++)
             {
                 //Range myRange = (Range)sheet1.Cells[1, j];
-                sheet1.Cells[1, j].Font.Bold = true;
-                sheet1.Columns[j].ColumnWidth = 15;
-                sheet1.Cells[1,j] = localcopyGrid.Columns[j-1].Header;
+                sheet1.Cells[1, j+1].Font.Bold = true;
+                sheet1.Columns[j+1].ColumnWidth = 15;
+                sheet1.Cells[1,j+1] = localcopyGrid.Columns[j].Header;
             }
 
+            for(int j = 0;j< numberOfColumns;j++)
+                {
+                for (int i = 0; i < numberOfRows; i++)
+                    {
 
-                //for (int j = 0; j < DataGridParam.Columns.Count; j++)
-                //{
-                //    Range myRange = (Range)sheet1.Cells[1, j + 1];
-                //    sheet1.Cells[1, j + 1].Font.Bold = true;
-                //    sheet1.Columns[j + 1].ColumnWidth = 15;
-                //    myRange.Value2 = DataGridParam.Columns[j].Header;
-                //}
-                //for (int i = 0; i < DataGridParam.Columns.Count; i++)
-                //{
-                //    for (int j = 0; j < DataGridParam.Items.Count; j++)
-                //    {
-                //        TextBlock b = DataGridParam.Columns[i].GetCellContent(DataGridParam.Items[j]) as TextBlock;
-                //        Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[j + 2, i + 1];
-                //        myRange.Value2 = b.Text;
-                //    }
-            
-                //}
+                    sheet1.Cells[i + 2, j + 1] = (localcopyGrid.Columns[j].GetCellContent(localcopyGrid.Items[i]) as TextBlock)?.Text;
+                    //sheet1.Cells[i + 2, j + 1] = localcopyGrid.Columns[j].GetCellContent(localcopyGrid.Items[i]);
+                }
 
         }
+
     }
+}
 }
