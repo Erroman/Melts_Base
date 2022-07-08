@@ -9,7 +9,18 @@ namespace Melts_Base.SQLiteModels
 {
     public class Melt
     {
-        public int MeltId { get; set; }
+        public string this[int me] 
+        {
+            get { return IndexDict[me]; }
+
+        }
+        string[] Index = 
+            {
+
+            };
+        Dictionary<int,string> IndexDict = new Dictionary<int,string>();
+        private int melt_id;
+        public int MeltId { get => melt_id;  set { melt_id = value; IndexDict[0] = value.ToString(); }  }
         public string? eq_id { get; set; }   //номер печи
         public string? me_num { get; set; }  //номер плавки
         public DateTime me_beg { get; set; } //время начала плавки

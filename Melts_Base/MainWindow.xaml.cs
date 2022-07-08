@@ -256,22 +256,24 @@ namespace Melts_Base
             Excel.Workbook workbook = excel.Workbooks.Add();
             Excel.Worksheet sheet1 = (Excel.Worksheet)workbook.Sheets[1];
             var numberOfColumns =  localcopyGrid.Columns.Count;
-            var numberOfRows = localcopyGrid.Items.Count;
-            for(int j = 0; j < numberOfColumns; j++)
+            Int64 numberOfRows = 0;
+            foreach(var  vv in observableMeltsViewModel.View)numberOfRows++;
+            for (int j = 0; j < numberOfColumns; j++)
             {
                 //Range myRange = (Range)sheet1.Cells[1, j];
                 sheet1.Cells[1, j+1].Font.Bold = true;
                 sheet1.Columns[j+1].ColumnWidth = 15;
                 sheet1.Cells[1,j+1] = localcopyGrid.Columns[j].Header;
             }
-
-            for(int j = 0;j< numberOfColumns;j++)
+            int i = 0;
+            foreach(var melt in localSQLLiteMelts)
                 {
-                for (int i = 0; i < numberOfRows; i++)
+                i++;
+                for (int j = 0; j < numberOfColumns; j++)
                     {
-
-                    sheet1.Cells[i + 2, j + 1] = (localcopyGrid.Columns[j].GetCellContent(localcopyGrid.Items[i]) as TextBlock)?.Text;
-                    //sheet1.Cells[i + 2, j + 1] = localcopyGrid.Columns[j].GetCellContent(localcopyGrid.Items[i]);
+                    sheet1.Cells[i + 2, j + 1] = melt[0];
+                    //sheet1.Cells[i + 2, j + 1] = (localcopyGrid.Columns[j].GetCellContent(localcopyGrid.Items[i]) as TextBlock)?.Text;
+                    //sheet1.Cells[i + 2, j + 1] = localSQLLiteMelts[]
                 }
 
         }
