@@ -345,7 +345,7 @@
                                     </TextBlock>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding Me_weigth}"
+                            <DataGridTextColumn Binding="{Binding Me_weight}"
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <TextBlock>

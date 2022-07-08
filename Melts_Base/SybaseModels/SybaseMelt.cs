@@ -26,7 +26,7 @@ namespace Melts_Base.SybaseModels
         public string? Me_pril { get; set; }    //возможно приложение
         public string? Me_nazn { get; set; }    //назначение
         public string? Me_diam { get; set; }    //предположительно диаметр слитка
-        public string? Me_weigth { get; set; } //предположительно вес слитка
+        public string? Me_weight { get; set; } //предположительно вес слитка
         public string? Me_zakaz { get; set; } // ?
         public string? Me_pos { get; set; }   // ?
         public string? Me_kat { get; set; }   // ?
@@ -40,7 +40,7 @@ namespace Melts_Base.SybaseModels
                Me_beg.GetHashCode() + Me_end.GetHashCode() + Me_splav?.GetHashCode() ?? 0 +
                Sp_name?.GetHashCode() ?? 0 + Me_mould?.GetHashCode() ?? 0 + Me_del?.GetHashCode() ?? 0 +
                Me_ukaz?.GetHashCode() ?? 0 + Me_kont?.GetHashCode() ?? 0 + Me_pril?.GetHashCode() ?? 0 +
-               Me_nazn?.GetHashCode() ?? 0 + Me_diam?.GetHashCode() ?? 0 + Me_weigth?.GetHashCode() ?? 0 +
+               Me_nazn?.GetHashCode() ?? 0 + Me_diam?.GetHashCode() ?? 0 + Me_weight?.GetHashCode() ?? 0 +
                Me_zakaz?.GetHashCode() ?? 0 + Me_pos.GetHashCode() + Me_kat?.GetHashCode() ?? 0 +
                Sp_id?.GetHashCode() ?? 0 + Me_energy?.GetHashCode() ?? 0 +
                Oracle_Ins?.GetHashCode() ?? 0 +Oracle_Tek?.GetHashCode() ?? 0;

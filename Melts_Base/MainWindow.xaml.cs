@@ -121,7 +121,7 @@ namespace Melts_Base
                                 Sp_name = odbcDataReader["sp_name"].ToString(),
                                 Me_mould = odbcDataReader["me_mould"].ToString(),
                                 Me_del = odbcDataReader["me_del"].ToString(),
-                                Me_weigth = odbcDataReader["me_weigth"].ToString(),
+                                Me_weight = odbcDataReader["me_weigth"].ToString(),
                                 Me_ukaz = odbcDataReader["me_ukaz"].ToString(),
                                 Me_kont = odbcDataReader["me_kont"].ToString(),
                                 Me_pril = odbcDataReader["me_pril"].ToString(),
@@ -233,7 +233,7 @@ namespace Melts_Base
                         Me_pril=sybaseMelt.Me_pril,
                         Me_nazn=sybaseMelt.Me_nazn,
                         Me_diam=sybaseMelt.Me_diam,
-                        Me_weigth=sybaseMelt.Me_weigth,
+                        Me_weight=sybaseMelt.Me_weight,
                         Me_zakaz=sybaseMelt.Me_zakaz,
                         Me_pos=sybaseMelt.Me_pos,
                         Me_kat=sybaseMelt.Me_kat,
@@ -255,29 +255,39 @@ namespace Melts_Base
             excel.Visible = true;
             Excel.Workbook workbook = excel.Workbooks.Add();
             Excel.Worksheet sheet1 = (Excel.Worksheet)workbook.Sheets[1];
-            var numberOfColumns =  localcopyGrid.Columns.Count;
-            Int64 numberOfRows = 0;
-            foreach(var  vv in observableMeltsViewModel.View)numberOfRows++;
-            for (int j = 0; j < numberOfColumns; j++)
-            {
-                //Range myRange = (Range)sheet1.Cells[1, j];
-                sheet1.Cells[1, j+1].Font.Bold = true;
-                sheet1.Columns[j+1].ColumnWidth = 15;
-                sheet1.Cells[1,j+1] = localcopyGrid.Columns[j].Header;
-            }
-            int i = 0;
+            //var numberOfColumns =  localcopyGrid.Columns.Count;
+            //Int64 numberOfRows = 0;
+            //foreach(var  vv in observableMeltsViewModel.View)numberOfRows++;
+            //for (int j = 0; j < numberOfColumns; j++)
+            //{
+            //    //Range myRange = (Range)sheet1.Cells[1, j];
+            //    sheet1.Cells[1, j+1].Font.Bold = true;
+            //    sheet1.Columns[j+1].ColumnWidth = 15;
+            //    sheet1.Cells[1,j+1] = localcopyGrid.Columns[j].Header;
+            //}
+            sheet1.Cells[1, 1] = "Номер записи";
+            int i = 2;
             foreach(var melt in localSQLLiteMelts)
-                {
+            {
+                sheet1.Cells[i, 1] = melt.MeltId;
                 i++;
-                for (int j = 0; j < numberOfColumns; j++)
-                    {
-                    sheet1.Cells[i + 2, j + 1] = melt[0];
-                    //sheet1.Cells[i + 2, j + 1] = (localcopyGrid.Columns[j].GetCellContent(localcopyGrid.Items[i]) as TextBlock)?.Text;
-                    //sheet1.Cells[i + 2, j + 1] = localSQLLiteMelts[]
-                }
+            }
+            sheet1.Cells[1, 2] = "Номер печи";
+            i = 2;
+            foreach (var melt in localSQLLiteMelts)
+            {
+                sheet1.Cells[i, 2] = melt.Eq_id;
+                i++;
+            }
+            sheet1.Cells[1, 3] = "Номер плавки";
+            i = 2;
+            foreach (var melt in localSQLLiteMelts)
+            {
+                sheet1.Cells[i, 3] = melt.Me_num;
+                i++;
+            }
+
 
         }
-
     }
-}
 }
