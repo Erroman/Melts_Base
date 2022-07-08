@@ -112,25 +112,25 @@ namespace Melts_Base
                             DateTime.TryParse(odbcDataReader["me_end"].ToString(), out melt_end);
                             var melt_sybase = new SybaseMelt
                             {
-                                me_id = odbcDataReader["me_id"].ToString(),
-                                me_num = odbcDataReader["me_num"].ToString(),
-                                eq_id = odbcDataReader["eq_id"].ToString(),
-                                me_beg = DateTime.Parse(odbcDataReader["me_beg"].ToString()),
-                                me_end = melt_end == DateTime.Parse("01.01.0001") ? null : melt_end,
-                                me_splav = odbcDataReader["me_splav"].ToString(),
-                                sp_name = odbcDataReader["sp_name"].ToString(),
-                                me_mould = odbcDataReader["me_mould"].ToString(),
-                                me_del = odbcDataReader["me_del"].ToString(),
-                                me_weigth = odbcDataReader["me_weigth"].ToString(),
-                                me_ukaz = odbcDataReader["me_ukaz"].ToString(),
-                                me_kont = odbcDataReader["me_kont"].ToString(),
-                                me_pril = odbcDataReader["me_pril"].ToString(),
-                                me_nazn = odbcDataReader["me_nazn"].ToString(),
-                                me_diam = odbcDataReader["me_diam"].ToString(),
-                                me_pos = odbcDataReader["me_pos"].ToString(),
-                                me_kat = odbcDataReader["me_kat"].ToString(),
-                                sp_id = odbcDataReader["sp_id"].ToString(),
-                                me_energy = odbcDataReader["me_energy"].ToString(),
+                                Me_id = odbcDataReader["me_id"].ToString(),
+                                Me_num = odbcDataReader["me_num"].ToString(),
+                                Eq_id = odbcDataReader["eq_id"].ToString(),
+                                Me_beg = DateTime.Parse(odbcDataReader["me_beg"].ToString()),
+                                Me_end = melt_end == DateTime.Parse("01.01.0001") ? null : melt_end,
+                                Me_splav = odbcDataReader["me_splav"].ToString(),
+                                Sp_name = odbcDataReader["sp_name"].ToString(),
+                                Me_mould = odbcDataReader["me_mould"].ToString(),
+                                Me_del = odbcDataReader["me_del"].ToString(),
+                                Me_weigth = odbcDataReader["me_weigth"].ToString(),
+                                Me_ukaz = odbcDataReader["me_ukaz"].ToString(),
+                                Me_kont = odbcDataReader["me_kont"].ToString(),
+                                Me_pril = odbcDataReader["me_pril"].ToString(),
+                                Me_nazn = odbcDataReader["me_nazn"].ToString(),
+                                Me_diam = odbcDataReader["me_diam"].ToString(),
+                                Me_pos = odbcDataReader["me_pos"].ToString(),
+                                Me_kat = odbcDataReader["me_kat"].ToString(),
+                                Sp_id = odbcDataReader["sp_id"].ToString(),
+                                Me_energy = odbcDataReader["me_energy"].ToString(),
                             };
                             sybaseMelts.Add(melt_sybase); ;
                         }
@@ -196,11 +196,11 @@ namespace Melts_Base
                 var MeltFound = false;
                 //находим информацию по плавке с данным номером в listOracleMelts,если нашли,составляем полную плавку,
                 //добавляя поля из найденной записи.
-                var oracleMelt = listOracleMelts.Where<OracleMelt>(p => p.Nplav == sybaseMelt.me_num).FirstOrDefault<OracleMelt>();
+                var oracleMelt = listOracleMelts.Where<OracleMelt>(p => p.Nplav == sybaseMelt.Me_num).FirstOrDefault<OracleMelt>();
                 if (oracleMelt != null) 
                 {
-                    sybaseMelt.oracle_Ins = oracleMelt.Ins;
-                    sybaseMelt.oracle_Tek = oracleMelt.Tek;
+                    sybaseMelt.Oracle_Ins = oracleMelt.Ins;
+                    sybaseMelt.Oracle_Tek = oracleMelt.Tek;
                 }
                 //проверяем, есть ли запись в локальной базе SqLite, соответствующая плавке в базе Sybase
                 //сравнение ведём по номеру плавки и hash-коду.
@@ -209,7 +209,7 @@ namespace Melts_Base
                 foreach (var melt in listSqLiteMelts)
                 {
 
-                    if (sybaseMelt.me_num == melt.me_num && sybaseMelt.MyHashCode() == melt.MyHashCode())
+                    if (sybaseMelt.Me_num == melt.Me_num && sybaseMelt.MyHashCode() == melt.MyHashCode())
                     {
                         MeltFound = true;
                     }
@@ -220,27 +220,27 @@ namespace Melts_Base
                     //дополнительные поля берутся из Oracle,основной список полей берём из Sybase
                     var newMelt = new Melt()
                     {
-                        eq_id = sybaseMelt.eq_id,
-                        me_num = sybaseMelt.me_num,
-                        me_beg = sybaseMelt.me_beg,
-                        me_end = sybaseMelt.me_end,
-                        me_splav=sybaseMelt.me_splav,
-                        sp_name = sybaseMelt.sp_name,
-                        me_mould=sybaseMelt.me_mould,
-                        me_del=sybaseMelt.me_del,
-                        me_ukaz=sybaseMelt.me_ukaz,
-                        me_kont=sybaseMelt.me_kont,
-                        me_pril=sybaseMelt.me_pril,
-                        me_nazn=sybaseMelt.me_nazn,
-                        me_diam=sybaseMelt.me_diam,
-                        me_weigth=sybaseMelt.me_weigth,
-                        me_zakaz=sybaseMelt.me_zakaz,
-                        me_pos=sybaseMelt.me_pos,
-                        me_kat=sybaseMelt.me_kat,
-                        sp_id=sybaseMelt.sp_id,
-                        me_energy=sybaseMelt.me_energy,
-                        oracle_Ins=sybaseMelt.oracle_Ins,
-                        oracle_Tek=sybaseMelt.oracle_Tek,
+                        Eq_id = sybaseMelt.Eq_id,
+                        Me_num = sybaseMelt.Me_num,
+                        Me_beg = sybaseMelt.Me_beg,
+                        Me_end = sybaseMelt.Me_end,
+                        Me_splav=sybaseMelt.Me_splav,
+                        Sp_name = sybaseMelt.Sp_name,
+                        Me_mould=sybaseMelt.Me_mould,
+                        Me_del=sybaseMelt.Me_del,
+                        Me_ukaz=sybaseMelt.Me_ukaz,
+                        Me_kont=sybaseMelt.Me_kont,
+                        Me_pril=sybaseMelt.Me_pril,
+                        Me_nazn=sybaseMelt.Me_nazn,
+                        Me_diam=sybaseMelt.Me_diam,
+                        Me_weigth=sybaseMelt.Me_weigth,
+                        Me_zakaz=sybaseMelt.Me_zakaz,
+                        Me_pos=sybaseMelt.Me_pos,
+                        Me_kat=sybaseMelt.Me_kat,
+                        Sp_id=sybaseMelt.Sp_id,
+                        Me_energy=sybaseMelt.Me_energy,
+                        Oracle_Ins=sybaseMelt.Oracle_Ins,
+                        Oracle_Tek=sybaseMelt.Oracle_Tek,
                     };
                     meltsContext.Add<Melt>(newMelt);
                 }

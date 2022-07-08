@@ -93,7 +93,7 @@ namespace Melts_Base.SybaseViewModel
                 bool startdateFilterSet = DateTime.TryParse(StartDate, out startdate);
                 bool enddateFilterSet = DateTime.TryParse(EndDate, out enddate);
                 return 
-                    (!startdateFilterSet || (startdate <= melt.me_beg)) && (!enddateFilterSet || (melt.me_beg <= enddate));
+                    (!startdateFilterSet || (startdate <= melt.Me_beg)) && (!enddateFilterSet || (melt.Me_beg <= enddate));
 
             }
             return false;
@@ -107,10 +107,10 @@ namespace Melts_Base.SybaseViewModel
                 if (String.IsNullOrEmpty(MeltNumberSought))
                     return true;
                 else
-                    if (melt.me_num == null)
+                    if (melt.Me_num == null)
                     return false;
                 else
-                    return (melt.me_num.IndexOf(MeltNumberSought, StringComparison.OrdinalIgnoreCase) >= 0);
+                    return (melt.Me_num.IndexOf(MeltNumberSought, StringComparison.OrdinalIgnoreCase) >= 0);
             }
             return false;
         }
