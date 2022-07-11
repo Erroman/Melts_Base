@@ -34,6 +34,10 @@ namespace Melts_Base.SybaseModels
         public string? Me_energy { get; set; }   // ?
         public string? Oracle_Ins { get; set; } //индекс сплава из Оракл
         public string? Oracle_Tek { get; set; } //№ТЕК из Оракл
+        public string? Oracle_Poz { get; set; } //приложение из Оракл
+        public string? Oracle_PozNaim { get; set; } //назначание из Оракл
+        public string? Oracle_Pereplav { get; set; } //номер переплава из Оракл
+        public string? Oracle_OkonchPereplav { get; set; } //признак окончательного переплава из Оракл
         public int MyHashCode()
         {
             return Eq_id?.GetHashCode() ?? 0 + Me_num?.GetHashCode() ?? 0 +
@@ -43,7 +47,8 @@ namespace Melts_Base.SybaseModels
                Me_nazn?.GetHashCode() ?? 0 + Me_diam?.GetHashCode() ?? 0 + Me_weight?.GetHashCode() ?? 0 +
                Me_zakaz?.GetHashCode() ?? 0 + Me_pos.GetHashCode() + Me_kat?.GetHashCode() ?? 0 +
                Sp_id?.GetHashCode() ?? 0 + Me_energy?.GetHashCode() ?? 0 +
-               Oracle_Ins?.GetHashCode() ?? 0 +Oracle_Tek?.GetHashCode() ?? 0;
+               Oracle_Ins?.GetHashCode() ?? 0 + Oracle_Tek?.GetHashCode() ?? 0 +
+               Oracle_Poz?.GetHashCode() ?? 0 + Oracle_PozNaim?.GetHashCode() ?? 0;
         }
 
 

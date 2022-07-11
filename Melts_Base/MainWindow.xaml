@@ -53,7 +53,7 @@
             <TabItem Header="Данные из заводской базы Oracle">
                 <Grid Background="#FFE5E5E5">
                     <!--DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"/-->
-                    <DataGrid Name ="oracleGrid" ItemsSource = "{Binding View}" 
+                    <DataGrid Name ="oracleGrid" ItemsSource = "{Binding View}" HorizontalScrollBarVisibility="Visible"
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding PasportId}"
@@ -86,8 +86,8 @@
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Ins}" Header="INS" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Tek}" Header="TEK" 
-                                    Width="*"/>
+                            <DataGridTextColumn  Binding="{Binding Tek}" Header="TEK" 
+                                    Width="SizeToCells"/>
                             <DataGridTextColumn Binding="{Binding Pereplav}" Header="PEREPLAV" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding OkonchPereplav}" Header="OKONCH_PEREPLAV" 
@@ -164,7 +164,7 @@
                             <DataGridTextColumn Binding="{Binding DemandOrderId}" Header="DEMAND_ORDER_ID" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Poz}" Header="POZ" 
-                                    Width="*"/>
+                                    Width="SizeToCells"/>
                             <DataGridTextColumn Binding="{Binding PozNaim}" Header="POZ_NAIM" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding PozRazm}" Header="POZ_RAZM" 
@@ -427,7 +427,7 @@
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn x:Name="localdateZap" Binding="{Binding Me_beg, StringFormat=dd.MM.yyyy HH:mm}" 
+                            <DataGridTextColumn x:Name="localdateZap" Binding="{Binding Me_beg, StringFormat=dd.MM.yyyy}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <Grid>
@@ -435,7 +435,7 @@
                                             <RowDefinition/>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                        <TextBlock>Время начала плавки</TextBlock>
+                                        <TextBlock>Дата плавки</TextBlock>
                                         <Grid Grid.Row="1">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition/>
@@ -449,33 +449,6 @@
                                             <DatePicker Name="localZapuskStartDate" Grid.Column="1" Text="{Binding StartDate,Mode=OneWayToSource}"/>
                                             <TextBlock  Grid.Row="1">До:</TextBlock>
                                             <DatePicker Name="localZapuskEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding EndDate,Mode=OneWayToSource}"/>
-                                        </Grid>
-                                    </Grid>
-                                </DataGridTextColumn.Header>
-                            </DataGridTextColumn>
-
-                            <DataGridTextColumn x:Name="localdateClose" Binding="{Binding Me_end, StringFormat=dd.MM.yyyy HH:mm}" 
-                                    Width="*">
-                                <DataGridTextColumn.Header>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                        </Grid.RowDefinitions>
-                                        <TextBlock>Время завершения плавки</TextBlock>
-                                        <Grid Grid.Row="1">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                            </Grid.RowDefinitions>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock  Grid.Row="0">От:</TextBlock>
-                                            <DatePicker Name="localCloseStartDate" Grid.Column="1" Text="{Binding StartCloseDate,Mode=OneWayToSource}"/>
-                                            <TextBlock  Grid.Row="1">До:</TextBlock>
-                                            <DatePicker Name="localCloseEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding EndCloseDate,Mode=OneWayToSource}"/>
                                         </Grid>
                                     </Grid>
                                 </DataGridTextColumn.Header>

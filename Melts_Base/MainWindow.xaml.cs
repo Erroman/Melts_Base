@@ -68,7 +68,6 @@ namespace Melts_Base
         {
 
             localdateZap.Width = new DataGridLength(120);
-            localdateClose.Width = new DataGridLength(120);
             localnPlav.Width = new DataGridLength(90);
             dateZap.Width = new DataGridLength(120);
             dateClose.Width = new DataGridLength(120);
@@ -87,8 +86,6 @@ namespace Melts_Base
             localcopyGrid.DataContext = observableMeltsViewModel;
             localZapuskStartDate.DataContext = observableMeltsViewModel;
             localZapuskEndDate.DataContext = observableMeltsViewModel;
-            localCloseStartDate.DataContext = observableMeltsViewModel;
-            localCloseEndDate.DataContext = observableMeltsViewModel;
             localPlantMeltNumberSought.DataContext = observableMeltsViewModel;
         }
         private bool readFromSybase() 
@@ -301,7 +298,6 @@ namespace Melts_Base
             i = 2;
             foreach (var melt in localSQLLiteMelts)
             {
-                sheet1.Cells[i, 5] = melt.Sp_name;
                 i++;
             }
 
