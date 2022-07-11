@@ -9,61 +9,36 @@ namespace Melts_Base.SQLiteModels
 {
     public class Melt
     {
-        public string this[int me] 
-        {
-            get { return IndexDict[me]; }
-
-        }
-        string[] Index = 
-            {
-
-            };
-        Dictionary<int,string> IndexDict = new Dictionary<int,string>();
-        private int melt_id;
-        public int MeltId { get => melt_id;  set { melt_id = value; IndexDict[0] = value.ToString(); }  }
-        private string? eq_id;
-        public string? Eq_id { get =>eq_id; set { eq_id = value; IndexDict[1] = value.ToString(); } }   //номер печи
-        private string? me_num;
-        public string? Me_num { get => me_num; set { me_num = value; IndexDict[2] = value.ToString(); } } //номер плавки
-        private DateTime? me_beg;
-        public DateTime? Me_beg { get => me_beg; set { me_beg = value; IndexDict[3] = value.ToString(); } } //время начала плавки
-        private DateTime? me_end;
-        public DateTime? Me_end { get => me_end; set { me_end = value; IndexDict[4] = value.ToString(); } } //время конца плавки
-        private string sp_name;
-        public string? Sp_name { get => sp_name; set { sp_name = value; IndexDict[5] = value.ToString(); } } //полное наименование сплава
-        private string? oracle_Ins;
-        public string? Oracle_Ins { get => oracle_Ins; set { oracle_Ins = value; IndexDict[6] = value.ToString(); } }//индекс сплава из Оракл
-        private string? me_mould;
-        public string? Me_mould { get => me_mould; set { me_mould = value; IndexDict[7] = value.ToString(); } }//предположительно номер комплекта
-        private string? me_del;
-        public string? Me_del { get => me_del; set { me_del = value; IndexDict[8] = value.ToString(); } }//предположительно диаметр электрода  
-        private string? oracle_Tek;
-        public string? Oracle_Tek { get => oracle_Tek; set { oracle_Tek = value; IndexDict[9] = value.ToString(); } }//№ТЕК из Оракл
-        private string? me_ukaz;
-        public string? Me_ukaz { get => me_ukaz; set { me_ukaz = value; IndexDict[10] = value.ToString(); } }//Указание
-        private string? me_kont;
-        public string? Me_kont { get => me_kont; set { me_kont = value; IndexDict[11] = value.ToString(); } }//предположительно контракт
+        //поле не входит в hash-code!
+        public int MeltId { get; set; }
+        
+        public string? Eq_id { get ; set; }   //номер печи
+        public string? Me_num { get; set; } //номер плавки
+        public DateTime? Me_beg { get; set; } //время начала плавки
+        public DateTime? Me_end { get; set; }  //время конца плавки
+        public string? Me_splav { get; set; } //наменование сплава
+        public string? Sp_name { get ; set; } //полное наименование сплава
+        public string? Me_mould { get ; set ; } //предположительно номер комплекта
+        public string? Me_del { get; set; } //предположительно диаметр электрода  
+        public string? Me_ukaz { get ; set ; } //Указание
+        public string? Me_kont { get; set; }//предположительно контракт
         //Key = "Me_kont"
-        private string? me_pril;
-        public string? Me_pril { get => me_pril; set { me_pril = value; IndexDict[12] = value.ToString(); } }//возможно приложение
-        private string? me_nazn;
-        public string? Me_nazn { get => me_nazn; set { me_nazn = value; IndexDict[13] = value.ToString(); } }//назначение
-        private string? me_diam;
-        public string? Me_diam { get => me_diam; set { me_diam = value; IndexDict[14] = value.ToString(); } }//предположительно диаметр слитка
-        private string? me_weight;
-        public string? Me_weight { get => me_weight; set { me_weight = value; } }//предположительно вес слитка
-        private string? me_zakaz;
-        public string? Me_zakaz { get => me_zakaz; set { me_zakaz = value;} } // ?
-        private string? me_pos;
-        public string? Me_pos { get => me_pos; set { me_pos = value;} }// ?
-        private string? me_kat;
-        public string? Me_kat { get => me_kat; set { me_kat = value;} }// ?
-        private string? sp_id;
-        public string? Sp_id { get => sp_id; set { sp_id = value;} }// ?
-        private string? me_energy;
-        public string? Me_energy { get => sp_id; set { sp_id = value;} }// ?
-        private string? me_splav;
-        public string? Me_splav { get => me_splav; set { me_splav = value; } } //наменование сплава
+        public string? Me_pril { get; set; }//возможно приложение
+        public string? Me_nazn { get; set ; }//назначение
+        public string? Me_diam { get; set; }//предположительно диаметр слитка
+        public string? Me_weight { get; set; }//предположительно вес слитка
+        public string? Me_zakaz { get; set; } // ?
+        public string? Me_pos { get; set; }// ?
+        public string? Me_kat { get; set; }// ?
+        public string? Sp_id { get; set; }// ?
+        public string? Me_energy { get; set; }// ?
+        public string? Oracle_Ins { get; set; }//индекс сплава из Оракл
+        public string? Oracle_Tek { get; set; } //№ТЕК из Оракл
+        public string? Oracle_Poz { get; set; } //приложение из Оракл
+        public string? Oracle_PozNaim { get; set; } //назначание из Оракл
+        public string? Oracle_Pereplav { get; set; } //номер переплава из Оракл
+        public string? Oracle_OkonchPereplav { get; set; } //признак окончательного переплава из Оракл
+
         public int MyHashCode()
         {
             return Eq_id?.GetHashCode() ?? 0 + Me_num?.GetHashCode() ?? 0 +
@@ -73,7 +48,9 @@ namespace Melts_Base.SQLiteModels
                Me_nazn?.GetHashCode() ?? 0 + Me_diam?.GetHashCode() ?? 0 + Me_weight?.GetHashCode() ?? 0 +
                Me_zakaz?.GetHashCode() ?? 0 + Me_pos.GetHashCode() + Me_kat?.GetHashCode() ?? 0 +
                Sp_id?.GetHashCode() ?? 0 + Me_energy?.GetHashCode() ?? 0 +
-               Oracle_Ins?.GetHashCode() ?? 0 + Oracle_Tek?.GetHashCode() ?? 0;
+               Oracle_Ins?.GetHashCode() ?? 0 + Oracle_Tek?.GetHashCode() ?? 0 +
+               Oracle_Poz?.GetHashCode() ?? 0 + Oracle_PozNaim?.GetHashCode() ?? 0 +
+               Oracle_Pereplav?.GetHashCode() ?? 0 + Oracle_OkonchPereplav?.GetHashCode() ?? 0; 
         }
 
 

@@ -10,8 +10,9 @@ using System.Windows.Documents;
 namespace Melts_Base.SybaseModels
 {
     public class SybaseMelt
-    {
+    {  //поле не входит в hash-code!
         public string? Me_id { get; set; }   //номер записи
+
         public string? Eq_id { get; set; }   //номер печи
         public string? Me_num { get; set; }  //номер плавки
         public DateTime Me_beg { get; set; } //время начала плавки
@@ -38,6 +39,7 @@ namespace Melts_Base.SybaseModels
         public string? Oracle_PozNaim { get; set; } //назначание из Оракл
         public string? Oracle_Pereplav { get; set; } //номер переплава из Оракл
         public string? Oracle_OkonchPereplav { get; set; } //признак окончательного переплава из Оракл
+
         public int MyHashCode()
         {
             return Eq_id?.GetHashCode() ?? 0 + Me_num?.GetHashCode() ?? 0 +
@@ -48,7 +50,8 @@ namespace Melts_Base.SybaseModels
                Me_zakaz?.GetHashCode() ?? 0 + Me_pos.GetHashCode() + Me_kat?.GetHashCode() ?? 0 +
                Sp_id?.GetHashCode() ?? 0 + Me_energy?.GetHashCode() ?? 0 +
                Oracle_Ins?.GetHashCode() ?? 0 + Oracle_Tek?.GetHashCode() ?? 0 +
-               Oracle_Poz?.GetHashCode() ?? 0 + Oracle_PozNaim?.GetHashCode() ?? 0;
+               Oracle_Poz?.GetHashCode() ?? 0 + Oracle_PozNaim?.GetHashCode() ?? 0 +
+               Oracle_Pereplav?.GetHashCode() ?? 0 + Oracle_OkonchPereplav?.GetHashCode() ?? 0;
         }
 
 
