@@ -320,67 +320,83 @@ namespace Melts_Base
                 i++;
             }
 
-            sheet1.Cells[1, 7] = "Номер комплекта";
+            sheet1.Cells[1, 7] = "Номер переплава";
             i = 2;
             foreach (var melt in localSQLLiteMelts)
             {
-                sheet1.Cells[i, 7] = melt.Me_mould;
+                sheet1.Cells[i, 7] = melt.Oracle_Pereplav;
                 i++;
             }
 
-            sheet1.Cells[1, 8] = "Диаметр расходуемого электрода";
+            sheet1.Cells[1, 8] = "Признак окончательного переплава";
             i = 2;
             foreach (var melt in localSQLLiteMelts)
             {
-                sheet1.Cells[i, 8] = melt.Me_del;
+                sheet1.Cells[i, 8] = melt.Oracle_OkonchPereplav;
                 i++;
             }
 
-            sheet1.Cells[1, 9] = "№ ТЭК";
+            sheet1.Cells[1, 9] = "Номер комплекта";
             i = 2;
             foreach (var melt in localSQLLiteMelts)
             {
-                sheet1.Cells[i, 9] = melt.Oracle_Tek;
+                sheet1.Cells[i, 9] = melt.Me_mould;
                 i++;
             }
 
-            sheet1.Cells[1, 10] = "ИЛ/УиС/ШН";
+            sheet1.Cells[1, 10] = "Диаметр расходуемого электрода";
             i = 2;
             foreach (var melt in localSQLLiteMelts)
             {
-                sheet1.Cells[i, 10] = melt.Me_ukaz;
+                sheet1.Cells[i, 10] = melt.Me_del;
                 i++;
             }
 
-            sheet1.Cells[1, 11] = "Контракт";
+            sheet1.Cells[1, 11] = "№ ТЭК";
             i = 2;
             foreach (var melt in localSQLLiteMelts)
             {
-                sheet1.Cells[i, 11] = melt.Me_kont;
+                sheet1.Cells[i, 11] = melt.Oracle_Tek;
                 i++;
             }
 
-            sheet1.Cells[1, 12] = "Приложение";
+            sheet1.Cells[1, 12] = "ИЛ/УиС/ШН";
             i = 2;
             foreach (var melt in localSQLLiteMelts)
             {
-                sheet1.Cells[i, 12] = melt.Me_pril;
+                sheet1.Cells[i, 12] = melt.Me_ukaz;
                 i++;
             }
 
-            sheet1.Cells[1, 13] = "Назначение";
+            sheet1.Cells[1, 13] = "Контракт";
             i = 2;
             foreach (var melt in localSQLLiteMelts)
             {
-                sheet1.Cells[i, 13] = melt.Me_nazn;
+                sheet1.Cells[i, 13] = melt.Me_kont;
                 i++;
             }
 
-            sheet1.Cells[1, 14] = "Диаметр слитка";
+            sheet1.Cells[1, 14] = "Приложение";
             i = 2;
             foreach (var melt in localSQLLiteMelts)
             {
-                sheet1.Cells[i, 14] = melt.Me_diam;
+                sheet1.Cells[i, 14] = melt.Oracle_Poz;
+                i++;
+            }
+
+            sheet1.Cells[1, 15] = "Назначение";
+            i = 2;
+            foreach (var melt in localSQLLiteMelts)
+            {
+                sheet1.Cells[i, 15] = melt.Oracle_PozNaim;
+                i++;
+            }
+
+            sheet1.Cells[1, 16] = "Диаметр слитка";
+            i = 2;
+            foreach (var melt in localSQLLiteMelts)
+            {
+                sheet1.Cells[i, 16] = melt.Me_diam;
                 i++;
             }
 

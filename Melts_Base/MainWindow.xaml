@@ -460,7 +460,7 @@
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Oracle_Pereplav}" Header="Номер переплава" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Oracle_OkonchPereplav}" Header="ПРизнак окончательного переплава" 
+                            <DataGridTextColumn Binding="{Binding Oracle_OkonchPereplav}" Header="Признак окончательного переплава" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Me_mould}" Header="Номер комплекта" 
                                     Width="*"/>
