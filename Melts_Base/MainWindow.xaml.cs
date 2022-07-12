@@ -192,6 +192,7 @@ namespace Melts_Base
 
             foreach (var sybaseMelt in listSybaseMelts)
             {
+                if (string.IsNullOrEmpty(sybaseMelt.Me_num)) continue;
                 var MeltFound = false;
                 //находим информацию по плавке с данным номером в listOracleMelts,если нашли,составляем полную плавку,
                 //добавляя поля из найденной записи.
