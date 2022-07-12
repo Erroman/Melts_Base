@@ -200,6 +200,10 @@ namespace Melts_Base
                 {
                     sybaseMelt.Oracle_Ins = oracleMelt.Ins;
                     sybaseMelt.Oracle_Tek = oracleMelt.Tek;
+                    sybaseMelt.Oracle_Poz = oracleMelt.Poz;
+                    sybaseMelt.Oracle_PozNaim = oracleMelt.PozNaim;
+                    sybaseMelt.Oracle_Pereplav = oracleMelt.Pereplav;
+                    sybaseMelt.Oracle_OkonchPereplav = oracleMelt.OkonchPereplav;
                 }
                 //проверяем, есть ли запись в локальной базе SqLite, соответствующая плавке в базе Sybase
                 //сравнение ведём по номеру плавки и hash-коду.
@@ -223,23 +227,27 @@ namespace Melts_Base
                         Me_num = sybaseMelt.Me_num,
                         Me_beg = sybaseMelt.Me_beg,
                         Me_end = sybaseMelt.Me_end,
-                        Me_splav=sybaseMelt.Me_splav,
+                        Me_splav = sybaseMelt.Me_splav,
                         Sp_name = sybaseMelt.Sp_name,
-                        Me_mould=sybaseMelt.Me_mould,
-                        Me_del=sybaseMelt.Me_del,
-                        Me_ukaz=sybaseMelt.Me_ukaz,
-                        Me_kont=sybaseMelt.Me_kont,
-                        Me_pril=sybaseMelt.Me_pril,
-                        Me_nazn=sybaseMelt.Me_nazn,
-                        Me_diam=sybaseMelt.Me_diam,
-                        Me_weight=sybaseMelt.Me_weight,
-                        Me_zakaz=sybaseMelt.Me_zakaz,
-                        Me_pos=sybaseMelt.Me_pos,
-                        Me_kat=sybaseMelt.Me_kat,
-                        Sp_id=sybaseMelt.Sp_id,
-                        Me_energy=sybaseMelt.Me_energy,
-                        Oracle_Ins=sybaseMelt.Oracle_Ins,
-                        Oracle_Tek=sybaseMelt.Oracle_Tek,
+                        Me_mould = sybaseMelt.Me_mould,
+                        Me_del = sybaseMelt.Me_del,
+                        Me_ukaz = sybaseMelt.Me_ukaz,
+                        Me_kont = sybaseMelt.Me_kont,
+                        Me_pril = sybaseMelt.Me_pril,
+                        Me_nazn = sybaseMelt.Me_nazn,
+                        Me_diam = sybaseMelt.Me_diam,
+                        Me_weight = sybaseMelt.Me_weight,
+                        Me_zakaz = sybaseMelt.Me_zakaz,
+                        Me_pos = sybaseMelt.Me_pos,
+                        Me_kat = sybaseMelt.Me_kat,
+                        Sp_id = sybaseMelt.Sp_id,
+                        Me_energy = sybaseMelt.Me_energy,
+                        Oracle_Ins = sybaseMelt.Oracle_Ins,
+                        Oracle_Tek = sybaseMelt.Oracle_Tek,
+                        Oracle_Poz = sybaseMelt.Oracle_Poz,
+                        Oracle_PozNaim = sybaseMelt.Oracle_PozNaim,
+                        Oracle_Pereplav=sybaseMelt.Oracle_Pereplav,
+                        Oracle_OkonchPereplav = sybaseMelt.Oracle_OkonchPereplav,
                     };
                     meltsContext.Add<Melt>(newMelt);
                 }
