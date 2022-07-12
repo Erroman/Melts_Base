@@ -458,6 +458,10 @@
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Oracle_Ins}" Header="Индекс" 
                                     Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Oracle_Pereplav}" Header="Номер переплава" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Oracle_OkonchPereplav}" Header="ПРизнак окончательного переплава" 
+                                    Width="*"/>
                             <DataGridTextColumn Binding="{Binding Me_mould}" Header="Номер комплекта" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Me_del}" Header="Диаметр расходуемого электрода" 
