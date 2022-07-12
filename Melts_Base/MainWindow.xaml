@@ -468,9 +468,9 @@
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Me_kont}" Header="Контракт" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Me_pril}" Header="Приложение" 
+                            <DataGridTextColumn Binding="{Binding Oracle_Poz}" Header="Приложение" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Me_nazn}" Header="Назначение" 
+                            <DataGridTextColumn Binding="{Binding Oracle_PozNaim}" Header="Назначение" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Me_diam}" Header="Диаметр слитка" 
                                     Width="*"/>
