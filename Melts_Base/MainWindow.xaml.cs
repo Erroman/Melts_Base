@@ -50,7 +50,7 @@ namespace Melts_Base
             ["pwd"] = "12345"
         };
         ObservableCollection<Melt> localSQLLiteMelts = null;
-        List<SybaseMelt> sybaseMelts = new List<SybaseMelt>();
+        List<SybaseMelt> sybaseMelts = null;
         List<OracleMelt> oracleMelts = null;
 
         public MainWindow()
@@ -103,6 +103,7 @@ namespace Melts_Base
                         OdbcCommand command = new OdbcCommand(queryString);
                         command.Connection = connection;
                         OdbcDataReader odbcDataReader = command.ExecuteReader();
+                        sybaseMelts = new List<SybaseMelt>();
                         while (odbcDataReader.Read())
                         {
                             DateTime melt_end;
@@ -173,7 +174,8 @@ namespace Melts_Base
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if(readFromSybase() && readFromOracle()) {
+            if(readFromSybase() && readFromOracle()) 
+            {
                 PumpPlantData(sybaseMelts,oracleMelts,localSQLLiteMelts.ToList());
                 MessageBox.Show("Подкачка выполнена!");
             }
