@@ -291,11 +291,10 @@ namespace Melts_Base
             sheet1.Cells[1, 15] = "Назначение";
             sheet1.Cells[1, 16] = "Диаметр слитка";
 
-            int i = 2;
-            IEnumerable<Melt> listMelt = new List<Melt>();
-            listMelt = from melt in localSQLLiteMelts 
+            IEnumerable<Melt> listMelt = from melt in localSQLLiteMelts 
                        where observableMeltsViewModel.ListCollectionView_Filter(melt)
                        select melt;
+            int i = 2;
             foreach (var melt in listMelt)
             {
                 sheet1.Cells[i, 1] = melt.MeltId;
