@@ -99,7 +99,7 @@ namespace Melts_Base.SQLiteViewModel
                 View.Refresh();
             }
         }    
-        private bool ListCollectionView_Filter(object Item)
+        public bool ListCollectionView_Filter(object Item)
         {
 
             return meltDateFilter(Item) && meltNumberFilter(Item) && meltCloseDateFilter(Item);
