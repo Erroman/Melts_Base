@@ -292,7 +292,7 @@ namespace Melts_Base
             sheet1.Cells[1, 16] = "Диаметр слитка";
 
             IEnumerable<Melt> listMelt = from melt in localSQLLiteMelts 
-                       where observableMeltsViewModel.ListCollectionView_Filter(melt)
+                       where observableMeltsViewModel.ListCollectionView_Filter(melt) orderby melt.Me_beg descending
                        select melt;
             int i = 2;
             foreach (var melt in listMelt)
