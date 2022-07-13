@@ -402,7 +402,7 @@
             <TabItem Header="Локальная копия данных">
                 <Grid Background="#FFE5E5E5">
                     <!--DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"/-->
-                    <DataGrid Name ="localcopyGrid" ItemsSource = "{Binding View}" 
+                    <DataGrid Name ="localcopyGrid" ItemsSource = "{Binding View}" Sorting="localcopyGrid_Sorting" 
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding MeltId}"

@@ -446,5 +446,10 @@ namespace Melts_Base
             //}
 
         }
+
+        private void localcopyGrid_Sorting(object sender, DataGridSortingEventArgs e)
+        {
+
+        }
     }
 }
