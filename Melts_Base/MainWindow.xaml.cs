@@ -74,6 +74,7 @@ namespace Melts_Base
             nPlav.Width = new DataGridLength(90);
 
             readFromSQLiteLocal();
+           // localcopyGrid.Items.SortDescriptions.Add(new SortDescription("Kuku", ListSortDirection.Descending));
             readFromSybase();
             readFromOracle();
         }
@@ -81,7 +82,7 @@ namespace Melts_Base
         {
             meltsContext.Database.EnsureCreated();
             meltsContext.Melts.Load();
-            localSQLLiteMelts = meltsContext.Melts.Local.ToObservableCollection();
+            localSQLLiteMelts = new ObservableCollection<Melt>(meltsContext.Melts.Local.ToObservableCollection().OrderByDescending(melt=>melt.Me_beg));
             observableMeltsViewModel = new ObservableMeltsViewModel(localSQLLiteMelts);
             localcopyGrid.DataContext = observableMeltsViewModel;
             localZapuskStartDate.DataContext = observableMeltsViewModel;
