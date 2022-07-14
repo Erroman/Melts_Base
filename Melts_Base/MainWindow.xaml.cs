@@ -285,9 +285,27 @@ namespace Melts_Base
             sheet1.Cells[1, 15] = "Назначение";
             sheet1.Cells[1, 16] = "Диаметр слитка";
 
-            IEnumerable<Melt> listMelt = from melt in localSQLLiteMelts 
-                       where observableMeltsViewModel.ListCollectionView_Filter(melt) orderby melt.Me_beg descending
-                       select melt;
+            Func<Melt, DateTime?> func_for_ordering_dates = melt => melt.Me_beg;
+            Func<Melt, string> func_for_ordering_strings;
+            Func<Melt, int> func_for_ordering_numbers;
+            switch (SortMemberPath)
+            {
+                case "MeltId":
+                    func_for_ordering_numbers = melt => melt.MeltId;
+                    break;
+                case "Eq_id":
+                    func_for_ordering_strings = melt => melt.Eq_id;
+                    break;
+
+                default:
+                    func_for_ordering_dates = melt => melt.Me_beg;
+                    break;
+
+            }
+
+
+            IEnumerable<Melt> listMelt = localSQLLiteMelts.Where<Melt>(melt => observableMeltsViewModel.
+            ListCollectionView_Filter(melt)).OrderByDescending(func_for_ordering_dates);
             int i = 2;
             foreach (var melt in listMelt)
             {
@@ -315,6 +333,7 @@ namespace Melts_Base
         {
             SortMemberPath =  e.Column.SortMemberPath;
             SortDirection = e.Column.SortDirection;
+            //MessageBox.Show(string.Format("sorting grid by '{0}' column in {1} order", e.Column.SortMemberPath, e.Column.SortDirection));
         }
     }
 }
