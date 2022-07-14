@@ -52,6 +52,9 @@ namespace Melts_Base
         ObservableCollection<Melt> localSQLLiteMelts = null;
         List<SybaseMelt> sybaseMelts = null;
         List<OracleMelt> oracleMelts = null;
+        string SortMemberPath = "me_beg";
+        ListSortDirection? SortDirection = ListSortDirection.Descending;
+        
 
         public MainWindow()
         {
@@ -264,17 +267,7 @@ namespace Melts_Base
             excel.Visible = true;
             Excel.Workbook workbook = excel.Workbooks.Add();
             Excel.Worksheet sheet1 = (Excel.Worksheet)workbook.Sheets[1];
-            //var numberOfColumns =  localcopyGrid.Columns.Count;
-            //Int64 numberOfRows = 0;
-            //foreach(var  vv in observableMeltsViewModel.View)numberOfRows++;
-            //for (int j = 0; j < numberOfColumns; j++)
-            //{
-            //    //Range myRange = (Range)sheet1.Cells[1, j];
-            //    sheet1.Cells[1, j+1].Font.Bold = true;
-            //    sheet1.Columns[j+1].ColumnWidth = 15;
-            //    sheet1.Cells[1,j+1] = localcopyGrid.Columns[j].Header;
-            //}
-
+ 
             sheet1.Cells[1, 1] = "Номер записи";
             sheet1.Cells[1, 2] = "Номер печи";
             sheet1.Cells[1, 3] = "Номер плавки";
@@ -316,141 +309,12 @@ namespace Melts_Base
                 sheet1.Cells[i, 16] = melt.Me_diam;
                 i++;
             }
-
-
-
-            //sheet1.Cells[1, 1] = "Номер записи";
-            //int i = 2;
-            //foreach(var melt in localSQLLiteMelts)
-            //{
-            //    sheet1.Cells[i, 1] = melt.MeltId;
-            //    i++;
-            //}
-
-            //sheet1.Cells[1, 2] = "Номер печи";
-            //i = 2;
-            //foreach (var melt in localSQLLiteMelts)
-            //{
-            //    sheet1.Cells[i, 2] = melt.Eq_id;
-            //    i++;
-            //}
-
-            //sheet1.Cells[1, 3] = "Номер плавки";
-            //i = 2;
-            //foreach (var melt in localSQLLiteMelts)
-            //{
-            //    sheet1.Cells[i, 3] = melt.Me_num;
-            //    i++;
-            //}
-
-            //sheet1.Cells[1, 4] = "Дата плавки";
-            //i = 2;
-            //foreach (var melt in localSQLLiteMelts)
-            //{
-            //    sheet1.Cells[i, 4] = melt.Me_beg?.ToString("dd.MM.yyyy");
-            //    i++;
-            //}
-
-            //sheet1.Cells[1, 5] = "Сплав";
-            //i = 2;
-            //foreach (var melt in localSQLLiteMelts)
-            //{
-            //    i++;
-            //}
-
-            //sheet1.Cells[1, 6] = "Индекс";
-            //i = 2;
-            //foreach (var melt in localSQLLiteMelts)
-            //{
-            //    sheet1.Cells[i, 6] = melt.Oracle_Ins;
-            //    i++;
-            //}
-
-            //sheet1.Cells[1, 7] = "Номер переплава";
-            //i = 2;
-            //foreach (var melt in localSQLLiteMelts)
-            //{
-            //    sheet1.Cells[i, 7] = melt.Oracle_Pereplav;
-            //    i++;
-            //}
-
-            //sheet1.Cells[1, 8] = "Признак окончательного переплава";
-            //i = 2;
-            //foreach (var melt in localSQLLiteMelts)
-            //{
-            //    sheet1.Cells[i, 8] = melt.Oracle_OkonchPereplav;
-            //    i++;
-            //}
-
-            //sheet1.Cells[1, 9] = "Номер комплекта";
-            //i = 2;
-            //foreach (var melt in localSQLLiteMelts)
-            //{
-            //    sheet1.Cells[i, 9] = melt.Me_mould;
-            //    i++;
-            //}
-
-            //sheet1.Cells[1, 10] = "Диаметр расходуемого электрода";
-            //i = 2;
-            //foreach (var melt in localSQLLiteMelts)
-            //{
-            //    sheet1.Cells[i, 10] = melt.Me_del;
-            //    i++;
-            //}
-
-            //sheet1.Cells[1, 11] = "№ ТЭК";
-            //i = 2;
-            //foreach (var melt in localSQLLiteMelts)
-            //{
-            //    sheet1.Cells[i, 11] = melt.Oracle_Tek;
-            //    i++;
-            //}
-
-            //sheet1.Cells[1, 12] = "ИЛ/УиС/ШН";
-            //i = 2;
-            //foreach (var melt in localSQLLiteMelts)
-            //{
-            //    sheet1.Cells[i, 12] = melt.Me_ukaz;
-            //    i++;
-            //}
-
-            //sheet1.Cells[1, 13] = "Контракт";
-            //i = 2;
-            //foreach (var melt in localSQLLiteMelts)
-            //{
-            //    sheet1.Cells[i, 13] = melt.Me_kont;
-            //    i++;
-            //}
-
-            //sheet1.Cells[1, 14] = "Приложение";
-            //i = 2;
-            //foreach (var melt in localSQLLiteMelts)
-            //{
-            //    sheet1.Cells[i, 14] = melt.Oracle_Poz;
-            //    i++;
-            //}
-
-            //sheet1.Cells[1, 15] = "Назначение";
-            //i = 2;
-            //foreach (var melt in localSQLLiteMelts)
-            //{
-            //    sheet1.Cells[i, 15] = melt.Oracle_PozNaim;
-            //    i++;
-            //}
-
-            //sheet1.Cells[1, 16] = "Диаметр слитка";
-            //i = 2;
-            //foreach (var melt in localSQLLiteMelts)
-            //{
-            //    sheet1.Cells[i, 16] = melt.Me_diam;
-            //    i++;
-            //}
-
         }
 
         private void localcopyGrid_Sorting(object sender, DataGridSortingEventArgs e)
         {
-
+            SortMemberPath =  e.Column.SortMemberPath;
+            SortDirection = e.Column.SortDirection;
         }
     }
 }
