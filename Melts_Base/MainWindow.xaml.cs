@@ -52,8 +52,8 @@ namespace Melts_Base
         ObservableCollection<Melt> localSQLLiteMelts = null;
         List<SybaseMelt> sybaseMelts = null;
         List<OracleMelt> oracleMelts = null;
-        string SortMemberPath = "me_beg";
-        ListSortDirection? SortDirection = ListSortDirection.Descending;
+        string SortMemberPath = "Me_beg";
+        ListSortDirection? SortDirection = null;
         
 
         public MainWindow()
@@ -288,95 +288,172 @@ namespace Melts_Base
             Func<Melt, DateTime?> func_for_ordering_dates = melt => melt.Me_beg;
             Func<Melt, string> func_for_ordering_strings;
             Func<Melt, int> func_for_ordering_numbers;
+
+            IEnumerable<Melt> listMelt = localSQLLiteMelts.Where<Melt>(melt => observableMeltsViewModel.
+                    ListCollectionView_Filter(melt));
             switch (SortMemberPath)
             {
                 case "MeltId":
-                    func_for_ordering_numbers = melt => melt.MeltId;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.MeltId);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.MeltId);
                     break;
                 case "Eq_id":
-                    func_for_ordering_strings = melt => melt.Eq_id;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Eq_id);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Eq_id);
                     break;
                 case "Me_num":
-                    func_for_ordering_strings = melt=> melt.Me_num;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Me_num);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Me_num);
                     break;
                 case "Me_beg":
-                    func_for_ordering_dates = melt => melt.Me_beg;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Me_beg);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Me_beg);
                     break;
                 case "Me_end":
-                    func_for_ordering_dates= melt => melt.Me_end;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Me_end);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Me_end);
                     break;
                 case "Me_splav":
-                    func_for_ordering_strings=melt=>melt.Me_splav;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Me_splav);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Me_splav);
                     break;
                 case "Sp_name":
-                    func_for_ordering_strings=(melt)=>melt.Sp_name;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Sp_name);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Sp_name);
                     break;
                 case "Me_mould":
-                    func_for_ordering_strings=((melt)=>melt.Me_mould);
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Me_mould);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Me_mould);
                     break;
                 case "Me_del":
-                    func_for_ordering_strings=((melt)=>melt.Me_del);
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Me_del);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Me_del);
                     break;
                 case "Me_ukaz":
-                    func_for_ordering_strings = melt => melt.Me_ukaz;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Me_ukaz);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Me_ukaz);
                     break;
                 case "Me_kont":
-                    func_for_ordering_strings =(melt)=>melt.Me_kont;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Me_kont);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Me_kont);
                     break;
                 case "Me_pril":
-                    func_for_ordering_strings = melt => melt.Me_pril;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Me_pril);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Me_pril);
                     break;
                 case "Me_nazn":
-                    func_for_ordering_strings= melt => melt.Me_nazn;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Me_nazn);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Me_nazn);
                     break;
                 case "Me_diam":
-                    func_for_ordering_strings = melt => melt.Me_diam;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Me_diam);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Me_diam);
                     break;
                 case "Me_weight":
-                    func_for_ordering_strings = melt => melt.Me_weight;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Me_weight);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Me_weight);
                     break;
                 case "Me_zakaz":
-                    func_for_ordering_strings = melt => melt.Me_zakaz;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Me_zakaz);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Me_zakaz);
                     break;
                 case "Me_pos":
-                    func_for_ordering_strings = melt => melt.Me_pos;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Me_pos);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Me_pos);
                     break;
                 case "Me_kat":
-                    func_for_ordering_strings = melt => melt.Me_kat;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Me_kat);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Me_kat);
                     break;
                 case "Sp_id":
-                    func_for_ordering_strings = melt => melt.Sp_id;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Sp_id);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Sp_id);
                     break;
                 case "Me_energy":
-                    func_for_ordering_strings = melt => melt.Me_energy;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Me_energy);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Me_energy);
                     break;
                 case "Oracle_Ins":
-                    func_for_ordering_strings = melt => melt.Oracle_Ins;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Oracle_Ins);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Oracle_Ins);
                     break;
                 case "Oracle_Tek":
-                    func_for_ordering_strings = melt => melt.Oracle_Tek;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Oracle_Tek);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Oracle_Tek);
                     break;
                 case "Oracle_Poz":
-                    func_for_ordering_strings=melt => melt.Oracle_Poz;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Oracle_Poz);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Oracle_Poz);
                     break;
                 case "Oracle_PozNaim":
-                    func_for_ordering_strings=melt => melt.Oracle_PozNaim;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Oracle_PozNaim);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Oracle_PozNaim);
                     break;
                 case "Oracle_Pereplav":
-                    func_for_ordering_strings=(melt) => melt.Oracle_Pereplav;
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Oracle_Pereplav);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Oracle_Pereplav);
                     break;
                 case "Oracle_OkonchPereplav":
-                    func_for_ordering_strings=((melt) => melt.Oracle_OkonchPereplav);
+                    if (SortDirection == ListSortDirection.Ascending)
+                        listMelt = listMelt.OrderBy(melt => melt.Oracle_OkonchPereplav);
+                    else if (SortDirection == ListSortDirection.Descending)
+                        listMelt = listMelt.OrderByDescending(melt => melt.Oracle_OkonchPereplav);
                     break;
                 default:
-                    func_for_ordering_dates = melt => melt.Me_beg;
                     break;
 
             }
-
-
-            IEnumerable<Melt> listMelt = localSQLLiteMelts.Where<Melt>(melt => observableMeltsViewModel.
-            ListCollectionView_Filter(melt)).OrderByDescending(func_for_ordering_dates);
+          
             int i = 2;
             foreach (var melt in listMelt)
             {
@@ -403,7 +480,10 @@ namespace Melts_Base
         private void localcopyGrid_Sorting(object sender, DataGridSortingEventArgs e)
         {
             SortMemberPath =  e.Column.SortMemberPath;
-            SortDirection = e.Column.SortDirection;
+            if(SortDirection==null) SortDirection = ListSortDirection.Ascending;
+            else
+            SortDirection = e.Column.SortDirection==ListSortDirection.Descending?
+                            ListSortDirection.Ascending:ListSortDirection.Descending;
             //MessageBox.Show(string.Format("sorting grid by '{0}' column in {1} order", e.Column.SortMemberPath, e.Column.SortDirection));
         }
     }
