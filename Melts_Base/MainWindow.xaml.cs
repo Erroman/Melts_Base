@@ -480,11 +480,11 @@ namespace Melts_Base
         private void localcopyGrid_Sorting(object sender, DataGridSortingEventArgs e)
         {
             SortMemberPath =  e.Column.SortMemberPath;
-            if(SortDirection==null) SortDirection = ListSortDirection.Ascending;
+            if(e.Column.SortDirection == null) SortDirection = ListSortDirection.Ascending;
             else
             SortDirection = e.Column.SortDirection==ListSortDirection.Descending?
                             ListSortDirection.Ascending:ListSortDirection.Descending;
-            //MessageBox.Show(string.Format("sorting grid by '{0}' column in {1} order", e.Column.SortMemberPath, e.Column.SortDirection));
+            MessageBox.Show(string.Format("sorting grid by '{0}' column in {1} order", e.Column.SortMemberPath, e.Column.SortDirection));
         }
     }
 }
