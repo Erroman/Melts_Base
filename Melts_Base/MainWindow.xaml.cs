@@ -75,7 +75,7 @@ namespace Melts_Base
             dateZap.Width = new DataGridLength(120);
             dateClose.Width = new DataGridLength(120);
             nPlav.Width = new DataGridLength(90);
-
+            meltsContext.Database.EnsureCreated();
             readFromSQLiteLocal();
            // localcopyGrid.Items.SortDescriptions.Add(new SortDescription("Kuku", ListSortDirection.Descending));
             readFromSybase();
@@ -83,7 +83,6 @@ namespace Melts_Base
         }
         private void readFromSQLiteLocal() 
         {
-            meltsContext.Database.EnsureCreated();
             meltsContext.Melts.Load();
             localSQLLiteMelts = new ObservableCollection<Melt>(meltsContext.Melts.Local.ToObservableCollection().OrderByDescending(melt=>melt.Me_beg));
             observableMeltsViewModel = new ObservableMeltsViewModel(localSQLLiteMelts);
@@ -259,6 +258,7 @@ namespace Melts_Base
 
             }
             meltsContext.SaveChanges();
+            readFromSQLiteLocal();
         }
 
         private void ExportToExcel(object sender, RoutedEventArgs e)
@@ -296,7 +296,78 @@ namespace Melts_Base
                 case "Eq_id":
                     func_for_ordering_strings = melt => melt.Eq_id;
                     break;
-
+                case "Me_num":
+                    func_for_ordering_strings = melt=> melt.Me_num;
+                    break;
+                case "Me_beg":
+                    func_for_ordering_dates = melt => melt.Me_beg;
+                    break;
+                case "Me_end":
+                    func_for_ordering_dates= melt => melt.Me_end;
+                    break;
+                case "Me_splav":
+                    func_for_ordering_strings=melt=>melt.Me_splav;
+                    break;
+                case "Sp_name":
+                    func_for_ordering_strings=(melt)=>melt.Sp_name;
+                    break;
+                case "Me_mould":
+                    func_for_ordering_strings=((melt)=>melt.Me_mould);
+                    break;
+                case "Me_del":
+                    func_for_ordering_strings=((melt)=>melt.Me_del);
+                    break;
+                case "Me_ukaz":
+                    func_for_ordering_strings = melt => melt.Me_ukaz;
+                    break;
+                case "Me_kont":
+                    func_for_ordering_strings =(melt)=>melt.Me_kont;
+                    break;
+                case "Me_pril":
+                    func_for_ordering_strings = melt => melt.Me_pril;
+                    break;
+                case "Me_nazn":
+                    func_for_ordering_strings= melt => melt.Me_nazn;
+                    break;
+                case "Me_diam":
+                    func_for_ordering_strings = melt => melt.Me_diam;
+                    break;
+                case "Me_weight":
+                    func_for_ordering_strings = melt => melt.Me_weight;
+                    break;
+                case "Me_zakaz":
+                    func_for_ordering_strings = melt => melt.Me_zakaz;
+                    break;
+                case "Me_pos":
+                    func_for_ordering_strings = melt => melt.Me_pos;
+                    break;
+                case "Me_kat":
+                    func_for_ordering_strings = melt => melt.Me_kat;
+                    break;
+                case "Sp_id":
+                    func_for_ordering_strings = melt => melt.Sp_id;
+                    break;
+                case "Me_energy":
+                    func_for_ordering_strings = melt => melt.Me_energy;
+                    break;
+                case "Oracle_Ins":
+                    func_for_ordering_strings = melt => melt.Oracle_Ins;
+                    break;
+                case "Oracle_Tek":
+                    func_for_ordering_strings = melt => melt.Oracle_Tek;
+                    break;
+                case "Oracle_Poz":
+                    func_for_ordering_strings=melt => melt.Oracle_Poz;
+                    break;
+                case "Oracle_PozNaim":
+                    func_for_ordering_strings=melt => melt.Oracle_PozNaim;
+                    break;
+                case "Oracle_Pereplav":
+                    func_for_ordering_strings=(melt) => melt.Oracle_Pereplav;
+                    break;
+                case "Oracle_OkonchPereplav":
+                    func_for_ordering_strings=((melt) => melt.Oracle_OkonchPereplav);
+                    break;
                 default:
                     func_for_ordering_dates = melt => melt.Me_beg;
                     break;
