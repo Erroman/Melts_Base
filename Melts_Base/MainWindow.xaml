@@ -445,9 +445,9 @@
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock  Grid.Row="0">От:</TextBlock>
-                                            <DatePicker Name="localZapuskStartDate" Grid.Column="1" Text="{Binding StartDate,Mode=OneWayToSource}"/>
+                                            <DatePicker Name="localZapuskStartDate" Grid.Column="1" Text="{Binding StartDate,Mode=TwoWay}"/>
                                             <TextBlock  Grid.Row="1">До:</TextBlock>
-                                            <DatePicker Name="localZapuskEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding EndDate,Mode=OneWayToSource}"/>
+                                            <DatePicker Name="localZapuskEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding EndDate,Mode=TwoWay}"/>
                                         </Grid>
                                     </Grid>
                                 </DataGridTextColumn.Header>
