@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewmodel="clr-namespace:Melts_Base.SQLiteViewModel" xmlns:clr="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Информационная система по выплавкам титановых слитков на печах ВДП цеха 31 ПАО Корпорации ВСМПО-АВИСМА" Height="450" Width="800" WindowState="Maximized"  Loaded="Window_Loaded" Closing="Window_Closing">
     <Grid>
@@ -53,7 +52,7 @@
             <TabItem Header="Данные из заводской базы Oracle">
                 <Grid Background="#FFE5E5E5">
                     <!--DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"/-->
-                    <DataGrid Name ="oracleGrid" ItemsSource = "{Binding View}" 
+                    <DataGrid Name ="oracleGrid" ItemsSource = "{Binding View}" HorizontalScrollBarVisibility="Visible"
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding PasportId}"
@@ -86,8 +85,8 @@
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Ins}" Header="INS" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Tek}" Header="TEK" 
-                                    Width="*"/>
+                            <DataGridTextColumn  Binding="{Binding Tek}" Header="TEK" 
+                                    Width="SizeToCells"/>
                             <DataGridTextColumn Binding="{Binding Pereplav}" Header="PEREPLAV" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding OkonchPereplav}" Header="OKONCH_PEREPLAV" 
@@ -164,7 +163,7 @@
                             <DataGridTextColumn Binding="{Binding DemandOrderId}" Header="DEMAND_ORDER_ID" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Poz}" Header="POZ" 
-                                    Width="*"/>
+                                    Width="SizeToCells"/>
                             <DataGridTextColumn Binding="{Binding PozNaim}" Header="POZ_NAIM" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding PozRazm}" Header="POZ_RAZM" 
@@ -182,7 +181,7 @@
                     <DataGrid Name ="shop31Grid" ItemsSource = "{Binding View}" 
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding me_id}" 
+                            <DataGridTextColumn Binding="{Binding Me_id}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <TextBlock>
@@ -192,7 +191,7 @@
                                     </TextBlock>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>                            
-                            <DataGridTextColumn Binding="{Binding eq_id}" 
+                            <DataGridTextColumn Binding="{Binding Eq_id}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <TextBlock>
@@ -202,7 +201,7 @@
                                     </TextBlock>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn x:Name="shop31nPlav" Binding="{Binding me_num}" 
+                            <DataGridTextColumn x:Name="shop31nPlav" Binding="{Binding Me_num}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <Grid>
@@ -222,7 +221,7 @@
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn x:Name="shop31me_beg" Binding="{Binding me_beg, StringFormat=dd.MM.yyyy HH:mm}" 
+                            <DataGridTextColumn x:Name="shop31me_beg" Binding="{Binding Me_beg, StringFormat=dd.MM.yyyy HH:mm}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <Grid>
@@ -251,7 +250,7 @@
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn x:Name="shop31me_end" Binding="{Binding me_end, StringFormat=dd.MM.yyyy HH:mm}" 
+                            <DataGridTextColumn x:Name="shop31me_end" Binding="{Binding Me_end, StringFormat=dd.MM.yyyy HH:mm}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <TextBlock>
@@ -263,19 +262,19 @@
                                     </TextBlock>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding me_splav}" 
+                            <DataGridTextColumn Binding="{Binding Me_splav}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <Run>me_splav</Run>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding sp_name}"
+                            <DataGridTextColumn Binding="{Binding Sp_name}"
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <Run>sp_name</Run>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding me_mould}"
+                            <DataGridTextColumn Binding="{Binding Me_mould}"
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <TextBlock>
@@ -285,7 +284,7 @@
                                     </TextBlock>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding me_del}"
+                            <DataGridTextColumn Binding="{Binding Me_del}"
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <TextBlock>
@@ -295,7 +294,7 @@
                                     </TextBlock>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding me_ukaz}"
+                            <DataGridTextColumn Binding="{Binding Me_ukaz}"
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <TextBlock>
@@ -305,7 +304,7 @@
                                     </TextBlock>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding me_kont}"
+                            <DataGridTextColumn Binding="{Binding Me_kont}"
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <TextBlock>
@@ -315,7 +314,7 @@
                                     </TextBlock>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding me_pril}"
+                            <DataGridTextColumn Binding="{Binding Me_pril}"
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <TextBlock>
@@ -325,7 +324,7 @@
                                     </TextBlock>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding me_nazn}"
+                            <DataGridTextColumn Binding="{Binding Me_nazn}"
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <TextBlock>
@@ -335,7 +334,7 @@
                                     </TextBlock>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding me_diam}"
+                            <DataGridTextColumn Binding="{Binding Me_diam}"
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <TextBlock>
@@ -345,7 +344,7 @@
                                     </TextBlock>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding me_weigth}"
+                            <DataGridTextColumn Binding="{Binding Me_weight}"
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <TextBlock>
@@ -355,7 +354,7 @@
                                     </TextBlock>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding me_pos}"
+                            <DataGridTextColumn Binding="{Binding Me_pos}"
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <TextBlock>
@@ -365,7 +364,7 @@
                                     </TextBlock>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding me_kat}"
+                            <DataGridTextColumn Binding="{Binding Me_kat}"
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <TextBlock>
@@ -375,7 +374,7 @@
                                     </TextBlock>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding sp_id}"
+                            <DataGridTextColumn Binding="{Binding Sp_id}"
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <TextBlock>
@@ -385,7 +384,7 @@
                                     </TextBlock>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding me_energy}"
+                            <DataGridTextColumn Binding="{Binding Me_energy}"
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <TextBlock>
@@ -402,15 +401,15 @@
             <TabItem Header="Локальная копия данных">
                 <Grid Background="#FFE5E5E5">
                     <!--DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"/-->
-                    <DataGrid Name ="localcopyGrid" ItemsSource = "{Binding View}" 
+                    <DataGrid Name ="localcopyGrid" ItemsSource = "{Binding View}" Sorting="localcopyGrid_Sorting" 
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding MeltId}"
                                     Header="Номер записи" Width="SizeToHeader"
                                     IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding eq_id}" Header="Номер печи" 
+                            <DataGridTextColumn Binding="{Binding Eq_id}" Header="Номер печи" 
                                     Width="*"/>
-                            <DataGridTextColumn x:Name="localnPlav" Binding="{Binding me_num}" 
+                            <DataGridTextColumn x:Name="localnPlav" Binding="{Binding Me_num}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <Grid>
@@ -427,15 +426,15 @@
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn x:Name="localdateZap" Binding="{Binding me_beg, StringFormat=dd.MM.yyyy HH:mm}" 
+                            <DataGridTextColumn x:Name="localdateZap" Binding="{Binding Me_beg, StringFormat=dd.MM.yyyy}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
-                                    <Grid>
+                                    <Grid x:Name="Kuku">
                                         <Grid.RowDefinitions>
                                             <RowDefinition/>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                        <TextBlock>Время начала плавки</TextBlock>
+                                        <TextBlock>Дата плавки</TextBlock>
                                         <Grid Grid.Row="1">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition/>
@@ -454,52 +453,29 @@
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
 
-                            <DataGridTextColumn x:Name="localdateClose" Binding="{Binding me_end, StringFormat=dd.MM.yyyy HH:mm}" 
-                                    Width="*">
-                                <DataGridTextColumn.Header>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                        </Grid.RowDefinitions>
-                                        <TextBlock>Время завершения плавки</TextBlock>
-                                        <Grid Grid.Row="1">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                            </Grid.RowDefinitions>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock  Grid.Row="0">От:</TextBlock>
-                                            <DatePicker Name="localCloseStartDate" Grid.Column="1" Text="{Binding StartCloseDate,Mode=OneWayToSource}"/>
-                                            <TextBlock  Grid.Row="1">До:</TextBlock>
-                                            <DatePicker Name="localCloseEndDate" Grid.Row="1" Grid.Column="1" Text="{Binding EndCloseDate,Mode=OneWayToSource}"/>
-                                        </Grid>
-                                    </Grid>
-                                </DataGridTextColumn.Header>
-                            </DataGridTextColumn>
-
-                            <DataGridTextColumn Binding="{Binding sp_name}" Header="Сплав" 
+                            <DataGridTextColumn Binding="{Binding Sp_name}" Header="Сплав" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding oracle_Ins}" Header="Индекс" 
+                            <DataGridTextColumn Binding="{Binding Oracle_Ins}" Header="Индекс" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding me_mould}" Header="Номер комплекта" 
+                            <DataGridTextColumn Binding="{Binding Oracle_Pereplav}" Header="Номер переплава" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding me_del}" Header="Диаметр расходуемого электрода" 
+                            <DataGridTextColumn Binding="{Binding Oracle_OkonchPereplav}" Header="Признак окончательного переплава" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding oracle_Tek}" Header="№ТЭК" 
+                            <DataGridTextColumn Binding="{Binding Me_mould}" Header="Номер комплекта" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding me_ukaz}" Header="ИЛ/УиС/ШН" 
+                            <DataGridTextColumn Binding="{Binding Me_del}" Header="Диаметр расходуемого электрода" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding me_kont}" Header="Контракт" 
+                            <DataGridTextColumn Binding="{Binding Oracle_Tek}" Header="№ТЭК" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding me_pril}" Header="Приложение" 
+                            <DataGridTextColumn Binding="{Binding Me_ukaz}" Header="ИЛ/УиС/ШН" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding me_nazn}" Header="Назначение" 
+                            <DataGridTextColumn Binding="{Binding Me_kont}" Header="Контракт" 
                                     Width="*"/>
-                            <DataGridTextColumn Binding="{Binding me_diam}" Header="Диаметр слитка" 
+                            <DataGridTextColumn Binding="{Binding Oracle_Poz}" Header="Приложение" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Oracle_PozNaim}" Header="Назначение" 
+                                    Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Me_diam}" Header="Диаметр слитка" 
                                     Width="*"/>
                          </DataGrid.Columns>
                     </DataGrid>

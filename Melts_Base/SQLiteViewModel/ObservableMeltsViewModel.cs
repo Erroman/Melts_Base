@@ -99,7 +99,7 @@ namespace Melts_Base.SQLiteViewModel
                 View.Refresh();
             }
         }    
-        private bool ListCollectionView_Filter(object Item)
+        public bool ListCollectionView_Filter(object Item)
         {
 
             return meltDateFilter(Item) && meltNumberFilter(Item) && meltCloseDateFilter(Item);
@@ -116,7 +116,7 @@ namespace Melts_Base.SQLiteViewModel
                 bool startdateFilterSet = DateTime.TryParse(StartDate, out startdate);
                 bool enddateFilterSet = DateTime.TryParse(EndDate, out enddate);
                 return
-                    (!startdateFilterSet || (startdate <= melt.me_beg)) && (!enddateFilterSet || (melt.me_beg <= enddate));
+                    (!startdateFilterSet || (startdate <= melt.Me_beg)) && (!enddateFilterSet || (melt.Me_beg <= enddate));
 
             }
             return false;
@@ -132,7 +132,7 @@ namespace Melts_Base.SQLiteViewModel
                 bool startdateFilterSet = DateTime.TryParse(StartCloseDate, out startdate);
                 bool enddateFilterSet = DateTime.TryParse(EndCloseDate, out enddate);
                 return
-                    (!startdateFilterSet || (startdate <= melt.me_end)) && (!enddateFilterSet || (melt.me_end <= enddate));
+                    (!startdateFilterSet || (startdate <= melt.Me_end)) && (!enddateFilterSet || (melt.Me_end <= enddate));
 
             }
             return false;
@@ -150,10 +150,10 @@ namespace Melts_Base.SQLiteViewModel
                 if (String.IsNullOrEmpty(MeltNumberSought))
                     return true;
                 else
-                    if(melt.me_num == null)
+                    if(melt.Me_num == null)
                        return false;
                     else
-                       return (melt.me_num.IndexOf(MeltNumberSought, StringComparison.OrdinalIgnoreCase) >= 0);
+                       return (melt.Me_num.IndexOf(MeltNumberSought, StringComparison.OrdinalIgnoreCase) >= 0);
             }
             return false; 
         }
