@@ -54,6 +54,9 @@ namespace Melts_Base
         List<OracleMelt> oracleMelts = null;
         string SortMemberPath = "Me_beg";
         ListSortDirection? SortDirection = null;
+        string MeltNumberSought = "";//melt number for filtering melts
+        string StartDate = "";//Start date for filtering melts
+        string EndDate = ""; //End date for filtering melts
         
 
         public MainWindow()
@@ -83,6 +86,9 @@ namespace Melts_Base
         }
         private void readFromSQLiteLocal() 
         {
+            MeltNumberSought = observableMeltsViewModel?.MeltNumberSought;
+            StartDate = observableMeltsViewModel?.StartDate;
+            EndDate = observableMeltsViewModel?.EndDate;
             meltsContext.Melts.Load();
             localSQLLiteMelts = new ObservableCollection<Melt>(meltsContext.Melts.Local.ToObservableCollection().OrderByDescending(melt=>melt.Me_beg));
             observableMeltsViewModel = new ObservableMeltsViewModel(localSQLLiteMelts);
@@ -90,6 +96,9 @@ namespace Melts_Base
             localZapuskStartDate.DataContext = observableMeltsViewModel;
             localZapuskEndDate.DataContext = observableMeltsViewModel;
             localPlantMeltNumberSought.DataContext = observableMeltsViewModel;
+            observableMeltsViewModel.MeltNumberSought = MeltNumberSought;
+            observableMeltsViewModel.StartDate = StartDate;
+            observableMeltsViewModel.EndDate = EndDate;
         }
         private bool readFromSybase() 
         {
