@@ -295,11 +295,34 @@ namespace Melts_Base
             sheet1.Cells[1, 16] = "Диаметр слитка";
 
             Func<Melt, DateTime?> func_for_ordering_dates = melt => melt.Me_beg;
-            Func<Melt, string> func_for_ordering_strings;
-            Func<Melt, int> func_for_ordering_numbers;
-
+ 
             IEnumerable<Melt> listMelt = localSQLLiteMelts.Where<Melt>(melt => observableMeltsViewModel.
                     ListCollectionView_Filter(melt));
+            listMelt = putMeltsInOrder(listMelt);
+            int i = 2;
+            foreach (var melt in listMelt)
+            {
+                sheet1.Cells[i, 1] = melt.MeltId;
+                sheet1.Cells[i, 2] = melt.Eq_id;
+                sheet1.Cells[i, 3] = melt.Me_num;
+                sheet1.Cells[i, 4] = melt.Me_beg?.ToString("dd.MM.yyyy");
+                sheet1.Cells[i, 5] = melt.Sp_name;
+                sheet1.Cells[i, 6] = melt.Oracle_Ins;
+                sheet1.Cells[i, 7] = melt.Oracle_Pereplav;
+                sheet1.Cells[i, 8] = melt.Oracle_OkonchPereplav;
+                sheet1.Cells[i, 9] = melt.Me_mould;
+                sheet1.Cells[i, 10] = melt.Me_del;
+                sheet1.Cells[i, 11] = melt.Oracle_Tek;
+                sheet1.Cells[i, 12] = melt.Me_ukaz;
+                sheet1.Cells[i, 13] = melt.Me_kont;
+                sheet1.Cells[i, 14] = melt.Oracle_Poz;
+                sheet1.Cells[i, 15] = melt.Oracle_PozNaim;
+                sheet1.Cells[i, 16] = melt.Me_diam;
+                i++;
+            }
+        }
+        private IEnumerable<Melt> putMeltsInOrder(IEnumerable<Melt> listMelt) 
+        {
             switch (SortMemberPath)
             {
                 case "MeltId":
@@ -461,31 +484,8 @@ namespace Melts_Base
                 default:
                     break;
 
-            }
-          
-            int i = 2;
-            foreach (var melt in listMelt)
-            {
-                sheet1.Cells[i, 1] = melt.MeltId;
-                sheet1.Cells[i, 2] = melt.Eq_id;
-                sheet1.Cells[i, 3] = melt.Me_num;
-                sheet1.Cells[i, 4] = melt.Me_beg?.ToString("dd.MM.yyyy");
-                sheet1.Cells[i, 5] = melt.Sp_name;
-                sheet1.Cells[i, 6] = melt.Oracle_Ins;
-                sheet1.Cells[i, 7] = melt.Oracle_Pereplav;
-                sheet1.Cells[i, 8] = melt.Oracle_OkonchPereplav;
-                sheet1.Cells[i, 9] = melt.Me_mould;
-                sheet1.Cells[i, 10] = melt.Me_del;
-                sheet1.Cells[i, 11] = melt.Oracle_Tek;
-                sheet1.Cells[i, 12] = melt.Me_ukaz;
-                sheet1.Cells[i, 13] = melt.Me_kont;
-                sheet1.Cells[i, 14] = melt.Oracle_Poz;
-                sheet1.Cells[i, 15] = melt.Oracle_PozNaim;
-                sheet1.Cells[i, 16] = melt.Me_diam;
-                i++;
-            }
+            }return listMelt;
         }
-
         private void localcopyGrid_Sorting(object sender, DataGridSortingEventArgs e)
         {
             SortMemberPath =  e.Column.SortMemberPath;
