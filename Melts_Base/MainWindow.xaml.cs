@@ -90,7 +90,7 @@ namespace Melts_Base
             StartDate = observableMeltsViewModel?.StartDate;
             EndDate = observableMeltsViewModel?.EndDate;
             meltsContext.Melts.Load();
-            localSQLLiteMelts = new ObservableCollection<Melt>(meltsContext.Melts.Local.ToObservableCollection().OrderByDescending(melt=>melt.Me_beg));
+            localSQLLiteMelts = new ObservableCollection<Melt>(putMeltsInOrder(meltsContext.Melts.Local.ToObservableCollection()));
             observableMeltsViewModel = new ObservableMeltsViewModel(localSQLLiteMelts);
             localcopyGrid.DataContext = observableMeltsViewModel;
             localZapuskStartDate.DataContext = observableMeltsViewModel;
