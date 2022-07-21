@@ -36,10 +36,6 @@
                         <Button Content="Экспорт в Excel" Margin="10,5" Click="ExportToExcel"/>
                     </StackPanel>
                   </RibbonGroup>
-                <RibbonGroup Width="307">
-                    <Grid></Grid>
-                    <TextBlock HorizontalAlignment="Left" Margin="110,31,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-                </RibbonGroup>
             </RibbonTab>
         </Ribbon>
 
@@ -403,7 +399,6 @@
             </TabItem>
             <TabItem Header="Локальная копия данных">
                 <Grid Background="#FFE5E5E5">
-                    <!--DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"/-->
                     <DataGrid Name ="localcopyGrid" ItemsSource = "{Binding View}" Sorting="localcopyGrid_Sorting" 
                               AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
                         <DataGrid.Columns>
@@ -455,7 +450,6 @@
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-
                             <DataGridTextColumn Binding="{Binding Sp_name}" Header="Сплав" 
                                     Width="*"/>
                             <DataGridTextColumn Binding="{Binding Oracle_Ins}" Header="Индекс" 
