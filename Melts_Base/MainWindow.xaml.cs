@@ -52,7 +52,7 @@ namespace Melts_Base
         ObservableCollection<Melt> localSQLLiteMelts = null;
         List<SybaseMelt> sybaseMelts = null;
         List<OracleMelt> oracleMelts = null;
-        string SortMemberPath = "Me_beg";
+        string SortMemberPath = null;
         ListSortDirection? SortDirection = null;
         string MeltNumberSought = "";//melt number for filtering melts
         string StartDate = "";//Start date for filtering melts
@@ -482,6 +482,7 @@ namespace Melts_Base
                         listMelt = listMelt.OrderByDescending(melt => melt.Oracle_OkonchPereplav);
                     break;
                 default:
+                    listMelt = listMelt.OrderByDescending(melt => melt.Me_beg);
                     break;
 
             }return listMelt;
