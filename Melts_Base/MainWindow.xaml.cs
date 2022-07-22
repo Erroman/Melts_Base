@@ -208,15 +208,20 @@ namespace Melts_Base
                 var MeltFound = false;
                 //находим информацию по плавке с данным номером в listOracleMelts,если нашли,составляем полную плавку,
                 //добавляя поля из найденной записи.
-                var oracleMelt = listOracleMelts.Where<OracleMelt>(p => p.Nplav == sybaseMelt.Me_num).FirstOrDefault<OracleMelt>();
-                if (oracleMelt != null) 
+                var oracleMelt = listOracleMelts.Where<OracleMelt>(p => p.Nplav == sybaseMelt.Me_num).ToArray<OracleMelt>();
+                if (oracleMelt.Length != 0) 
                 {
-                    sybaseMelt.Oracle_Ins = oracleMelt.Ins;
-                    sybaseMelt.Oracle_Tek = oracleMelt.Tek;
-                    sybaseMelt.Oracle_Poz = oracleMelt.Poz;
-                    sybaseMelt.Oracle_PozNaim = oracleMelt.PozNaim;
-                    sybaseMelt.Oracle_Pereplav = oracleMelt.Pereplav;
-                    sybaseMelt.Oracle_OkonchPereplav = oracleMelt.OkonchPereplav;
+                    sybaseMelt.Oracle_Ins = oracleMelt[0].Ins;
+                    sybaseMelt.Oracle_Tek = oracleMelt[0].Tek;
+                    for(int i = 0; i < oracleMelt.Length; i++) 
+                    {
+                        if(i>0) sybaseMelt.Oracle_Poz+=Environment.NewLine;
+                        sybaseMelt.Oracle_Poz += oracleMelt[i].Poz;
+                    }
+                    
+                    sybaseMelt.Oracle_PozNaim = oracleMelt[0].PozNaim;
+                    sybaseMelt.Oracle_Pereplav = oracleMelt[0].Pereplav;
+                    sybaseMelt.Oracle_OkonchPereplav = oracleMelt[0].OkonchPereplav;
                 }
                 //проверяем, есть ли запись в локальной базе SqLite, соответствующая плавке в базе Sybase
                 //сравнение ведём по номеру плавки и hash-коду.
