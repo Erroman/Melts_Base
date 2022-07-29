@@ -35,7 +35,11 @@
                         <Button Content="Подкачка данных" Margin="10,5" Click="Button_Click"/>
                         <Button Content="Экспорт в Excel" Margin="10,5" Click="ExportToExcel"/>
                     </StackPanel>
-                  </RibbonGroup>
+                </RibbonGroup>
+                <RibbonGroup>
+                     <ProgressBar Height="30" Width="500"/>
+                </RibbonGroup>
+               
             </RibbonTab>
         </Ribbon>
 
