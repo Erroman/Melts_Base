@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CH11.AsyncCalc", "CH11.AsyncCalc\CH11.AsyncCalc.csproj", "{6119EE34-51FF-49DE-9DD5-E9EEB881106C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CH11.AsyncCalcWithBackgroundWorker", "CH11.AsyncCalcWithBackgroundComponent\CH11.AsyncCalcWithBackgroundWorker.csproj", "{1511B3CA-AA08-4A8A-A813-14E5EFBC1D23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CH11.AsyncCalcWithBackgroundWorker2", "CH11.AsyncCalcWithBackgroundComponent2\CH11.AsyncCalcWithBackgroundWorker2.csproj", "{DF95F381-DCEE-4353-A66C-2D953B513523}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CH11.PeriodicUpdates", "CH11.PeriodicUpdates\CH11.PeriodicUpdates.csproj", "{C6329C7D-98B8-4077-B6C8-19B9B5678E75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CH11.AsyncCalcWithBinding", "CH11.AsyncCalcWithBinding\CH11.AsyncCalcWithBinding.csproj", "{2C30D989-C266-498C-B066-5588315ED13F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6119EE34-51FF-49DE-9DD5-E9EEB881106C}.Debug|x86.ActiveCfg = Debug|x86
+		{6119EE34-51FF-49DE-9DD5-E9EEB881106C}.Debug|x86.Build.0 = Debug|x86
+		{6119EE34-51FF-49DE-9DD5-E9EEB881106C}.Release|x86.ActiveCfg = Release|x86
+		{6119EE34-51FF-49DE-9DD5-E9EEB881106C}.Release|x86.Build.0 = Release|x86
+		{1511B3CA-AA08-4A8A-A813-14E5EFBC1D23}.Debug|x86.ActiveCfg = Debug|x86
+		{1511B3CA-AA08-4A8A-A813-14E5EFBC1D23}.Debug|x86.Build.0 = Debug|x86
+		{1511B3CA-AA08-4A8A-A813-14E5EFBC1D23}.Release|x86.ActiveCfg = Release|x86
+		{1511B3CA-AA08-4A8A-A813-14E5EFBC1D23}.Release|x86.Build.0 = Release|x86
+		{DF95F381-DCEE-4353-A66C-2D953B513523}.Debug|x86.ActiveCfg = Debug|x86
+		{DF95F381-DCEE-4353-A66C-2D953B513523}.Debug|x86.Build.0 = Debug|x86
+		{DF95F381-DCEE-4353-A66C-2D953B513523}.Release|x86.ActiveCfg = Release|x86
+		{DF95F381-DCEE-4353-A66C-2D953B513523}.Release|x86.Build.0 = Release|x86
+		{C6329C7D-98B8-4077-B6C8-19B9B5678E75}.Debug|x86.ActiveCfg = Debug|x86
+		{C6329C7D-98B8-4077-B6C8-19B9B5678E75}.Debug|x86.Build.0 = Debug|x86
+		{C6329C7D-98B8-4077-B6C8-19B9B5678E75}.Release|x86.ActiveCfg = Release|x86
+		{C6329C7D-98B8-4077-B6C8-19B9B5678E75}.Release|x86.Build.0 = Release|x86
+		{2C30D989-C266-498C-B066-5588315ED13F}.Debug|x86.ActiveCfg = Debug|x86
+		{2C30D989-C266-498C-B066-5588315ED13F}.Debug|x86.Build.0 = Debug|x86
+		{2C30D989-C266-498C-B066-5588315ED13F}.Release|x86.ActiveCfg = Release|x86
+		{2C30D989-C266-498C-B066-5588315ED13F}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

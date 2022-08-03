@@ -29,8 +29,13 @@ namespace MyAsync
         private async void  Button_Click(object sender, RoutedEventArgs e)
         {
             progressBar.Value = 50;
-            await Task.Run(()=> longTask());
+            await longTask();
+            progressBar.Value += 50;
         }
-        void longTask() { Thread.Sleep(5000);progressBar.Value += 50; }
+        async Task<int>  longTask() 
+        { 
+            var task = Task.Run(()=> { Thread.Sleep(5000); return 0; });
+            return await task;
+        }
     }
 }

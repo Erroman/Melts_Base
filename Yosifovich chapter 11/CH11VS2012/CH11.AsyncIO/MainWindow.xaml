@@ -1,0 +1,18 @@
+﻿<Window x:Class="CH11.AsyncIO.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Async I/O Demo" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" TextBlock.FontSize="16">
+            <Button Content="Get Data (sync)" Margin="4" Click="OnGetDataSync" />
+            <Button Content="Get Data (async old)" Margin="4" Click="OnGetDataAsyncOld" />
+            <Button Content="Get Data (async new)" Margin="4" Click="OnGetDataAsyncNew" />
+            <Button Content="Get Data (w/ Timeout)" Margin="4" Click="OnGetWithTimeout" />
+        </StackPanel>
+        <TextBox IsReadOnly="True" Grid.Row="1" Margin="4" FontSize="12" AcceptsReturn="True" x:Name="_result" />
+    </Grid>
+</Window>
