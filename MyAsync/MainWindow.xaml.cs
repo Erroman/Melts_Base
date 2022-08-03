@@ -34,7 +34,16 @@ namespace MyAsync
         }
         async Task<int>  longTask() 
         { 
-            var task = Task.Run(()=> { Thread.Sleep(5000); return 0; });
+            var task = Task.Run(()=> 
+            { 
+                Thread.Sleep(1000);
+                Thread.Sleep(1000);
+                Thread.Sleep(1000);
+                Thread.Sleep(1000);
+                Thread.Sleep(1000);
+                return 0; 
+            }
+            );
             return await task;
         }
     }
