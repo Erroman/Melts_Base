@@ -499,7 +499,6 @@ namespace Melts_Base
             else
             SortDirection = e.Column.SortDirection==ListSortDirection.Descending?
                             ListSortDirection.Ascending:ListSortDirection.Descending;
-            MessageBox.Show(string.Format("sorting grid by '{0}' column in {1} order", e.Column.SortMemberPath, e.Column.SortDirection));
         }
     }
 }
