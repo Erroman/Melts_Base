@@ -80,9 +80,14 @@ namespace Melts_Base
             nPlav.Width = new DataGridLength(90);
             meltsContext.Database.EnsureCreated();
             readFromSQLiteLocal();
-           // localcopyGrid.Items.SortDescriptions.Add(new SortDescription("Kuku", ListSortDirection.Descending));
-            readFromSybase();
-            readFromOracle();
+            // localcopyGrid.Items.SortDescriptions.Add(new SortDescription("Kuku", ListSortDirection.Descending));
+            if (readFromSybase() && readFromOracle())
+            {
+                PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
+                MessageBox.Show("Подкачка выполнена!");
+            }
+            //readFromSybase();
+            //readFromOracle();
         }
         private void readFromSQLiteLocal() 
         {
