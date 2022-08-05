@@ -37,7 +37,7 @@
                     </StackPanel>
                 </RibbonGroup>
                 <RibbonGroup>
-                     <ProgressBar Height="30" Width="500"/>
+                     <ProgressBar Name="loadingProgress" Height="30" Width="500"/>
                 </RibbonGroup>
                
             </RibbonTab>

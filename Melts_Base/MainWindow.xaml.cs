@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Oracle.EntityFrameworkCore;
@@ -67,27 +68,79 @@ namespace Melts_Base
 
         private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)
         {
+            Data_Loading(sender, e);
             this.Close();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
             localdateZap.Width = new DataGridLength(120);
             localnPlav.Width = new DataGridLength(90);
             dateZap.Width = new DataGridLength(120);
             dateClose.Width = new DataGridLength(120);
-            nPlav.Width = new DataGridLength(90);
+            nPlav.Width = new DataGridLength(90);            
+            await longTask();
             meltsContext.Database.EnsureCreated();
             readFromSQLiteLocal();
-            // localcopyGrid.Items.SortDescriptions.Add(new SortDescription("Kuku", ListSortDirection.Descending));
+
             if (readFromSybase() && readFromOracle())
             {
                 PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
                 MessageBox.Show("Подкачка выполнена!");
             }
-            //readFromSybase();
-            //readFromOracle();
+        }
+        private async void Data_Loading(object sender, RoutedEventArgs e)
+        {
+
+            await longTask();
+        }
+        async Task<int> longTask()
+        {
+            IProgress<int> progress = new Progress<int>(v => loadingProgress.Value += v);
+            var task = Task.Run(() =>
+            {
+                //for(int i = 0; i <= 100; i += 5) 
+                //{
+                //    Thread.Sleep(1000);
+                //    progress.Report(i);
+                //}
+            
+                Thread.Sleep(1000);
+                //meltsContext.Database.EnsureCreated();
+                //readFromSQLiteLocal();
+                progress.Report(10);
+                Thread.Sleep(1000);
+                //readFromSybase();
+                progress.Report(10);
+                Thread.Sleep(1000);
+                //readFromOracle();
+                progress.Report(10);
+                Thread.Sleep(1000);
+                //PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
+                progress.Report(10);
+                Thread.Sleep(1000);
+                progress.Report(10);
+                Thread.Sleep(1000);
+                //meltsContext.Database.EnsureCreated();
+                //readFromSQLiteLocal();
+                progress.Report(10);
+                Thread.Sleep(1000);
+                //readFromSybase();
+                progress.Report(10);
+                Thread.Sleep(1000);
+                //readFromOracle();
+                progress.Report(10);
+                Thread.Sleep(1000);
+                //PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
+                progress.Report(10);
+                Thread.Sleep(1000);
+                //readFromOracle();
+                progress.Report(10);
+                return 0;
+            }
+            );
+            return await task;
         }
         private void readFromSQLiteLocal() 
         {
