@@ -68,7 +68,7 @@ namespace Melts_Base
 
         private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            Data_Loading(sender, e);
+            //Data_Loading(sender, e);
             this.Close();
         }
 
@@ -81,14 +81,15 @@ namespace Melts_Base
             dateClose.Width = new DataGridLength(120);
             nPlav.Width = new DataGridLength(90);            
             await longTask();
-            meltsContext.Database.EnsureCreated();
-            readFromSQLiteLocal();
+            //meltsContext.Database.EnsureCreated();
+            //readFromSQLiteLocal();
 
-            if (readFromSybase() && readFromOracle())
-            {
-                PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
-                MessageBox.Show("Подкачка выполнена!");
-            }
+            //if (readFromSybase() && readFromOracle())
+            //{
+            //    PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
+            //    //MessageBox.Show("Подкачка выполнена!");
+            //}
+            await longLoadFromBases();
         }
         private async void Data_Loading(object sender, RoutedEventArgs e)
         {
@@ -100,43 +101,92 @@ namespace Melts_Base
             IProgress<int> progress = new Progress<int>(v => loadingProgress.Value += v);
             var task = Task.Run(() =>
             {
-                //for(int i = 0; i <= 100; i += 5) 
+                //for (int i = 0; i <= 100; i += 5)
                 //{
                 //    Thread.Sleep(1000);
                 //    progress.Report(i);
                 //}
-            
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
+                progress.Report(5);
+                Thread.Sleep(500);
+                //readFromSybase();
+                progress.Report(5);
+                Thread.Sleep(500);
+                //readFromOracle();
+                progress.Report(5);
+                Thread.Sleep(500);
+                //PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
+                progress.Report(5);
+                Thread.Sleep(500);
+                progress.Report(5);
+                Thread.Sleep(500);
                 //meltsContext.Database.EnsureCreated();
                 //readFromSQLiteLocal();
-                progress.Report(10);
-                Thread.Sleep(1000);
+                progress.Report(5);
+                Thread.Sleep(500);
                 //readFromSybase();
-                progress.Report(10);
-                Thread.Sleep(1000);
+                progress.Report(5);
+                Thread.Sleep(500);
                 //readFromOracle();
-                progress.Report(10);
-                Thread.Sleep(1000);
+                progress.Report(5);
+                Thread.Sleep(500);
                 //PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
-                progress.Report(10);
-                Thread.Sleep(1000);
-                progress.Report(10);
-                Thread.Sleep(1000);
+                progress.Report(5);
+                Thread.Sleep(500);
+                //readFromOracle();
+                progress.Report(5);
+                Thread.Sleep(500);
+                progress.Report(5);
+                Thread.Sleep(500);
+                //readFromSybase();
+                progress.Report(5);
+                Thread.Sleep(500);
+                //readFromOracle();
+                progress.Report(5);
+                Thread.Sleep(500);
+                //PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
+                progress.Report(5);
+                Thread.Sleep(500);
+                progress.Report(5);
+                Thread.Sleep(500);
                 //meltsContext.Database.EnsureCreated();
                 //readFromSQLiteLocal();
-                progress.Report(10);
-                Thread.Sleep(1000);
+                progress.Report(5);
+                Thread.Sleep(500);
                 //readFromSybase();
-                progress.Report(10);
-                Thread.Sleep(1000);
+                progress.Report(5);
+                Thread.Sleep(500);
                 //readFromOracle();
-                progress.Report(10);
-                Thread.Sleep(1000);
+                progress.Report(5);
+                Thread.Sleep(500);
                 //PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
-                progress.Report(10);
-                Thread.Sleep(1000);
+                progress.Report(5);
+                Thread.Sleep(500);
                 //readFromOracle();
-                progress.Report(10);
+                progress.Report(5);
+
+                return 0;
+            }
+            );
+            return await task;
+        }
+        async Task<int> longLoadFromBases()
+        {
+            IProgress<int> progress = new Progress<int>(v => loadingProgress.Value += v);
+            var task = Task.Run(() =>
+            {
+                Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, () =>
+                {
+                    meltsContext.Database.EnsureCreated();
+                    readFromSQLiteLocal();
+
+                    if (readFromSybase() && readFromOracle())
+                    {
+                        PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
+                        //MessageBox.Show("Подкачка выполнена!");
+                    }
+                });
+      
                 return 0;
             }
             );
@@ -285,12 +335,23 @@ namespace Melts_Base
                 //сравнение ведём по номеру плавки и hash-коду.
                 //если записи такой нет, добавляем запись с данным номером плавки, содержащую
                 //информацию из Sybase м Oracle
+                int Flag;
                 foreach (var melt in listSqLiteMelts)
                 {
+  
 
-                    if (sybaseMelt.Me_num == melt.Me_num && sybaseMelt.MyHashCode() == melt.MyHashCode())
+                    if (sybaseMelt.Me_num == melt.Me_num) 
                     {
-                        MeltFound = true;
+                        var sybaseHashCode = sybaseMelt.MyHashCode();
+                        var sqlLiteHashCode = melt.MyHashCode();
+                        if (sybaseMelt.Me_num == "0-32-04864")
+                                Flag=1;
+                
+                        if (sybaseMelt.MyHashCode() == melt.MyHashCode())
+                        {
+                            MeltFound = true;
+                        }
+                        else meltsContext.Remove<Melt>(melt);
                     }
                 }
                 if (!MeltFound)
