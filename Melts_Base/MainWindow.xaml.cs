@@ -335,18 +335,12 @@ namespace Melts_Base
                 //сравнение ведём по номеру плавки и hash-коду.
                 //если записи такой нет, добавляем запись с данным номером плавки, содержащую
                 //информацию из Sybase м Oracle
-                int Flag;
                 foreach (var melt in listSqLiteMelts)
                 {
   
 
                     if (sybaseMelt.Me_num == melt.Me_num) 
-                    {
-                        var sybaseHashCode = sybaseMelt.MyHashCode();
-                        var sqlLiteHashCode = melt.MyHashCode();
-                        if (sybaseMelt.Me_num == "0-32-04864")
-                                Flag=1;
-                
+                    {                 
                         if (sybaseMelt.MyHashCode() == melt.MyHashCode())
                         {
                             MeltFound = true;

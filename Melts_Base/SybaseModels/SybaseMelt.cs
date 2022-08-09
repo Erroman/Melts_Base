@@ -40,18 +40,18 @@ namespace Melts_Base.SybaseModels
         public string? Oracle_Pereplav { get; set; } //номер переплава из Оракл
         public string? Oracle_OkonchPereplav { get; set; } //признак окончательного переплава из Оракл
 
-        public int MyHashCode()
+        public string MyHashCode()
         {
-            return Eq_id?.GetHashCode() ?? 0 + Me_num?.GetHashCode() ?? 0 +
-               Me_beg.GetHashCode() + Me_end.GetHashCode() + Me_splav?.GetHashCode() ?? 0 +
-               Sp_name?.GetHashCode() ?? 0 + Me_mould?.GetHashCode() ?? 0 + Me_del?.GetHashCode() ?? 0 +
-               Me_ukaz?.GetHashCode() ?? 0 + Me_kont?.GetHashCode() ?? 0 + Me_pril?.GetHashCode() ?? 0 +
-               Me_nazn?.GetHashCode() ?? 0 + Me_diam?.GetHashCode() ?? 0 + Me_weight?.GetHashCode() ?? 0 +
-               Me_zakaz?.GetHashCode() ?? 0 + Me_pos.GetHashCode() + Me_kat?.GetHashCode() ?? 0 +
-               Sp_id?.GetHashCode() ?? 0 + Me_energy?.GetHashCode() ?? 0 +
-               Oracle_Ins?.GetHashCode() ?? 0 + Oracle_Tek?.GetHashCode() ?? 0 +
-               Oracle_Poz?.GetHashCode() ?? 0 + Oracle_PozNaim?.GetHashCode() ?? 0 +
-               Oracle_Pereplav?.GetHashCode() ?? 0 + Oracle_OkonchPereplav?.GetHashCode() ?? 0;
+              return (Eq_id + Me_num +
+               Me_beg + Me_end + Me_splav +
+               Sp_name + Me_mould + Me_del +
+               Me_ukaz + Me_kont + Me_pril +
+               Me_nazn + Me_diam + Me_weight +
+               Me_zakaz + Me_pos + Me_kat +
+               Sp_id + Me_energy +
+               Oracle_Ins + Oracle_Tek +
+               Oracle_Poz + Oracle_PozNaim +
+               Oracle_Pereplav + Oracle_OkonchPereplav);
         }
 
 
