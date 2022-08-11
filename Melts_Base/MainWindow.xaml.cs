@@ -183,6 +183,7 @@ namespace Melts_Base
                     if (readFromSybase() && readFromOracle())
                     {
                         PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
+                        textOfProgress.Text = "Данные обновлены";
                         //MessageBox.Show("Подкачка выполнена!");
                     }
                 });
@@ -294,12 +295,13 @@ namespace Melts_Base
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if(readFromSybase() && readFromOracle()) 
+            textOfProgress.Text = "Идёт обновление данных";
+            if (readFromSybase() && readFromOracle())
             {
-                PumpPlantData(sybaseMelts,oracleMelts,localSQLLiteMelts.ToList());
-                MessageBox.Show("Подкачка выполнена!");
+                PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
+               textOfProgress.Text = "Данные обновлены";
             }
-            else MessageBox.Show("Подкачка невозможна!");
+            else MessageBox.Show("Обновление данных невозможно!");
         }
         private void PumpPlantData(List<SybaseMelt> listSybaseMelts,List<OracleMelt> listOracleMelts, List<Melt> listSqLiteMelts)
         {

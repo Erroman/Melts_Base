@@ -49,7 +49,7 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <TextBlock x:Name="textOfProgress" Text="Идёт обновление данных" FontSize="20"/>
+                        <TextBlock x:Name="textOfProgress"  Text="Идёт обновление данных" FontSize="20" HorizontalAlignment="Center"/>
                         <ProgressBar Grid.Row="1" Name="loadingProgress" Height="30" Width="500"/>
                     </Grid>
                      
