@@ -30,16 +30,36 @@
                 </RibbonGroup>
             </RibbonTab>
             <RibbonTab Header="Локальная база" KeyTip="I">
-                <RibbonGroup x:Name="SupplementaryData">
+                <RibbonGroup x:Name="refreshData">
                     <StackPanel>
-                        <Button Content="Подкачка данных" Margin="10,5" Click="Button_Click"/>
-                        <Button Content="Экспорт в Excel" Margin="10,5" Click="ExportToExcel"/>
+                        <Button Margin="10,5" Click="Button_Click">
+                            <Button.Content>
+                                <TextBlock FontSize="20">
+                                <Run>Обновить</Run>
+                                <LineBreak/>
+                                <Run>данные</Run>
+                                </TextBlock>
+                            </Button.Content>
+                        </Button>
                     </StackPanel>
                 </RibbonGroup>
                 <RibbonGroup>
-                     <ProgressBar Name="loadingProgress" Height="30" Width="500"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock x:Name="textOfProgress" Text="Идёт обновление данных" FontSize="20"/>
+                        <ProgressBar Grid.Row="1" Name="loadingProgress" Height="30" Width="500"/>
+                    </Grid>
+                     
                 </RibbonGroup>
-               
+                <RibbonGroup x:Name="outputToExcel">
+                    <StackPanel>
+                        <Button Content="Экспорт в Excel" Margin="10,5" Click="ExportToExcel"/>
+                        <Button Content="Экспорт в Word" Margin="10,5" Click="ExportToExcel"/>
+                    </StackPanel>
+                </RibbonGroup>
             </RibbonTab>
         </Ribbon>
 
