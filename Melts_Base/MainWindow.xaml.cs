@@ -293,15 +293,31 @@ namespace Melts_Base
             meltsContext.Dispose();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            textOfProgress.Text = "Идёт обновление данных";
+            //await Task.Run(() =>
+            //{
+            //    Console.WriteLine(textOfProgress.Text = "Идёт обновление данных");
+            //    return 0;
+            //};
+            Console.WriteLine(textOfProgress.Text = "Идёт обновление данных");
             if (readFromSybase() && readFromOracle())
             {
                 PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
                textOfProgress.Text = "Данные обновлены";
             }
             else MessageBox.Show("Обновление данных невозможно!");
+        }
+        async Task<int> dataRefreshingMessageAsync()
+        {
+            //IProgress<int> progress = new Progress<int>(v => progressBar.Value += v);
+            var task = Task.Run(() =>
+            {
+                Console.WriteLine(textOfProgress.Text = "Идёт обновление данных");
+                return 0;
+            }
+            );
+            return await task;
         }
         private void PumpPlantData(List<SybaseMelt> listSybaseMelts,List<OracleMelt> listOracleMelts, List<Melt> listSqLiteMelts)
         {
