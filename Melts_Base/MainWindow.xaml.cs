@@ -99,6 +99,7 @@ namespace Melts_Base
         async Task<int> longTask()
         {
             IProgress<int> progress = new Progress<int>(v => loadingProgress.Value += v);
+            textOfProgress.Text = "Идёт обновление данных";
             var task = Task.Run(() =>
             {
                 //for (int i = 0; i <= 100; i += 5)
@@ -106,6 +107,7 @@ namespace Melts_Base
                 //    Thread.Sleep(1000);
                 //    progress.Report(i);
                 //}
+                //textOfProgress.Text = "Идёт обновление данных";
                 Thread.Sleep(500);
                 progress.Report(5);
                 Thread.Sleep(500);
@@ -183,6 +185,7 @@ namespace Melts_Base
                     if (readFromSybase() && readFromOracle())
                     {
                         PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
+                        loadingProgress.Value = 0;
                         textOfProgress.Text = "Данные обновлены";
                         //MessageBox.Show("Подкачка выполнена!");
                     }
@@ -292,19 +295,30 @@ namespace Melts_Base
             meltsContext.SaveChanges();
             meltsContext.Dispose();
         }
+        private async Task dataRefreshSign() 
+        {
+            textOfProgress.Text = "Идёт обновление данных";
+        }
+        private async Task dataRefreshOverSign()
+        {
+            loadingProgress.Value = 0;
+            textOfProgress.Text = "Данные обновлены";
+        }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void refreshDataClick(object sender, RoutedEventArgs e)
         {
             //await Task.Run(() =>
             //{
-            //    Console.WriteLine(textOfProgress.Text = "Идёт обновление данных");
+            //    textOfProgress.Text = "Идёт обновление данных";
             //    return 0;
-            //};
-            Console.WriteLine(textOfProgress.Text = "Идёт обновление данных");
+            //});
+            //textOfProgress.Text = "Идёт обновление данных";
+            await longTask();
             if (readFromSybase() && readFromOracle())
             {
                 PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
-               textOfProgress.Text = "Данные обновлены";
+                //textOfProgress.Text = "Данные обновлены";
+                await dataRefreshOverSign();
             }
             else MessageBox.Show("Обновление данных невозможно!");
         }
@@ -313,7 +327,7 @@ namespace Melts_Base
             //IProgress<int> progress = new Progress<int>(v => progressBar.Value += v);
             var task = Task.Run(() =>
             {
-                Console.WriteLine(textOfProgress.Text = "Идёт обновление данных");
+                textOfProgress.Text = "Идёт обновление данных";
                 return 0;
             }
             );
