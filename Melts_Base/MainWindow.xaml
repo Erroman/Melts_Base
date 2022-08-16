@@ -29,7 +29,12 @@
                 <RibbonGroup x:Name="Shop31SybaseListOfMelts">
                 </RibbonGroup>
             </RibbonTab>
-            <RibbonTab Header="Таблица операций плавления, выполненых в цехе 31" KeyTip="I" Visibility="Visible">
+            <RibbonTab  KeyTip="I" Visibility="Visible">
+                <RibbonTab.Header>
+                    <TextBlock FontSize="20" TextDecorations="Underline" FontWeight="ExtraBold">
+                     Таблица операций плавления, выполненых в цехе 31    
+                    </TextBlock>
+                </RibbonTab.Header>
                 <RibbonGroup x:Name="refreshData">
                     <StackPanel>
                         <Button Margin="10,5" Click="refreshDataClick">
