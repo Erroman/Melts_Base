@@ -28,9 +28,6 @@ using System.Data;
 using Excel = Microsoft.Office.Interop.Excel;       //Add Microsoft Excel 16.0 Object Library to the project
                                                     //by Dependencies/Add COM Reference...
 
-
-//using Microsoft.Office.Interop.Excel;
-
 namespace Melts_Base
 {
     /// <summary>
@@ -81,14 +78,6 @@ namespace Melts_Base
             dateClose.Width = new DataGridLength(120);
             nPlav.Width = new DataGridLength(90);            
             await longTask();
-            //meltsContext.Database.EnsureCreated();
-            //readFromSQLiteLocal();
-
-            //if (readFromSybase() && readFromOracle())
-            //{
-            //    PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
-            //    //MessageBox.Show("Подкачка выполнена!");
-            //}
             await longLoadFromBases();
         }
         private async void Data_Loading(object sender, RoutedEventArgs e)
@@ -102,69 +91,45 @@ namespace Melts_Base
             textOfProgress.Text = "Идёт обновление данных";
             var task = Task.Run(() =>
             {
-                //for (int i = 0; i <= 100; i += 5)
-                //{
-                //    Thread.Sleep(1000);
-                //    progress.Report(i);
-                //}
-                //textOfProgress.Text = "Идёт обновление данных";
                 Thread.Sleep(500);
                 progress.Report(5);
                 Thread.Sleep(500);
-                //readFromSybase();
-                progress.Report(5);
-                Thread.Sleep(500);
-                //readFromOracle();
-                progress.Report(5);
-                Thread.Sleep(500);
-                //PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
                 progress.Report(5);
                 Thread.Sleep(500);
                 progress.Report(5);
                 Thread.Sleep(500);
-                //meltsContext.Database.EnsureCreated();
-                //readFromSQLiteLocal();
-                progress.Report(5);
-                Thread.Sleep(500);
-                //readFromSybase();
-                progress.Report(5);
-                Thread.Sleep(500);
-                //readFromOracle();
-                progress.Report(5);
-                Thread.Sleep(500);
-                //PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
-                progress.Report(5);
-                Thread.Sleep(500);
-                //readFromOracle();
                 progress.Report(5);
                 Thread.Sleep(500);
                 progress.Report(5);
                 Thread.Sleep(500);
-                //readFromSybase();
-                progress.Report(5);
-                Thread.Sleep(500);
-                //readFromOracle();
-                progress.Report(5);
-                Thread.Sleep(500);
-                //PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
                 progress.Report(5);
                 Thread.Sleep(500);
                 progress.Report(5);
                 Thread.Sleep(500);
-                //meltsContext.Database.EnsureCreated();
-                //readFromSQLiteLocal();
                 progress.Report(5);
                 Thread.Sleep(500);
-                //readFromSybase();
                 progress.Report(5);
                 Thread.Sleep(500);
-                //readFromOracle();
                 progress.Report(5);
                 Thread.Sleep(500);
-                //PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
                 progress.Report(5);
                 Thread.Sleep(500);
-                //readFromOracle();
+                progress.Report(5);
+                Thread.Sleep(500);
+                progress.Report(5);
+                Thread.Sleep(500);
+                progress.Report(5);
+                Thread.Sleep(500);
+                progress.Report(5);
+                Thread.Sleep(500);
+                progress.Report(5);
+                Thread.Sleep(500);
+                progress.Report(5);
+                Thread.Sleep(500);
+                progress.Report(5);
+                Thread.Sleep(500);
+                progress.Report(5);
+                Thread.Sleep(500);
                 progress.Report(5);
 
                 return 0;
@@ -174,7 +139,6 @@ namespace Melts_Base
         }
         async Task<int> longLoadFromBases()
         {
-            IProgress<int> progress = new Progress<int>(v => loadingProgress.Value += v);
             var task = Task.Run(() =>
             {
                 Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, () =>
@@ -187,7 +151,6 @@ namespace Melts_Base
                         PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
                         loadingProgress.Value = 0;
                         textOfProgress.Text = "Данные обновлены";
-                        //MessageBox.Show("Подкачка выполнена!");
                     }
                 });
       
@@ -307,24 +270,17 @@ namespace Melts_Base
 
         private async void refreshDataClick(object sender, RoutedEventArgs e)
         {
-            //await Task.Run(() =>
-            //{
-            //    textOfProgress.Text = "Идёт обновление данных";
-            //    return 0;
-            //});
-            //textOfProgress.Text = "Идёт обновление данных";
+ 
             await longTask();
             if (readFromSybase() && readFromOracle())
             {
                 PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
-                //textOfProgress.Text = "Данные обновлены";
                 await dataRefreshOverSign();
             }
             else MessageBox.Show("Обновление данных невозможно!");
         }
         async Task<int> dataRefreshingMessageAsync()
         {
-            //IProgress<int> progress = new Progress<int>(v => progressBar.Value += v);
             var task = Task.Run(() =>
             {
                 textOfProgress.Text = "Идёт обновление данных";
@@ -335,12 +291,9 @@ namespace Melts_Base
         }
         private void PumpPlantData(List<SybaseMelt> listSybaseMelts,List<OracleMelt> listOracleMelts, List<Melt> listSqLiteMelts)
         {
-            //var listNewMelts = new List<PostgresFiles.MeltPostgres>();
-            //var listChangedMelts = new List<PostgresFiles.MeltPostgres>();
             int fullPlantOracleCount = listOracleMelts.Count();
             int fullPlantSybaseCount = listSybaseMelts.Count();
             int fullLocalCount = listSqLiteMelts.Count();
-            //return; 
 
             foreach (var sybaseMelt in listSybaseMelts)
             {
