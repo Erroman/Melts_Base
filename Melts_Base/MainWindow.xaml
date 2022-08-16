@@ -21,15 +21,15 @@
                     <RibbonApplicationMenuItem Header="Выход из программы" Click="RibbonApplicationMenuItem_Click" />
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
-            <RibbonTab Header="Данные из заводской базы Oracle">
+            <RibbonTab Header="Данные из заводской базы Oracle" Visibility="Collapsed">
                 <RibbonGroup x:Name="PlantOracleListOfMelts">
                 </RibbonGroup>
             </RibbonTab>
-            <RibbonTab Header="Данные из цеховой базы Sybase">
+            <RibbonTab Header="Данные из цеховой базы Sybase" Visibility="Collapsed">
                 <RibbonGroup x:Name="Shop31SybaseListOfMelts">
                 </RibbonGroup>
             </RibbonTab>
-            <RibbonTab Header="Локальная база" KeyTip="I">
+            <RibbonTab Header="Таблица операций плавления, выполненых в цехе 31" KeyTip="I" Visibility="Visible">
                 <RibbonGroup x:Name="refreshData">
                     <StackPanel>
                         <Button Margin="10,5" Click="refreshDataClick">
