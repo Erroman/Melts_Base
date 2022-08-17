@@ -59,10 +59,16 @@
                     </Grid>
                      
                 </RibbonGroup>
+                <RibbonGroup x:Name="connectionToBasesToExcel">
+                    <StackPanel>
+                        <Ellipse Width="33" Height="33" Fill="Green"/>
+                        <Ellipse Width="33" Height="33" Fill="Green"/>
+                    </StackPanel>
+                </RibbonGroup>
                 <RibbonGroup x:Name="outputToExcel">
                     <StackPanel>
-                        <Button Content="Экспорт в Excel" Margin="10,5" Click="ExportToExcel"/>
-                        <Button Content="Экспорт в Word" Margin="10,5" Click="ExportToExcel"/>
+                        <Button Content="Экспорт в Excel" FontSize="16" Margin="10,5" Click="ExportToExcel" FontWeight="Bold"/>
+                        <Button Content="Экспорт в Word" FontSize="16" Margin="10,5" Click="ExportToExcel" FontWeight="Bold"/>
                     </StackPanel>
                 </RibbonGroup>
             </RibbonTab>
