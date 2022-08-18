@@ -60,10 +60,19 @@
                      
                 </RibbonGroup>
                 <RibbonGroup x:Name="connectionToBasesToExcel">
-                    <StackPanel>
-                        <Ellipse Name="sybaseConnection" Width="33" Height="33"/>
-                        <Ellipse Name="oracleConnection" Width="33" Height="33"/>
-                    </StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Ellipse Grid.Row="0" Grid.Column="1" Name="sybaseConnection" Width="33" Height="33"/>
+                        <Ellipse Grid.Row="1" Grid.Column="1" Name="oracleConnection" Width="33" Height="33"/>
+                        <TextBlock Grid.RowSpan="2" VerticalAlignment="Center">Связь с базами</TextBlock>
+                    </Grid>
                 </RibbonGroup>
                 <RibbonGroup x:Name="outputToExcel">
                     <StackPanel>
