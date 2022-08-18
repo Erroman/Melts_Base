@@ -65,7 +65,6 @@ namespace Melts_Base
 
         private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            //Data_Loading(sender, e);
             this.Close();
         }
 
@@ -79,11 +78,6 @@ namespace Melts_Base
             nPlav.Width = new DataGridLength(90);            
             await longTask();
             await longLoadFromBases();
-        }
-        private async void Data_Loading(object sender, RoutedEventArgs e)
-        {
-
-            await longTask();
         }
         async Task<int> longTask()
         {
