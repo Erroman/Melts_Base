@@ -145,14 +145,13 @@ namespace Melts_Base
                 {
                     meltsContext.Database.EnsureCreated();
                     readFromSQLiteLocal();
-
+                    loadingProgress.Value = 0;
                     if (readFromSybase() && readFromOracle())
                     {
                         PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
-                        loadingProgress.Value = 0;
                         textOfProgress.Text = "Данные обновлены";
                     }
-                });
+                 });
       
                 return 0;
             }
@@ -186,6 +185,7 @@ namespace Melts_Base
 
                     if (connection.State == ConnectionState.Open)
                     {
+                        sybaseConnection.Fill = new  SolidColorBrush(Colors.Green);
                         string queryString = @"SELECT * FROM ""DBA"".""rmelts""";
                         OdbcCommand command = new OdbcCommand(queryString);
                         command.Connection = connection;
@@ -226,17 +226,24 @@ namespace Melts_Base
                         shop31ZapuskEndDate.DataContext = observableSybaseMeltsViewModel;
                         return true;
                     }
-                    else { MessageBox.Show("The connection to Sybase is " + connection.State.ToString()); return true; }
+                    else { MessageBox.Show("The connection to Sybase is " + connection.State.ToString());
+                        sybaseConnection.Fill = new SolidColorBrush(Colors.Yellow);
+                        textOfProgress.Text = "Соединение с базами нарушено,сделайте обновление";
+                        return true; }
                     // The connection is automatically closed at
                     // the end of the Using block.
                 }
-                catch { MessageBox.Show("No connection with Sybase."); return false; }
+                catch { MessageBox.Show("No connection with Sybase.");
+                    sybaseConnection.Fill = new SolidColorBrush(Colors.Red);
+                    textOfProgress.Text = "Соединение с базами нарушено,сделайте обновление";
+                    return false; }
             }
         }
         private bool readFromOracle() 
         {
             if (meltsPlantOracleContext.Database.CanConnect())
             {
+                oracleConnection.Fill = new SolidColorBrush(Colors.Green);
                 //MessageBox.Show("Сonnection with Plant's Oracle granted!");
 
                 meltsPlantOracleContext.Melt31s.Load();
@@ -250,7 +257,9 @@ namespace Melts_Base
                 PlantMeltNumberSought.DataContext = observableOracleMeltsViewModel;
                 return true;
             }
-            else { MessageBox.Show("No connection with Plant's Oracle!"); return false; }
+            else { MessageBox.Show("No connection with Plant's Oracle!");
+                oracleConnection.Fill = new SolidColorBrush(Colors.Red);
+                return false; }
         }
         
         private void Window_Closing(object sender, CancelEventArgs e)
