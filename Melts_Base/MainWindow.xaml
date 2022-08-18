@@ -61,8 +61,8 @@
                 </RibbonGroup>
                 <RibbonGroup x:Name="connectionToBasesToExcel">
                     <StackPanel>
-                        <Ellipse Width="33" Height="33" Fill="Green"/>
-                        <Ellipse Width="33" Height="33" Fill="Green"/>
+                        <Ellipse Name="sybaseConnection" Width="33" Height="33" Fill="Green"/>
+                        <Ellipse Name="oracleConnection" Width="33" Height="33" Fill="Green"/>
                     </StackPanel>
                 </RibbonGroup>
                 <RibbonGroup x:Name="outputToExcel">

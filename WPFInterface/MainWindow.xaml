@@ -17,5 +17,6 @@
         </Grid.ColumnDefinitions>
         <TextBlock HorizontalAlignment="Center" Grid.ColumnSpan="2">hello world</TextBlock>
         <TextBlock HorizontalAlignment="Center" Grid.Row="1">hello world</TextBlock>
+        <RadioButton Content="RadioButton" HorizontalAlignment="Left" Margin="235,76,0,0" Grid.Row="1" VerticalAlignment="Top" Height="73"/>
     </Grid>
 </Window>
