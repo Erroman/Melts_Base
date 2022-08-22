@@ -140,12 +140,20 @@ namespace Melts_Base
                     meltsContext.Database.EnsureCreated();
                     readFromSQLiteLocal();
                     loadingProgress.Value = 0;
-                    if (readFromSybase() && readFromOracle())
+                    bool OkreadFromSybase = readFromSybase();
+                    bool OkreadFromOracle = readFromOracle();
+                    if (OkreadFromSybase && OkreadFromOracle)
                     {
                         PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
                         textOfProgress.Text = "Данные обновлены";
+                        //                        sybaseConnection.Fill = new SolidColorBrush(Colors.Red);
                     }
-                 });
+                    else 
+                    { 
+                        if (!OkreadFromOracle) oracleConnection.Fill = new SolidColorBrush(Colors.Red); 
+                        if (!OkreadFromSybase) sybaseConnection.Fill = new SolidColorBrush(Colors.Red);
+                    }
+                });
       
                 return 0;
             }
