@@ -140,11 +140,14 @@ namespace Melts_Base
                     meltsContext.Database.EnsureCreated();
                     readFromSQLiteLocal();
                     loadingProgress.Value = 0;
-                    bool OkreadFromSybase = readFromSybase();
-                    bool OkreadFromOracle = readFromOracle();
+                    bool OkreadFromSybase = readFromSybase();//считываем всю информацию 31 цеха
+                    bool OkreadFromOracle = readFromOracle(); //считываем всю информацию 33 цеха
                     if (OkreadFromSybase && OkreadFromOracle)
                     {
+                        //считываем локальный кэш
+                        //и дополняем его новой комбинированной информацией 31 и 33 цехов
                         PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
+                        
                         textOfProgress.Text = "Данные обновлены";
                         //                        sybaseConnection.Fill = new SolidColorBrush(Colors.Red);
                     }
