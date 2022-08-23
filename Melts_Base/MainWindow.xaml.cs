@@ -339,12 +339,25 @@ namespace Melts_Base
   
 
                     if (sybaseMelt.Me_num == melt.Me_num) 
-                    {                 
+                    {
+                        //if (sybaseMelt.Me_beg > melt.Me_beg) //в Sybase появилась более новая запись
+                        //                                     //с данным номером плавки
+                        //{
+                        //    meltsContext.Remove<Melt>(melt);
+                        //}
+                        //else
+                        //    MeltFound = true;
                         if (sybaseMelt.MyHashCode() == melt.MyHashCode())
                         {
                             MeltFound = true;
                         }
-                        else meltsContext.Remove<Melt>(melt);
+                        else
+                        if (sybaseMelt.Me_beg > melt.Me_beg) //в Sybase появилась более новая запись
+                                                             //с данным номером плавки
+                        {
+                            meltsContext.Remove<Melt>(melt);
+                        }else MeltFound = true;
+
                     }
                 }
                 if (!MeltFound)
