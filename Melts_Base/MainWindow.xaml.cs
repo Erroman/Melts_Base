@@ -151,7 +151,7 @@ namespace Melts_Base
                         PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
                         
                         textOfProgress.Text = "Данные обновлены";
-                        //                        sybaseConnection.Fill = new SolidColorBrush(Colors.Red);
+
                     }
                     else 
                     {
@@ -269,16 +269,7 @@ namespace Melts_Base
             meltsContext.SaveChanges();
             meltsContext.Dispose();
         }
-        private async Task dataRefreshSign() 
-        {
-            textOfProgress.Text = "Идёт обновление данных";
-        }
-        private async Task dataRefreshOverSign()
-        {
-            loadingProgress.Value = 0;
-            textOfProgress.Text = "Данные обновлены";
-        }
-
+ 
         private async void refreshDataClick(object sender, RoutedEventArgs e)
         {
  
