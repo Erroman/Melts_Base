@@ -21,11 +21,11 @@
                     <RibbonApplicationMenuItem Header="Выход из программы" Click="RibbonApplicationMenuItem_Click" />
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
-            <RibbonTab Header="Данные из заводской базы Oracle">
+            <RibbonTab Header="Данные из заводской базы Oracle" Visibility="Collapsed">
                 <RibbonGroup x:Name="PlantOracleListOfMelts">
                 </RibbonGroup>
             </RibbonTab>
-            <RibbonTab Header="Данные из цеховой базы Sybase">
+            <RibbonTab Header="Данные из цеховой базы Sybase" Visibility="Collapsed">
                 <RibbonGroup x:Name="Shop31SybaseListOfMelts">
                 </RibbonGroup>
             </RibbonTab>
@@ -468,7 +468,7 @@
                                     </Grid>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
-                            <DataGridTextColumn x:Name="localdateZap" Binding="{Binding Me_beg, StringFormat=dd.MM.yyyy}" 
+                            <DataGridTextColumn x:Name="localdateZap" Binding="{Binding Me_beg, StringFormat=dd.MM.yyyy  HH:mm}" 
                                     Width="*">
                                 <DataGridTextColumn.Header>
                                     <Grid x:Name="Kuku">

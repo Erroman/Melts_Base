@@ -140,8 +140,10 @@ namespace Melts_Base
                     meltsContext.Database.EnsureCreated();
                     readFromSQLiteLocal();
                     loadingProgress.Value = 0;
-                    bool OkreadFromSybase = readFromSybase();//считываем всю информацию 31 цеха
+                    bool OkreadFromSybase = readFromSybase(); //считываем всю информацию 31 цеха
                     bool OkreadFromOracle = readFromOracle(); //считываем всю информацию 33 цеха
+                    sybaseConnection.Fill = OkreadFromSybase ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Red);
+                    oracleConnection.Fill = OkreadFromOracle ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Red);
                     if (OkreadFromSybase && OkreadFromOracle)
                     {
                         //считываем локальный кэш
@@ -152,9 +154,8 @@ namespace Melts_Base
                         //                        sybaseConnection.Fill = new SolidColorBrush(Colors.Red);
                     }
                     else 
-                    { 
-                        if (!OkreadFromOracle) oracleConnection.Fill = new SolidColorBrush(Colors.Red); 
-                        if (!OkreadFromSybase) sybaseConnection.Fill = new SolidColorBrush(Colors.Red);
+                    {
+                        textOfProgress.Text = "Соединение с базами нарушено,сделайте обновление";
                     }
                 });
       
@@ -231,16 +232,12 @@ namespace Melts_Base
                         shop31ZapuskEndDate.DataContext = observableSybaseMeltsViewModel;
                         return true;
                     }
-                    else { MessageBox.Show("The connection to Sybase is " + connection.State.ToString());
-                        sybaseConnection.Fill = new SolidColorBrush(Colors.Yellow);
-                        textOfProgress.Text = "Соединение с базами нарушено,сделайте обновление";
-                        return true; }
+                    else {
+                        return false; }
                     // The connection is automatically closed at
                     // the end of the Using block.
                 }
-                catch { MessageBox.Show("No connection with Sybase.");
-                    sybaseConnection.Fill = new SolidColorBrush(Colors.Red);
-                    textOfProgress.Text = "Соединение с базами нарушено,сделайте обновление";
+                catch { 
                     return false; }
             }
         }
@@ -286,12 +283,13 @@ namespace Melts_Base
         {
  
             await longTask();
-            if (readFromSybase() && readFromOracle())
-            {
-                PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
-                await dataRefreshOverSign();
-            }
-            else MessageBox.Show("Обновление данных невозможно!");
+            await longLoadFromBases();
+            //if (readFromSybase() && readFromOracle())
+            //{
+            //    PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
+            //    await dataRefreshOverSign();
+            //}
+            //else MessageBox.Show("Обновление данных невозможно!");
         }
         async Task<int> dataRefreshingMessageAsync()
         {
@@ -340,19 +338,13 @@ namespace Melts_Base
 
                     if (sybaseMelt.Me_num == melt.Me_num) 
                     {
-                        //if (sybaseMelt.Me_beg > melt.Me_beg) //в Sybase появилась более новая запись
-                        //                                     //с данным номером плавки
-                        //{
-                        //    meltsContext.Remove<Melt>(melt);
-                        //}
-                        //else
-                        //    MeltFound = true;
+   
                         if (sybaseMelt.MyHashCode() == melt.MyHashCode())
                         {
                             MeltFound = true;
                         }
                         else
-                        if (sybaseMelt.Me_beg > melt.Me_beg) //в Sybase появилась более новая запись
+                        if (sybaseMelt.Me_beg >= melt.Me_beg) //в Sybase появилась более новая запись
                                                              //с данным номером плавки
                         {
                             meltsContext.Remove<Melt>(melt);
