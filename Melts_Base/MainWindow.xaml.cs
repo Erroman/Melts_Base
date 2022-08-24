@@ -188,8 +188,9 @@ namespace Melts_Base
                 {
                     connection.Open();
 
-
-                    if (connection.State == ConnectionState.Open)
+                    bool connectionState = connection.State == ConnectionState.Open;
+                    //connectionState = false;
+                    if (connectionState)
                     {
                         sybaseConnection.Fill = new  SolidColorBrush(Colors.Green);
                         string queryString = @"SELECT * FROM ""DBA"".""rmelts""";
@@ -243,7 +244,9 @@ namespace Melts_Base
         }
         private bool readFromOracle() 
         {
-            if (meltsPlantOracleContext.Database.CanConnect())
+            bool canConnect = meltsPlantOracleContext.Database.CanConnect();
+            //canConnect = false;
+            if (canConnect)
             {
                 oracleConnection.Fill = new SolidColorBrush(Colors.Green);
                 //MessageBox.Show("Сonnection with Plant's Oracle granted!");
