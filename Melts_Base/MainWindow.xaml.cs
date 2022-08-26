@@ -78,13 +78,13 @@ namespace Melts_Base
             nPlav.Width = new DataGridLength(90);
             meltsContext.Database.EnsureCreated();
             var notaskLoadFromSQLite = readFromSQLiteLocal();
-//            await longTask();
-            //await longLoadFromBasesAsync();
+
             var taskLoadFromSybase = await readFromSybaseAsync();
             shop31Grid.DataContext = taskLoadFromSybase;
             shop31PlantMeltNumberSought.DataContext = taskLoadFromSybase;
             shop31ZapuskStartDate.DataContext = taskLoadFromSybase;
             shop31ZapuskEndDate.DataContext = taskLoadFromSybase;
+
             var taskLoadFromOracle = await readFromOracleAsync();
             oracleGrid.DataContext = taskLoadFromOracle;
             ZapuskStartDate.DataContext = taskLoadFromOracle;
@@ -92,44 +92,14 @@ namespace Melts_Base
             CloseStartDate.DataContext = taskLoadFromOracle;
             CloseEndDate.DataContext = taskLoadFromOracle;
             PlantMeltNumberSought.DataContext = taskLoadFromOracle;
-            PumpPlantData(taskLoadFromSybase.Melts.ToList<SybaseMelt>(),
+
+            var CombinedPlantData = PumpPlantData(taskLoadFromSybase.Melts.ToList<SybaseMelt>(),
                 taskLoadFromOracle.Melts.ToList<OracleMelt>(), 
                 notaskLoadFromSQLite.Melts.ToList<Melt>());
 
 
         }
-        async Task<int> longLoadFromBasesAsync()
-        {
-            var task = Task.Run(() =>
-            {
-                Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, () =>
-                {
-
-                    loadingProgress.Value = 0;
-                    bool OkreadFromSybase = readFromSybase(); //считываем всю информацию 31 цеха
-                    bool OkreadFromOracle = readFromOracle(); //считываем всю информацию 33 цеха
-                    sybaseConnection.Fill = OkreadFromSybase ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Red);
-                    oracleConnection.Fill = OkreadFromOracle ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Red);
-                    if (OkreadFromSybase && OkreadFromOracle)
-                    {
-                        //считываем локальный кэш
-                        //и дополняем его новой комбинированной информацией 31 и 33 цехов
-                        PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
-
-                        textOfProgress.Text = "Данные обновлены";
-
-                    }
-                    else
-                    {
-                        textOfProgress.Text = "Соединение с базами нарушено,сделайте обновление";
-                    }
-                });
-
-                return 0;
-            }
-            );
-            return await task;
-        }
+     
         private async Task<ObservableSybaseMeltsViewModel> readFromSybaseAsync()
         {
             using (OdbcConnection connection = new OdbcConnection(constr.ConnectionString))
@@ -231,97 +201,6 @@ namespace Melts_Base
                 }
             });return await task;
   
-        }
-        private void PumpPlantDataAsync(List<SybaseMelt> listSybaseMelts, List<OracleMelt> listOracleMelts, List<Melt> listSqLiteMelts)
-        {
-            int fullPlantOracleCount = listOracleMelts.Count();
-            int fullPlantSybaseCount = listSybaseMelts.Count();
-            int fullLocalCount = listSqLiteMelts.Count();
-
-            foreach (var sybaseMelt in listSybaseMelts)
-            {
-                if (string.IsNullOrEmpty(sybaseMelt.Me_num)) continue;
-                var MeltFound = false;
-                //находим информацию по плавке с данным номером в listOracleMelts,если нашли,составляем полную плавку,
-                //добавляя поля из найденной записи.
-                var oracleMelt = listOracleMelts.Where<OracleMelt>(p => p.Nplav == sybaseMelt.Me_num).ToArray<OracleMelt>();
-                if (oracleMelt.Length != 0)
-                {
-                    sybaseMelt.Oracle_Ins = oracleMelt[0].Ins;
-                    sybaseMelt.Oracle_Tek = oracleMelt[0].Tek;
-                    for (int i = 0; i < oracleMelt.Length; i++)
-                    {
-                        if (i > 0) sybaseMelt.Oracle_Poz += Environment.NewLine;
-                        sybaseMelt.Oracle_Poz += oracleMelt[i].Poz;
-                    }
-
-                    sybaseMelt.Oracle_PozNaim = oracleMelt[0].PozNaim;
-                    sybaseMelt.Oracle_Pereplav = oracleMelt[0].Pereplav;
-                    sybaseMelt.Oracle_OkonchPereplav = oracleMelt[0].OkonchPereplav;
-                }
-                //проверяем, есть ли запись в локальной базе SqLite, соответствующая плавке в базе Sybase
-                //сравнение ведём по номеру плавки и hash-коду.
-                //если записи такой нет, добавляем запись с данным номером плавки, содержащую
-                //информацию из Sybase м Oracle
-                foreach (var melt in listSqLiteMelts)
-                {
-
-
-                    if (sybaseMelt.Me_num == melt.Me_num)
-                    {
-
-                        if (sybaseMelt.MyHashCode() == melt.MyHashCode())
-                        {
-                            MeltFound = true;
-                        }
-                        else
-                        if (sybaseMelt.Me_beg >= melt.Me_beg) //в Sybase появилась более новая запись
-                                                              //с данным номером плавки
-                        {
-                            meltsContext.Remove<Melt>(melt);
-                        }
-                        else MeltFound = true;
-
-                    }
-                }
-                if (!MeltFound)
-                {
-                    //конструируется новая запись по плавке для SqLite,
-                    //дополнительные поля берутся из Oracle,основной список полей берём из Sybase
-                    var newMelt = new Melt()
-                    {
-                        Eq_id = sybaseMelt.Eq_id,
-                        Me_num = sybaseMelt.Me_num,
-                        Me_beg = sybaseMelt.Me_beg,
-                        Me_end = sybaseMelt.Me_end,
-                        Me_splav = sybaseMelt.Me_splav,
-                        Sp_name = sybaseMelt.Sp_name,
-                        Me_mould = sybaseMelt.Me_mould,
-                        Me_del = sybaseMelt.Me_del,
-                        Me_ukaz = sybaseMelt.Me_ukaz,
-                        Me_kont = sybaseMelt.Me_kont,
-                        Me_pril = sybaseMelt.Me_pril,
-                        Me_nazn = sybaseMelt.Me_nazn,
-                        Me_diam = sybaseMelt.Me_diam,
-                        Me_weight = sybaseMelt.Me_weight,
-                        Me_zakaz = sybaseMelt.Me_zakaz,
-                        Me_pos = sybaseMelt.Me_pos,
-                        Me_kat = sybaseMelt.Me_kat,
-                        Sp_id = sybaseMelt.Sp_id,
-                        Me_energy = sybaseMelt.Me_energy,
-                        Oracle_Ins = sybaseMelt.Oracle_Ins,
-                        Oracle_Tek = sybaseMelt.Oracle_Tek,
-                        Oracle_Poz = sybaseMelt.Oracle_Poz,
-                        Oracle_PozNaim = sybaseMelt.Oracle_PozNaim,
-                        Oracle_Pereplav = sybaseMelt.Oracle_Pereplav,
-                        Oracle_OkonchPereplav = sybaseMelt.Oracle_OkonchPereplav,
-                    };
-                    meltsContext.Add<Melt>(newMelt);
-                }
-
-            }
-            meltsContext.SaveChanges();
-            readFromSQLiteLocal();
         }
             async Task<int> longTask()
             {
@@ -539,7 +418,7 @@ namespace Melts_Base
                 );
                 return await task;
             }
-            private void PumpPlantData(List<SybaseMelt> listSybaseMelts, List<OracleMelt> listOracleMelts, List<Melt> listSqLiteMelts)
+            private ObservableMeltsViewModel PumpPlantData(List<SybaseMelt> listSybaseMelts, List<OracleMelt> listOracleMelts, List<Melt> listSqLiteMelts)
             {
                 int fullPlantOracleCount = listOracleMelts.Count();
                 int fullPlantSybaseCount = listSybaseMelts.Count();
@@ -627,8 +506,13 @@ namespace Melts_Base
 
                 }
                 meltsContext.SaveChanges();
-                readFromSQLiteLocal();
-            }
+                //readFromSQLiteLocal();
+                localSQLLiteMelts = new ObservableCollection<Melt>(putMeltsInOrder(meltsContext.Melts.Local.ToObservableCollection()));
+                observableMeltsViewModel = new ObservableMeltsViewModel(localSQLLiteMelts);
+            return observableMeltsViewModel;
+
+
+        }
 
             private void ExportToExcel(object sender, RoutedEventArgs e)
             {
