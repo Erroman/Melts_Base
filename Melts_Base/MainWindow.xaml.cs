@@ -92,6 +92,9 @@ namespace Melts_Base
             CloseStartDate.DataContext = taskLoadFromOracle;
             CloseEndDate.DataContext = taskLoadFromOracle;
             PlantMeltNumberSought.DataContext = taskLoadFromOracle;
+            PumpPlantData(taskLoadFromSybase.Melts.ToList<SybaseMelt>(),
+                taskLoadFromOracle.Melts.ToList<OracleMelt>(), 
+                notaskLoadFromSQLite.Melts.ToList<Melt>());
 
 
         }
