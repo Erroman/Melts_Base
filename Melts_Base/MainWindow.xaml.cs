@@ -80,10 +80,15 @@ namespace Melts_Base
             var notaskLoadFromSQLite = readFromSQLiteLocal();
 
             var taskLoadFromSybase = await readFromSybaseAsync();
-            shop31Grid.DataContext = taskLoadFromSybase;
-            shop31PlantMeltNumberSought.DataContext = taskLoadFromSybase;
-            shop31ZapuskStartDate.DataContext = taskLoadFromSybase;
-            shop31ZapuskEndDate.DataContext = taskLoadFromSybase;
+            if(taskLoadFromSybase != null) 
+            {
+                //sybaseConnection.Fill = new SolidColorBrush(Color.Red)
+                shop31Grid.DataContext = taskLoadFromSybase;
+                shop31PlantMeltNumberSought.DataContext = taskLoadFromSybase;
+                shop31ZapuskStartDate.DataContext = taskLoadFromSybase;
+                shop31ZapuskEndDate.DataContext = taskLoadFromSybase; 
+            }
+            
 
             var taskLoadFromOracle = await readFromOracleAsync();
             oracleGrid.DataContext = taskLoadFromOracle;
