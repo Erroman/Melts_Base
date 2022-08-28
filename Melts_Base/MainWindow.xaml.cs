@@ -101,13 +101,17 @@ namespace Melts_Base
                 CloseEndDate.DataContext = taskLoadFromOracle;
                 PlantMeltNumberSought.DataContext = taskLoadFromOracle;
             }else oracleConnection.Fill = new SolidColorBrush(Colors.Red);
-            if(taskLoadFromSybase != null & taskLoadFromOracle != null)
+            if (taskLoadFromSybase != null & taskLoadFromOracle != null)
             {
                 var CombinedPlantData = PumpPlantData(taskLoadFromSybase.Melts.ToList<SybaseMelt>(),
-                taskLoadFromOracle.Melts.ToList<OracleMelt>(), 
+                taskLoadFromOracle.Melts.ToList<OracleMelt>(),
                 notaskLoadFromSQLite.Melts.ToList<Melt>());
             }
-            
+            else {
+                textOfProgress.Foreground = new SolidColorBrush(Colors.Red);
+                textOfProgress.Text = "Повторите обновление позднее!"; }
+
+
 
         }
      
