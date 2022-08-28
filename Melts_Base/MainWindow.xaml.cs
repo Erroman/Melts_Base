@@ -26,7 +26,8 @@ using Melts_Base.SQLiteModels;
 using System.Data.Odbc;
 using System.Data;
 using Excel = Microsoft.Office.Interop.Excel;       //Add Microsoft Excel 16.0 Object Library to the project
-                                                    //by Dependencies/Add COM Reference...
+using System.DirectoryServices.Protocols;
+//by Dependencies/Add COM Reference...
 
 namespace Melts_Base
 {
@@ -82,26 +83,31 @@ namespace Melts_Base
             var taskLoadFromSybase = await readFromSybaseAsync();
             if(taskLoadFromSybase != null) 
             {
-                //sybaseConnection.Fill = new SolidColorBrush(Color.Red)
+                sybaseConnection.Fill = new SolidColorBrush(Colors.Green);
                 shop31Grid.DataContext = taskLoadFromSybase;
                 shop31PlantMeltNumberSought.DataContext = taskLoadFromSybase;
                 shop31ZapuskStartDate.DataContext = taskLoadFromSybase;
                 shop31ZapuskEndDate.DataContext = taskLoadFromSybase; 
-            }
-            
+            }else sybaseConnection.Fill = new SolidColorBrush(Colors.Red);
+
 
             var taskLoadFromOracle = await readFromOracleAsync();
-            oracleGrid.DataContext = taskLoadFromOracle;
-            ZapuskStartDate.DataContext = taskLoadFromOracle;
-            ZapuskEndDate.DataContext = taskLoadFromOracle;
-            CloseStartDate.DataContext = taskLoadFromOracle;
-            CloseEndDate.DataContext = taskLoadFromOracle;
-            PlantMeltNumberSought.DataContext = taskLoadFromOracle;
-
-            var CombinedPlantData = PumpPlantData(taskLoadFromSybase.Melts.ToList<SybaseMelt>(),
+            if (taskLoadFromOracle != null)
+            {
+                oracleGrid.DataContext = taskLoadFromOracle;
+                ZapuskStartDate.DataContext = taskLoadFromOracle;
+                ZapuskEndDate.DataContext = taskLoadFromOracle;
+                CloseStartDate.DataContext = taskLoadFromOracle;
+                CloseEndDate.DataContext = taskLoadFromOracle;
+                PlantMeltNumberSought.DataContext = taskLoadFromOracle;
+            }else oracleConnection.Fill = new SolidColorBrush(Colors.Red);
+            if(taskLoadFromSybase != null & taskLoadFromOracle != null)
+            {
+                var CombinedPlantData = PumpPlantData(taskLoadFromSybase.Melts.ToList<SybaseMelt>(),
                 taskLoadFromOracle.Melts.ToList<OracleMelt>(), 
                 notaskLoadFromSQLite.Melts.ToList<Melt>());
-
+            }
+            
 
         }
      
@@ -118,6 +124,8 @@ namespace Melts_Base
                         bool connectionState = connection.State == ConnectionState.Open;
                         //connectionState = false;
                         //MessageBox.Show(connection.State.ToString());
+                        if(!connectionState)
+                            return observableSybaseMeltsViewModel = null;
                         if (connectionState)
                         {
                             string queryString = @"SELECT * FROM ""DBA"".""rmelts""";
@@ -182,6 +190,8 @@ namespace Melts_Base
             { 
               bool canConnect = meltsPlantOracleContext.Database.CanConnect();
                 //canConnect = false;
+                if (!canConnect)
+                    return observableOracleMeltsViewModel = null;
                 if (canConnect)
                 {
                     //oracleConnection.Fill = new SolidColorBrush(Colors.Green);
