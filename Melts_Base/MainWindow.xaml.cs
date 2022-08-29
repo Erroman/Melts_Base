@@ -140,7 +140,23 @@ namespace Melts_Base
 
 
         }
- 
+        private ObservableMeltsViewModel readFromSQLiteLocal()
+            {
+                MeltNumberSought = observableMeltsViewModel?.MeltNumberSought;
+                StartDate = observableMeltsViewModel?.StartDate;
+                EndDate = observableMeltsViewModel?.EndDate;
+                meltsContext.Melts.Load();
+                localSQLLiteMelts = new ObservableCollection<Melt>(putMeltsInOrder(meltsContext.Melts.Local.ToObservableCollection()));
+                observableMeltsViewModel = new ObservableMeltsViewModel(localSQLLiteMelts);
+                localcopyGrid.DataContext = observableMeltsViewModel;
+                localZapuskStartDate.DataContext = observableMeltsViewModel;
+                localZapuskEndDate.DataContext = observableMeltsViewModel;
+                localPlantMeltNumberSought.DataContext = observableMeltsViewModel;
+                observableMeltsViewModel.MeltNumberSought = MeltNumberSought;
+                observableMeltsViewModel.StartDate = StartDate;
+                observableMeltsViewModel.EndDate = EndDate;
+                return observableMeltsViewModel;
+            }
         private async Task<ObservableSybaseMeltsViewModel> readFromSybaseAsync()
         {
     
@@ -242,12 +258,7 @@ namespace Melts_Base
                     progress.Report(20);
                     oracleMelts = meltsPlantOracleContext.Melt31s.ToList<OracleMelt>();
                     observableOracleMeltsViewModel = new ObservableOracleMeltsViewModel(new ObservableCollection<OracleMelt>(oracleMelts));
-                    //oracleGrid.DataContext = observableOracleMeltsViewModel;
-                    //ZapuskStartDate.DataContext = observableOracleMeltsViewModel;
-                    //ZapuskEndDate.DataContext = observableOracleMeltsViewModel;
-                    //CloseStartDate.DataContext = observableOracleMeltsViewModel;
-                    //CloseEndDate.DataContext = observableOracleMeltsViewModel;
-                    //PlantMeltNumberSought.DataContext = observableOracleMeltsViewModel;
+
                     return observableOracleMeltsViewModel;
                 }
                 else
@@ -260,223 +271,7 @@ namespace Melts_Base
             });return await task;
   
         }
-            async Task<int> longTask()
-            {
-                IProgress<int> progress = new Progress<int>(v => loadingProgress.Value += v);
-                textOfProgress.Text = "Идёт обновление данных";
-                var task = Task.Run(() =>
-                {
-                    Thread.Sleep(500);
-                    progress.Report(5);
-                    Thread.Sleep(500);
-                    progress.Report(5);
-                    Thread.Sleep(500);
-                    progress.Report(5);
-                    Thread.Sleep(500);
-                    progress.Report(5);
-                    Thread.Sleep(500);
-                    progress.Report(5);
-                    Thread.Sleep(500);
-                    progress.Report(5);
-                    Thread.Sleep(500);
-                    progress.Report(5);
-                    Thread.Sleep(500);
-                    progress.Report(5);
-                    Thread.Sleep(500);
-                    progress.Report(5);
-                    Thread.Sleep(500);
-                    progress.Report(5);
-                    Thread.Sleep(500);
-                    progress.Report(5);
-                    Thread.Sleep(500);
-                    progress.Report(5);
-                    Thread.Sleep(500);
-                    progress.Report(5);
-                    Thread.Sleep(500);
-                    progress.Report(5);
-                    Thread.Sleep(500);
-                    progress.Report(5);
-                    Thread.Sleep(500);
-                    progress.Report(5);
-                    Thread.Sleep(500);
-                    progress.Report(5);
-                    Thread.Sleep(500);
-                    progress.Report(5);
-                    Thread.Sleep(500);
-                    progress.Report(5);
-                    Thread.Sleep(500);
-                    progress.Report(5);
-
-                    return 0;
-                }
-                );
-                return await task;
-            }
-            async Task<int> longLoadFromBases()
-            {
-                var task = Task.Run(() =>
-                {
-                    Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, () =>
-                    {
-
-                        loadingProgress.Value = 0;
-                        bool OkreadFromSybase = readFromSybase(); //считываем всю информацию 31 цеха
-                        bool OkreadFromOracle = readFromOracle(); //считываем всю информацию 33 цеха
-                        sybaseConnection.Fill = OkreadFromSybase ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Red);
-                        oracleConnection.Fill = OkreadFromOracle ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Red);
-                        if (OkreadFromSybase && OkreadFromOracle)
-                        {
-                            //считываем локальный кэш
-                            //и дополняем его новой комбинированной информацией 31 и 33 цехов
-                            PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
-
-                            textOfProgress.Text = "Данные обновлены";
-
-                        }
-                        else
-                        {
-                            textOfProgress.Text = "Соединение с базами нарушено,сделайте обновление";
-                        }
-                    });
-
-                    return 0;
-                }
-                );
-                return await task;
-            }
-            private ObservableMeltsViewModel readFromSQLiteLocal()
-            {
-                MeltNumberSought = observableMeltsViewModel?.MeltNumberSought;
-                StartDate = observableMeltsViewModel?.StartDate;
-                EndDate = observableMeltsViewModel?.EndDate;
-                meltsContext.Melts.Load();
-                localSQLLiteMelts = new ObservableCollection<Melt>(putMeltsInOrder(meltsContext.Melts.Local.ToObservableCollection()));
-                observableMeltsViewModel = new ObservableMeltsViewModel(localSQLLiteMelts);
-                localcopyGrid.DataContext = observableMeltsViewModel;
-                localZapuskStartDate.DataContext = observableMeltsViewModel;
-                localZapuskEndDate.DataContext = observableMeltsViewModel;
-                localPlantMeltNumberSought.DataContext = observableMeltsViewModel;
-                observableMeltsViewModel.MeltNumberSought = MeltNumberSought;
-                observableMeltsViewModel.StartDate = StartDate;
-                observableMeltsViewModel.EndDate = EndDate;
-                return observableMeltsViewModel;
-            }
-            private bool readFromSybase()
-            {
-                using (OdbcConnection connection = new OdbcConnection(constr.ConnectionString))
-                {
-                    try
-                    {
-                        connection.Open();
-
-                        bool connectionState = connection.State == ConnectionState.Open;
-                        //connectionState = false;
-                        if (connectionState)
-                        {
-                            sybaseConnection.Fill = new SolidColorBrush(Colors.Green);
-                            string queryString = @"SELECT * FROM ""DBA"".""rmelts""";
-                            OdbcCommand command = new OdbcCommand(queryString);
-                            command.Connection = connection;
-                            OdbcDataReader odbcDataReader = command.ExecuteReader();
-                            sybaseMelts = new List<SybaseMelt>();
-                            while (odbcDataReader.Read())
-                            {
-                                DateTime melt_end;
-                                DateTime.TryParse(odbcDataReader["me_end"].ToString(), out melt_end);
-                                var melt_sybase = new SybaseMelt
-                                {
-                                    Me_id = odbcDataReader["me_id"].ToString(),
-                                    Me_num = odbcDataReader["me_num"].ToString(),
-                                    Eq_id = odbcDataReader["eq_id"].ToString(),
-                                    Me_beg = DateTime.Parse(odbcDataReader["me_beg"].ToString()),
-                                    Me_end = melt_end == DateTime.Parse("01.01.0001") ? null : melt_end,
-                                    Me_splav = odbcDataReader["me_splav"].ToString(),
-                                    Sp_name = odbcDataReader["sp_name"].ToString(),
-                                    Me_mould = odbcDataReader["me_mould"].ToString(),
-                                    Me_del = odbcDataReader["me_del"].ToString(),
-                                    Me_weight = odbcDataReader["me_weigth"].ToString(),
-                                    Me_ukaz = odbcDataReader["me_ukaz"].ToString(),
-                                    Me_kont = odbcDataReader["me_kont"].ToString(),
-                                    Me_pril = odbcDataReader["me_pril"].ToString(),
-                                    Me_nazn = odbcDataReader["me_nazn"].ToString(),
-                                    Me_diam = odbcDataReader["me_diam"].ToString(),
-                                    Me_pos = odbcDataReader["me_pos"].ToString(),
-                                    Me_kat = odbcDataReader["me_kat"].ToString(),
-                                    Sp_id = odbcDataReader["sp_id"].ToString(),
-                                    Me_energy = odbcDataReader["me_energy"].ToString(),
-                                };
-                                sybaseMelts.Add(melt_sybase); ;
-                            }
-                            observableSybaseMeltsViewModel = new ObservableSybaseMeltsViewModel(new ObservableCollection<SybaseMelt>(sybaseMelts));
-                            shop31Grid.DataContext = observableSybaseMeltsViewModel;
-                            shop31PlantMeltNumberSought.DataContext = observableSybaseMeltsViewModel;
-                            shop31ZapuskStartDate.DataContext = observableSybaseMeltsViewModel;
-                            shop31ZapuskEndDate.DataContext = observableSybaseMeltsViewModel;
-                            return true;
-                        }
-                        else {
-                            return false; }
-                        // The connection is automatically closed at
-                        // the end of the Using block.
-                    }
-                    catch {
-                        return false; }
-                }
-            }
-            private bool readFromOracle()
-            {
-                bool canConnect = meltsPlantOracleContext.Database.CanConnect();
-                //canConnect = false;
-                if (canConnect)
-                {
-                    oracleConnection.Fill = new SolidColorBrush(Colors.Green);
-                    //MessageBox.Show("Сonnection with Plant's Oracle granted!");
-
-                    meltsPlantOracleContext.Melt31s.Load();
-                    oracleMelts = meltsPlantOracleContext.Melt31s.ToList<OracleMelt>();
-                    observableOracleMeltsViewModel = new ObservableOracleMeltsViewModel(new ObservableCollection<OracleMelt>(oracleMelts));
-                    oracleGrid.DataContext = observableOracleMeltsViewModel;
-                    ZapuskStartDate.DataContext = observableOracleMeltsViewModel;
-                    ZapuskEndDate.DataContext = observableOracleMeltsViewModel;
-                    CloseStartDate.DataContext = observableOracleMeltsViewModel;
-                    CloseEndDate.DataContext = observableOracleMeltsViewModel;
-                    PlantMeltNumberSought.DataContext = observableOracleMeltsViewModel;
-                    return true;
-                }
-                else { MessageBox.Show("No connection with Plant's Oracle!");
-                    oracleConnection.Fill = new SolidColorBrush(Colors.Red);
-                    return false; }
-            }
-
-            private void Window_Closing(object sender, CancelEventArgs e)
-            {
-                meltsContext.SaveChanges();
-                meltsContext.Dispose();
-            }
-
-            private async void refreshDataClick(object sender, RoutedEventArgs e)
-            {
-
-                await longTask();
-                await longLoadFromBases();
-                //if (readFromSybase() && readFromOracle())
-                //{
-                //    PumpPlantData(sybaseMelts, oracleMelts, localSQLLiteMelts.ToList());
-                //    await dataRefreshOverSign();
-                //}
-                //else MessageBox.Show("Обновление данных невозможно!");
-            }
-            async Task<int> dataRefreshingMessageAsync()
-            {
-                var task = Task.Run(() =>
-                {
-                    textOfProgress.Text = "Идёт обновление данных";
-                    return 0;
-                }
-                );
-                return await task;
-            }
-            private ObservableMeltsViewModel PumpPlantData(List<SybaseMelt> listSybaseMelts, List<OracleMelt> listOracleMelts, List<Melt> listSqLiteMelts)
+        private ObservableMeltsViewModel PumpPlantData(List<SybaseMelt> listSybaseMelts, List<OracleMelt> listOracleMelts, List<Melt> listSqLiteMelts)
             {
                 int fullPlantOracleCount = listOracleMelts.Count();
                 int fullPlantSybaseCount = listSybaseMelts.Count();
@@ -563,8 +358,7 @@ namespace Melts_Base
                     }
 
                 }
-                //meltsContext.SaveChanges();
-                //readFromSQLiteLocal();
+ 
                 localSQLLiteMelts = new ObservableCollection<Melt>(putMeltsInOrder(meltsContext.Melts.Local.ToObservableCollection()));
                 observableMeltsViewModel = new ObservableMeltsViewModel(localSQLLiteMelts);
             return observableMeltsViewModel;
@@ -572,7 +366,30 @@ namespace Melts_Base
 
         }
 
-            private void ExportToExcel(object sender, RoutedEventArgs e)
+ 
+        private void Window_Closing(object sender, CancelEventArgs e)
+            {
+                meltsContext.SaveChanges();
+                meltsContext.Dispose();
+            }
+
+        private async void refreshDataClick(object sender, RoutedEventArgs e)
+            {
+
+            }
+            async Task<int> dataRefreshingMessageAsync()
+            {
+                var task = Task.Run(() =>
+                {
+                    textOfProgress.Text = "Идёт обновление данных";
+                    return 0;
+                }
+                );
+                return await task;
+            }
+
+
+        private void ExportToExcel(object sender, RoutedEventArgs e)
             {
                 Excel.Application excel = new Excel.Application();
                 excel.Visible = true;
@@ -623,7 +440,7 @@ namespace Melts_Base
                     i++;
                 }
             }
-            private IEnumerable<Melt> putMeltsInOrder(IEnumerable<Melt> listMelt)
+        private IEnumerable<Melt> putMeltsInOrder(IEnumerable<Melt> listMelt)
             {
                 switch (SortMemberPath)
                 {
@@ -789,7 +606,7 @@ namespace Melts_Base
 
                 } return listMelt;
             }
-            private void localcopyGrid_Sorting(object sender, DataGridSortingEventArgs e)
+        private void localcopyGrid_Sorting(object sender, DataGridSortingEventArgs e)
             {
                 SortMemberPath = e.Column.SortMemberPath;
                 if (e.Column.SortDirection == null) SortDirection = ListSortDirection.Ascending;
