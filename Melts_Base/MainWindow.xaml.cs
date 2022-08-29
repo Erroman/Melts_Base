@@ -27,6 +27,7 @@ using System.Data.Odbc;
 using System.Data;
 using Excel = Microsoft.Office.Interop.Excel;       //Add Microsoft Excel 16.0 Object Library to the project
 using System.DirectoryServices.Protocols;
+using System.Diagnostics;
 //by Dependencies/Add COM Reference...
 
 namespace Melts_Base
@@ -56,6 +57,7 @@ namespace Melts_Base
         string MeltNumberSought = "";//melt number for filtering melts
         string StartDate = "";//Start date for filtering melts
         string EndDate = ""; //End date for filtering melts
+        IProgress<int> progress;
 
 
         public MainWindow()
@@ -70,8 +72,8 @@ namespace Melts_Base
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-
+        {          
+            progress = new Progress<int>(v => loadingProgress.Value += v);
             localdateZap.Width = new DataGridLength(120);
             localnPlav.Width = new DataGridLength(90);
             dateZap.Width = new DataGridLength(120);
@@ -79,6 +81,7 @@ namespace Melts_Base
             nPlav.Width = new DataGridLength(90);
             meltsContext.Database.EnsureCreated();
             var notaskLoadFromSQLite = readFromSQLiteLocal();
+            progress.Report(20);
 
             var taskLoadFromSybase = await readFromSybaseAsync();
             if(taskLoadFromSybase != null) 
@@ -89,7 +92,7 @@ namespace Melts_Base
                 shop31ZapuskStartDate.DataContext = taskLoadFromSybase;
                 shop31ZapuskEndDate.DataContext = taskLoadFromSybase; 
             }else sybaseConnection.Fill = new SolidColorBrush(Colors.Red);
-
+            progress.Report(20);
 
             var taskLoadFromOracle = await readFromOracleAsync();
             if (taskLoadFromOracle != null)
@@ -101,22 +104,46 @@ namespace Melts_Base
                 CloseEndDate.DataContext = taskLoadFromOracle;
                 PlantMeltNumberSought.DataContext = taskLoadFromOracle;
             }else oracleConnection.Fill = new SolidColorBrush(Colors.Red);
+            progress.Report(20);
+
             if (taskLoadFromSybase != null & taskLoadFromOracle != null)
             {
-                var CombinedPlantData = PumpPlantData(taskLoadFromSybase.Melts.ToList<SybaseMelt>(),
+                MeltNumberSought = observableMeltsViewModel?.MeltNumberSought;
+                StartDate = observableMeltsViewModel?.StartDate;
+                EndDate = observableMeltsViewModel?.EndDate;
+                //var CombinedPlantData = PumpPlantData(taskLoadFromSybase.Melts.ToList<SybaseMelt>(),
+                observableMeltsViewModel = PumpPlantData(taskLoadFromSybase.Melts.ToList<SybaseMelt>(),
                 taskLoadFromOracle.Melts.ToList<OracleMelt>(),
                 notaskLoadFromSQLite.Melts.ToList<Melt>());
+                localcopyGrid.DataContext = observableMeltsViewModel;
+                localZapuskStartDate.DataContext = observableMeltsViewModel;
+                localZapuskEndDate.DataContext = observableMeltsViewModel;
+                localPlantMeltNumberSought.DataContext = observableMeltsViewModel;
+                observableMeltsViewModel.MeltNumberSought = MeltNumberSought;
+                observableMeltsViewModel.StartDate = StartDate;
+                observableMeltsViewModel.EndDate = EndDate;
+                await Task.Delay(1000);
+                Thread.Sleep(1000);
+                progress.Report(20);
+                textOfProgress.Foreground = new SolidColorBrush(Colors.Green);
+                textOfProgress.Text = "Обновление выполнено";
+                //progress.Report(20);
             }
-            else {
+            else 
+            {
+                progress.Report(-100);
                 textOfProgress.Foreground = new SolidColorBrush(Colors.Red);
-                textOfProgress.Text = "Повторите обновление позднее!"; }
-
+                textOfProgress.Text = "Обновление не выполнено!";
+             
+            }
+            //progress.Report(-100);
 
 
         }
-     
+ 
         private async Task<ObservableSybaseMeltsViewModel> readFromSybaseAsync()
         {
+    
             using (OdbcConnection connection = new OdbcConnection(constr.ConnectionString))
             {
                 var task = Task.Run(() =>
@@ -133,12 +160,21 @@ namespace Melts_Base
                         if (connectionState)
                         {
                             string queryString = @"SELECT * FROM ""DBA"".""rmelts""";
+                            //string queryStringToCount = @"SELECT COUNT(*) FROM ""DBA"".""rmelts""";
+                            //OdbcCommand odbcCommandToCount = new OdbcCommand(queryStringToCount);
+                            //odbcCommandToCount.Connection = connection;
+                            //OdbcDataReader dataReaderToCount = odbcCommandToCount.ExecuteReader();
+                            //dataReaderToCount.Read(); 
+                            //var TotalRecordsCount = Int32.Parse(dataReaderToCount[@"""COUNT""(*)"].ToString());
                             OdbcCommand command = new OdbcCommand(queryString);
                             command.Connection = connection;
                             OdbcDataReader odbcDataReader = command.ExecuteReader();
                             sybaseMelts = new List<SybaseMelt>();
+                            //var RecordsCount = 0;
                             while (odbcDataReader.Read())
                             {
+                                //RecordsCount++;
+                                //if (TotalRecordsCount/RecordsCount % 10 == 0) progress.Report(10);
                                 DateTime melt_end;
                                 DateTime.TryParse(odbcDataReader["me_end"].ToString(), out melt_end);
                                 var melt_sybase = new SybaseMelt
@@ -163,7 +199,8 @@ namespace Melts_Base
                                     Sp_id = odbcDataReader["sp_id"].ToString(),
                                     Me_energy = odbcDataReader["me_energy"].ToString(),
                                 };
-                                sybaseMelts.Add(melt_sybase); ;
+                                sybaseMelts.Add(melt_sybase);
+
                             }
                             observableSybaseMeltsViewModel = new ObservableSybaseMeltsViewModel(new ObservableCollection<SybaseMelt>(sybaseMelts));
                             //shop31Grid.DataContext = observableSybaseMeltsViewModel;
@@ -202,6 +239,7 @@ namespace Melts_Base
                     //MessageBox.Show("Сonnection with Plant's Oracle granted!");
 
                     meltsPlantOracleContext.Melt31s.Load();
+                    progress.Report(20);
                     oracleMelts = meltsPlantOracleContext.Melt31s.ToList<OracleMelt>();
                     observableOracleMeltsViewModel = new ObservableOracleMeltsViewModel(new ObservableCollection<OracleMelt>(oracleMelts));
                     //oracleGrid.DataContext = observableOracleMeltsViewModel;
@@ -216,6 +254,7 @@ namespace Melts_Base
                 {
                     //MessageBox.Show("No connection with Plant's Oracle!");
                     //oracleConnection.Fill = new SolidColorBrush(Colors.Red);
+                    progress.Report(20);
                     return observableOracleMeltsViewModel;
                 }
             });return await task;
@@ -524,7 +563,7 @@ namespace Melts_Base
                     }
 
                 }
-                meltsContext.SaveChanges();
+                //meltsContext.SaveChanges();
                 //readFromSQLiteLocal();
                 localSQLLiteMelts = new ObservableCollection<Melt>(putMeltsInOrder(meltsContext.Melts.Local.ToObservableCollection()));
                 observableMeltsViewModel = new ObservableMeltsViewModel(localSQLLiteMelts);
