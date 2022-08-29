@@ -49,6 +49,7 @@ namespace Melts_Base
             ["uid"] = "romanovskii",
             ["pwd"] = "12345"
         };
+
         ObservableCollection<Melt> localSQLLiteMelts = null;
         List<SybaseMelt> sybaseMelts = null;
         List<OracleMelt> oracleMelts = null;
@@ -66,10 +67,7 @@ namespace Melts_Base
 
         }
 
-        private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+ 
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {          
@@ -140,6 +138,70 @@ namespace Melts_Base
 
 
         }
+        private async void refreshDataClick(object sender, RoutedEventArgs e)
+        {
+            loadingProgress.Value = 0;
+            textOfProgress.Foreground = new SolidColorBrush(Colors.Green);
+            textOfProgress.Text = "Выполняется обновление ...";
+            progress = new Progress<int>(v => loadingProgress.Value += v);
+            progress.Report(20);
+            var taskLoadFromSybase = await readFromSybaseAsync();
+            if (taskLoadFromSybase != null)
+            {
+                sybaseConnection.Fill = new SolidColorBrush(Colors.Green);
+                shop31Grid.DataContext = taskLoadFromSybase;
+                shop31PlantMeltNumberSought.DataContext = taskLoadFromSybase;
+                shop31ZapuskStartDate.DataContext = taskLoadFromSybase;
+                shop31ZapuskEndDate.DataContext = taskLoadFromSybase;
+            }
+            else sybaseConnection.Fill = new SolidColorBrush(Colors.Red);
+            progress.Report(20);
+
+            var taskLoadFromOracle = await readFromOracleAsync();
+            if (taskLoadFromOracle != null)
+            {
+                oracleGrid.DataContext = taskLoadFromOracle;
+                ZapuskStartDate.DataContext = taskLoadFromOracle;
+                ZapuskEndDate.DataContext = taskLoadFromOracle;
+                CloseStartDate.DataContext = taskLoadFromOracle;
+                CloseEndDate.DataContext = taskLoadFromOracle;
+                PlantMeltNumberSought.DataContext = taskLoadFromOracle;
+            }
+            else oracleConnection.Fill = new SolidColorBrush(Colors.Red);
+            progress.Report(20);
+
+            if (taskLoadFromSybase != null & taskLoadFromOracle != null)
+            {
+                MeltNumberSought = observableMeltsViewModel?.MeltNumberSought;
+                StartDate = observableMeltsViewModel?.StartDate;
+                EndDate = observableMeltsViewModel?.EndDate;
+                //var CombinedPlantData = PumpPlantData(taskLoadFromSybase.Melts.ToList<SybaseMelt>(),
+                observableMeltsViewModel = 
+                    PumpPlantData(taskLoadFromSybase.Melts.ToList<SybaseMelt>(),
+                                   taskLoadFromOracle.Melts.ToList<OracleMelt>(), observableMeltsViewModel.Melts.ToList<Melt>());
+                localcopyGrid.DataContext = observableMeltsViewModel;
+                localZapuskStartDate.DataContext = observableMeltsViewModel;
+                localZapuskEndDate.DataContext = observableMeltsViewModel;
+                localPlantMeltNumberSought.DataContext = observableMeltsViewModel;
+                observableMeltsViewModel.MeltNumberSought = MeltNumberSought;
+                observableMeltsViewModel.StartDate = StartDate;
+                observableMeltsViewModel.EndDate = EndDate;
+                await Task.Delay(1000);
+                Thread.Sleep(1000);
+                progress.Report(20);
+                textOfProgress.Foreground = new SolidColorBrush(Colors.Green);
+                textOfProgress.Text = "Обновление выполнено";
+                //progress.Report(20);
+            }
+            else
+            {
+                progress.Report(-100);
+                textOfProgress.Foreground = new SolidColorBrush(Colors.Red);
+                textOfProgress.Text = "Обновление не выполнено!";
+
+            }
+        }
+
         private ObservableMeltsViewModel readFromSQLiteLocal()
             {
                 MeltNumberSought = observableMeltsViewModel?.MeltNumberSought;
@@ -365,19 +427,20 @@ namespace Melts_Base
 
 
         }
-
+     
+  
  
         private void Window_Closing(object sender, CancelEventArgs e)
             {
                 meltsContext.SaveChanges();
                 meltsContext.Dispose();
             }
-
-        private async void refreshDataClick(object sender, RoutedEventArgs e)
-            {
-
-            }
-            async Task<int> dataRefreshingMessageAsync()
+        private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+ 
+        async Task<int> dataRefreshingMessageAsync()
             {
                 var task = Task.Run(() =>
                 {
