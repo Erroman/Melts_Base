@@ -685,6 +685,12 @@ namespace Melts_Base
                 Owner = this,
                 //DocumentMargin = documentTextBox.Margin
             };
+            dlg.ShowDialog();
+            if (dlg.DialogResult == true)
+            {
+
+                Properties.Settings.Default.Save();
+            }
         }
     }
     } 

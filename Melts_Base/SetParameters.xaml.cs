@@ -22,6 +22,11 @@ namespace Melts_Base
         public SetParameters()
         {
             InitializeComponent();
+            TabsVisibility.IsChecked = Properties.Settings.Default.TabsVisibility; 
+        }
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.TabsVisibility = (bool)TabsVisibility.IsChecked;
         }
     }
 }
