@@ -71,12 +71,14 @@ namespace Melts_Base
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {          
-            progress = new Progress<int>(v => loadingProgress.Value += v);
+            SetTabsVisibility();
             localdateZap.Width = new DataGridLength(120);
             localnPlav.Width = new DataGridLength(90);
             dateZap.Width = new DataGridLength(120);
             dateClose.Width = new DataGridLength(120);
             nPlav.Width = new DataGridLength(90);
+ 
+            progress = new Progress<int>(v => loadingProgress.Value += v);
             meltsContext.Database.EnsureCreated();
             var notaskLoadFromSQLite = readFromSQLiteLocal();
             progress.Report(20);
@@ -683,13 +685,25 @@ namespace Melts_Base
             var dlg = new SetParameters
             {
                 Owner = this,
-                //DocumentMargin = documentTextBox.Margin
             };
             dlg.ShowDialog();
             if (dlg.DialogResult == true)
             {
-
+                SetTabsVisibility();
                 Properties.Settings.Default.Save();
+            }
+        }
+        private void SetTabsVisibility() 
+        {
+            if (Properties.Settings.Default.TabsVisibility)
+            {
+                ribbonTabSybase.Visibility = Visibility.Visible;
+                ribbonTabOracle.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ribbonTabSybase.Visibility = Visibility.Collapsed;
+                ribbonTabOracle.Visibility = Visibility.Collapsed;
             }
         }
     }

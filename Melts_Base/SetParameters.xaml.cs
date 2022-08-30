@@ -27,6 +27,12 @@ namespace Melts_Base
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.TabsVisibility = (bool)TabsVisibility.IsChecked;
+
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            this.DialogResult = true;
         }
     }
 }

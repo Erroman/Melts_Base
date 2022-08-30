@@ -29,11 +29,11 @@
                     <RibbonApplicationMenuItem Header="Выход из программы" Click="RibbonApplicationMenuItem_Click" />
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
-            <RibbonTab Header="Данные из заводской базы Oracle" Visibility="Visible">
+            <RibbonTab Name="ribbonTabOracle" Header="Данные из заводской базы Oracle" Visibility="Visible">
                 <RibbonGroup x:Name="PlantOracleListOfMelts">
                 </RibbonGroup>
             </RibbonTab>
-            <RibbonTab Header="Данные из цеховой базы Sybase" Visibility="Visible">
+            <RibbonTab Name="ribbonTabSybase" Header="Данные из цеховой базы Sybase" Visibility="Visible">
                 <RibbonGroup x:Name="Shop31SybaseListOfMelts">
                 </RibbonGroup>
             </RibbonTab>
