@@ -3,8 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=System.Runtime"
         mc:Ignorable="d"
         Title="Информационная система по выплавкам титановых слитков на печах ВДП цеха 31 ПАО Корпорации ВСМПО-АВИСМА" Height="450" Width="800" WindowState="Maximized"  Loaded="Window_Loaded" Closing="Window_Closing">
+    <Window.Resources>
+        <Style TargetType="Ellipse" x:Key="CircleSizes">
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Height" Value="20"/>
+        </Style>
+        <sys:Double x:Key="Radius">20</sys:Double>
+    </Window.Resources>    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -64,14 +72,17 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Ellipse Grid.Row="0" Grid.Column="1" Name="sybaseConnection" Fill="Green" Width="33" Height="33"/>
-                        <Ellipse Grid.Row="1" Grid.Column="1" Name="oracleConnection" Fill="Green" Width="33" Height="33"/>
-                        <TextBlock Grid.RowSpan="2" VerticalAlignment="Center">Связь с базами</TextBlock>
+                        <Ellipse Style="{StaticResource CircleSizes}" Grid.Row="0" Grid.Column="1" Name="sybaseConnection" Fill="Green" Width="{StaticResource Radius}" Height="{StaticResource Radius}"/>
+                        <Ellipse Style="{StaticResource CircleSizes}" Grid.Row="3" Grid.Column="1" Name="oracleConnection" Fill="Green" Width="{StaticResource Radius}" Height="{StaticResource Radius}"/>
+                        <TextBlock Grid.Row ="1" Grid.ColumnSpan="2" VerticalAlignment="Center">Связь с базами</TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="0">Ц 31</TextBlock>
+                        <TextBlock Grid.Row="3" Grid.Column="0">Ц 33</TextBlock>
                     </Grid>
                 </RibbonGroup>
                 <RibbonGroup x:Name="outputToExcel">
