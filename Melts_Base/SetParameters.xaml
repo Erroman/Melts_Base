@@ -19,7 +19,7 @@
             <RowDefinition Height="69*"/>
             <RowDefinition Height="114*"/>
         </Grid.RowDefinitions>
-        <CheckBox Name="TabsVisibility" Grid.Column="1" Content="Видимость вкладок с цеховыми данными&#xD;&#xA;" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Height="33" RenderTransformOrigin="0.154,0.487" Checked="CheckBox_Checked" Width="265"/>
+        <CheckBox Name="TabsVisibility" Grid.Column="1" Content="Видимость вкладок с цеховыми данными&#xD;&#xA;" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Height="33" RenderTransformOrigin="0.154,0.487" Checked="CheckBox_Checked" Width="265" Unchecked="CheckBox_Checked"/>
 
     </Grid>
 </Window>
