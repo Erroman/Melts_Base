@@ -677,6 +677,15 @@ namespace Melts_Base
                     SortDirection = e.Column.SortDirection == ListSortDirection.Descending ?
                                     ListSortDirection.Ascending : ListSortDirection.Descending;
             }
+
+        private void RibbonApplicationMenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            var dlg = new SetParameters
+            {
+                Owner = this,
+                //DocumentMargin = documentTextBox.Margin
+            };
         }
+    }
     } 
 

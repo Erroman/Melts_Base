@@ -25,7 +25,7 @@
             </Ribbon.HelpPaneContent>
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu>
-                    <RibbonApplicationMenuItem Header="Настройки" />
+                    <RibbonApplicationMenuItem Header="Настройки" Click="RibbonApplicationMenuItem_Click_1"/>
                     <RibbonApplicationMenuItem Header="Выход из программы" Click="RibbonApplicationMenuItem_Click" />
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
