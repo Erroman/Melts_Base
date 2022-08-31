@@ -129,6 +129,7 @@ namespace Melts_Base
                 textOfProgress.Foreground = new SolidColorBrush(Colors.Green);
                 textOfProgress.Text = "Обновление выполнено";
                 //progress.Report(20);
+                meltsContext.SaveChanges();
             }
             else 
             {
@@ -195,6 +196,7 @@ namespace Melts_Base
                 progress.Report(20);
                 textOfProgress.Foreground = new SolidColorBrush(Colors.Green);
                 textOfProgress.Text = "Обновление выполнено";
+                meltsContext.SaveChanges();
                 //progress.Report(20);
             }
             else
@@ -437,7 +439,6 @@ namespace Melts_Base
  
         private void Window_Closing(object sender, CancelEventArgs e)
             {
-                meltsContext.SaveChanges();
                 meltsContext.Dispose();
             }
         private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)
