@@ -25,7 +25,8 @@ using Melts_Base.SQLiteViewModel;
 using Melts_Base.SQLiteModels;
 using System.Data.Odbc;
 using System.Data;
-using Excel = Microsoft.Office.Interop.Excel;       //Add Microsoft Excel 16.0 Object Library to the project
+using Excel = Microsoft.Office.Interop.Excel;       //Add Microsoft Excel 16.0 Object Library to the project,add from Dependencies\COM
+using Word = Microsoft.Office.Interop.Word;         //Add Microsoft Word 16.0 Object Library to the project,add from Dependencies\COM
 using System.DirectoryServices.Protocols;
 using System.Diagnostics;
 //by Dependencies/Add COM Reference...
@@ -446,17 +447,6 @@ namespace Melts_Base
             this.Close();
         }
  
-        async Task<int> dataRefreshingMessageAsync()
-            {
-                var task = Task.Run(() =>
-                {
-                    textOfProgress.Text = "Идёт обновление данных";
-                    return 0;
-                }
-                );
-                return await task;
-            }
-
 
         private void ExportToExcel(object sender, RoutedEventArgs e)
             {
