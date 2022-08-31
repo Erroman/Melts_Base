@@ -448,57 +448,7 @@ namespace Melts_Base
         }
  
 
-        private void ExportToExcel(object sender, RoutedEventArgs e)
-            {
-                Excel.Application excel = new Excel.Application();
-                excel.Visible = true;
-                Excel.Workbook workbook = excel.Workbooks.Add();
-                Excel.Worksheet sheet1 = (Excel.Worksheet)workbook.Sheets[1];
 
-                sheet1.Cells[1, 1] = "Номер записи";
-                sheet1.Cells[1, 2] = "Номер печи";
-                sheet1.Cells[1, 3] = "Номер плавки";
-                sheet1.Cells[1, 4] = "Дата плавки";
-                sheet1.Cells[1, 5] = "Сплав";
-                sheet1.Cells[1, 6] = "Индекс";
-                sheet1.Cells[1, 7] = "Номер переплава";
-                sheet1.Cells[1, 8] = "Признак окончательного переплава";
-                sheet1.Cells[1, 9] = "Номер комплекта";
-                sheet1.Cells[1, 10] = "Диаметр расходуемого электрода";
-                sheet1.Cells[1, 11] = "№ ТЭК";
-                sheet1.Cells[1, 12] = "ИЛ/УиС/ШН";
-                sheet1.Cells[1, 13] = "Контракт";
-                sheet1.Cells[1, 14] = "Приложение";
-                sheet1.Cells[1, 15] = "Назначение";
-                sheet1.Cells[1, 16] = "Диаметр слитка";
-
-                Func<Melt, DateTime?> func_for_ordering_dates = melt => melt.Me_beg;
-
-                IEnumerable<Melt> listMelt = localSQLLiteMelts.Where<Melt>(melt => observableMeltsViewModel.
-                        ListCollectionView_Filter(melt));
-                listMelt = putMeltsInOrder(listMelt);
-                int i = 2;
-                foreach (var melt in listMelt)
-                {
-                    sheet1.Cells[i, 1] = melt.MeltId;
-                    sheet1.Cells[i, 2] = melt.Eq_id;
-                    sheet1.Cells[i, 3] = melt.Me_num;
-                    sheet1.Cells[i, 4] = melt.Me_beg?.ToString("dd.MM.yyyy");
-                    sheet1.Cells[i, 5] = melt.Sp_name;
-                    sheet1.Cells[i, 6] = melt.Oracle_Ins;
-                    sheet1.Cells[i, 7] = melt.Oracle_Pereplav;
-                    sheet1.Cells[i, 8] = melt.Oracle_OkonchPereplav;
-                    sheet1.Cells[i, 9] = melt.Me_mould;
-                    sheet1.Cells[i, 10] = melt.Me_del;
-                    sheet1.Cells[i, 11] = melt.Oracle_Tek;
-                    sheet1.Cells[i, 12] = melt.Me_ukaz;
-                    sheet1.Cells[i, 13] = melt.Me_kont;
-                    sheet1.Cells[i, 14] = melt.Oracle_Poz;
-                    sheet1.Cells[i, 15] = melt.Oracle_PozNaim;
-                    sheet1.Cells[i, 16] = melt.Me_diam;
-                    i++;
-                }
-            }
         private IEnumerable<Melt> putMeltsInOrder(IEnumerable<Melt> listMelt)
             {
                 switch (SortMemberPath)
@@ -699,6 +649,63 @@ namespace Melts_Base
                 ribbonTabSybase.Visibility = Visibility.Collapsed;
                 ribbonTabOracle.Visibility = Visibility.Collapsed;
             }
+        }
+        private void ExportToExcel(object sender, RoutedEventArgs e)
+            {
+                Excel.Application excel = new Excel.Application();
+                excel.Visible = true;
+                Excel.Workbook workbook = excel.Workbooks.Add();
+                Excel.Worksheet sheet1 = (Excel.Worksheet)workbook.Sheets[1];
+
+                sheet1.Cells[1, 1] = "Номер записи";
+                sheet1.Cells[1, 2] = "Номер печи";
+                sheet1.Cells[1, 3] = "Номер плавки";
+                sheet1.Cells[1, 4] = "Дата плавки";
+                sheet1.Cells[1, 5] = "Сплав";
+                sheet1.Cells[1, 6] = "Индекс";
+                sheet1.Cells[1, 7] = "Номер переплава";
+                sheet1.Cells[1, 8] = "Признак окончательного переплава";
+                sheet1.Cells[1, 9] = "Номер комплекта";
+                sheet1.Cells[1, 10] = "Диаметр расходуемого электрода";
+                sheet1.Cells[1, 11] = "№ ТЭК";
+                sheet1.Cells[1, 12] = "ИЛ/УиС/ШН";
+                sheet1.Cells[1, 13] = "Контракт";
+                sheet1.Cells[1, 14] = "Приложение";
+                sheet1.Cells[1, 15] = "Назначение";
+                sheet1.Cells[1, 16] = "Диаметр слитка";
+
+                Func<Melt, DateTime?> func_for_ordering_dates = melt => melt.Me_beg;
+
+                IEnumerable<Melt> listMelt = localSQLLiteMelts.Where<Melt>(melt => observableMeltsViewModel.
+                        ListCollectionView_Filter(melt));
+                listMelt = putMeltsInOrder(listMelt);
+                int i = 2;
+                foreach (var melt in listMelt)
+                {
+                    sheet1.Cells[i, 1] = melt.MeltId;
+                    sheet1.Cells[i, 2] = melt.Eq_id;
+                    sheet1.Cells[i, 3] = melt.Me_num;
+                    sheet1.Cells[i, 4] = melt.Me_beg?.ToString("dd.MM.yyyy");
+                    sheet1.Cells[i, 5] = melt.Sp_name;
+                    sheet1.Cells[i, 6] = melt.Oracle_Ins;
+                    sheet1.Cells[i, 7] = melt.Oracle_Pereplav;
+                    sheet1.Cells[i, 8] = melt.Oracle_OkonchPereplav;
+                    sheet1.Cells[i, 9] = melt.Me_mould;
+                    sheet1.Cells[i, 10] = melt.Me_del;
+                    sheet1.Cells[i, 11] = melt.Oracle_Tek;
+                    sheet1.Cells[i, 12] = melt.Me_ukaz;
+                    sheet1.Cells[i, 13] = melt.Me_kont;
+                    sheet1.Cells[i, 14] = melt.Oracle_Poz;
+                    sheet1.Cells[i, 15] = melt.Oracle_PozNaim;
+                    sheet1.Cells[i, 16] = melt.Me_diam;
+                    i++;
+                }
+            }
+        private void ExportToWord(object sender, RoutedEventArgs e)
+        {
+            Word.Application word = new Word.Application();
+            word.Visible = true;
+
         }
     }
     } 

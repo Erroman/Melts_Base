@@ -88,7 +88,7 @@
                 <RibbonGroup x:Name="outputToExcel">
                     <StackPanel>
                         <Button Content="Экспорт в Excel" FontSize="16" Margin="10,5" Click="ExportToExcel" FontWeight="Bold"/>
-                        <Button Content="Экспорт в Word" FontSize="16" Margin="10,5" Click="ExportToExcel" FontWeight="Bold"/>
+                        <Button Content="Экспорт в Word" FontSize="16" Margin="10,5" Click="ExportToWord" FontWeight="Bold"/>
                     </StackPanel>
                 </RibbonGroup>
             </RibbonTab>
