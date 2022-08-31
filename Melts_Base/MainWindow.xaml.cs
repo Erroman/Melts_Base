@@ -72,6 +72,7 @@ namespace Melts_Base
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {          
             SetTabsVisibility();
+            refreshButton.IsEnabled = false;
             localdateZap.Width = new DataGridLength(120);
             localnPlav.Width = new DataGridLength(90);
             dateZap.Width = new DataGridLength(120);
@@ -137,11 +138,12 @@ namespace Melts_Base
              
             }
             //progress.Report(-100);
-
+            refreshButton.IsEnabled = true;
 
         }
         private async void refreshDataClick(object sender, RoutedEventArgs e)
         {
+            refreshButton.IsEnabled = false;
             loadingProgress.Value = 0;
             textOfProgress.Foreground = new SolidColorBrush(Colors.Green);
             textOfProgress.Text = "Выполняется обновление ...";
@@ -202,6 +204,7 @@ namespace Melts_Base
                 textOfProgress.Text = "Обновление не выполнено!";
 
             }
+            refreshButton.IsEnabled = true;
         }
 
         private ObservableMeltsViewModel readFromSQLiteLocal()
