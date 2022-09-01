@@ -719,7 +719,9 @@ namespace Melts_Base
         {
             Word.Application word = new Word.Application();
             word.Visible = true;
-            Word.Document document = new Word.Document();
+            //Word.Document document = new Word.Document();
+            word.Documents.Add();
+            //word.Documents.Add(document);
             
             Process[] processes = Process.GetProcessesByName("WINWORD");
 
