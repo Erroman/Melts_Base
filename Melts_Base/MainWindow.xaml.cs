@@ -29,6 +29,7 @@ using Excel = Microsoft.Office.Interop.Excel;       //Add Microsoft Excel 16.0 O
 using Word = Microsoft.Office.Interop.Word;         //Add Microsoft Word 16.0 Object Library to the project,add from Dependencies\COM
 using System.DirectoryServices.Protocols;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 //by Dependencies/Add COM Reference...
 
 namespace Melts_Base
@@ -650,12 +651,17 @@ namespace Melts_Base
                 ribbonTabOracle.Visibility = Visibility.Collapsed;
             }
         }
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+        [DllImport("user32.dll")]
+        private static extern IntPtr SetForegroundWindow(IntPtr mainWindowHandle);
         private void ExportToExcel(object sender, RoutedEventArgs e)
             {
                 Excel.Application excel = new Excel.Application();
                 excel.Visible = true;
                 Excel.Workbook workbook = excel.Workbooks.Add();
-                Excel.Worksheet sheet1 = (Excel.Worksheet)workbook.Sheets[1];
+ 
+            Excel.Worksheet sheet1 = (Excel.Worksheet)workbook.Sheets[1];
 
                 sheet1.Cells[1, 1] = "Номер записи";
                 sheet1.Cells[1, 2] = "Номер печи";
@@ -700,7 +706,15 @@ namespace Melts_Base
                     sheet1.Cells[i, 16] = melt.Me_diam;
                     i++;
                 }
+            Process[] processes = Process.GetProcessesByName("excel");
+            foreach (Process p in processes)
+            {
+                if (p.MainWindowTitle.Contains("Excel"))
+                {
+                    SetForegroundWindow(p.MainWindowHandle);
+                }
             }
+        }
         private void ExportToWord(object sender, RoutedEventArgs e)
         {
             Word.Application word = new Word.Application();
