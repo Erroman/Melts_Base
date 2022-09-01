@@ -719,6 +719,18 @@ namespace Melts_Base
         {
             Word.Application word = new Word.Application();
             word.Visible = true;
+            Word.Document document = new Word.Document();
+            
+            Process[] processes = Process.GetProcessesByName("WINWORD");
+
+            foreach (Process p in processes)
+            {
+                if (p.MainWindowTitle.Contains("Word"))
+                {
+                    SetForegroundWindow(p.MainWindowHandle);
+                }
+            }
+
 
         }
     }
