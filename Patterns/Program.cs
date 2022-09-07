@@ -6,7 +6,7 @@ try
     Console.WriteLine("Please specify the file to convert   to HTML.");
     var fullFilePath = Console.ReadLine() ?? string.Empty;
     var inputText = ReadAllText(fullFilePath);
-    var paragraphs = Regex.Split(inputText, @"(\r\n?|\n)").Where(p => p.Any(g => char.IsLetter(g)));
+    var paragraphs = Regex.Split(inputText, @"(\r\n?|\n)").Where(p => p.Any(g => char.IsLetterOrDigit(g)));
     var sb = new StringBuilder();
     foreach (var paragraph in paragraphs)
     {
