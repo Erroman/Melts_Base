@@ -660,8 +660,17 @@ namespace Melts_Base
                 Excel.Application excel = new Excel.Application();
                 excel.Visible = true;
                 Excel.Workbook workbook = excel.Workbooks.Add();
- 
-            Excel.Worksheet sheet1 = (Excel.Worksheet)workbook.Sheets[1];
+
+                Process[] processes = Process.GetProcessesByName("excel");
+                foreach (Process p in processes)
+                {
+                    if (p.MainWindowTitle.Contains("Excel"))
+                    {
+                        SetForegroundWindow(p.MainWindowHandle);
+                    }
+                }
+            
+                Excel.Worksheet sheet1 = (Excel.Worksheet)workbook.Sheets[1];
 
                 sheet1.Cells[1, 1] = "Номер записи";
                 sheet1.Cells[1, 2] = "Номер печи";
@@ -706,14 +715,7 @@ namespace Melts_Base
                     sheet1.Cells[i, 16] = melt.Me_diam;
                     i++;
                 }
-            Process[] processes = Process.GetProcessesByName("excel");
-            foreach (Process p in processes)
-            {
-                if (p.MainWindowTitle.Contains("Excel"))
-                {
-                    SetForegroundWindow(p.MainWindowHandle);
-                }
-            }
+            
         }
         private void ExportToWord(object sender, RoutedEventArgs e)
         {
