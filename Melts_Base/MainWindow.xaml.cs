@@ -47,7 +47,7 @@ namespace Melts_Base
         private ObservableSybaseMeltsViewModel observableSybaseMeltsViewModel;
         OdbcConnectionStringBuilder constr = new OdbcConnectionStringBuilder()
         {
-            ["Dsn"] = "sybase",
+            ["Dsn"] = "ssybase",
             ["uid"] = "romanovskii",
             ["pwd"] = "12345"
         };
@@ -736,6 +736,21 @@ namespace Melts_Base
             }
 
 
+        }
+
+        private void RibbonApplicationMenuItemMadeIn_Click(object sender, RoutedEventArgs e)
+        {
+
+            var dlg = new Author
+            {
+                Owner = this,
+            };
+            dlg.ShowDialog();
+            if (dlg.DialogResult == true)
+            {
+                SetTabsVisibility();
+                Properties.Settings.Default.Save();
+            }
         }
     }
     } 

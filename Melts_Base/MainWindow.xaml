@@ -27,6 +27,7 @@
                 <RibbonApplicationMenu>
                     <RibbonApplicationMenuItem Header="Настройки" Click="RibbonApplicationMenuItem_Click_1"/>
                     <RibbonApplicationMenuItem Header="Выход из программы" Click="RibbonApplicationMenuItem_Click" />
+                    <RibbonApplicationMenuItem Header="Автор" Click="RibbonApplicationMenuItemMadeIn_Click" />
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
             <RibbonTab Name="ribbonTabOracle" Header="Данные из заводской базы Oracle" Visibility="Visible">

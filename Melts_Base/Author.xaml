@@ -1,0 +1,15 @@
+﻿<Window x:Class="Melts_Base.Author"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Melts_Base"
+        mc:Ignorable="d"
+        Title="Автор" Height="450" Width="800">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="369,187,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Владимир Романовский"/>
+        <TextBlock HorizontalAlignment="Left" Margin="369,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ru-ru" Text="+79226025110"/><LineBreak/><Run Language="ru-ru"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="369,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="203"><Run Text="ПАО &quot;ВСМПО-Ависма&quot;"/><Run Language="ru-ru" Text=" ц.24"/></TextBlock>
+
+    </Grid>
+</Window>
