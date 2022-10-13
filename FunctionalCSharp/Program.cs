@@ -1,22 +1,35 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System;
+using static Kuku;
 
 Console.WriteLine("Hello, World!");
-var f = P;
-Func<O, O, O> func = f;
-O o1 = new() {n = "Хуй"};
-O o2 = new() {n = "Пизда"};
-P(o1, o2);
-O P(O o1, O o2) { Console.WriteLine(o1.n);Console.WriteLine(o2.n); return new O(); }
-var ff = func.SwapArgs();
-ff(o1, o2);
+decimal x = -12;
+decimal y = 0;
+decimal z = 12;
+Console.WriteLine("deltaf({0}) = {1}", x, deltaf(x));
+Console.WriteLine("deltaf({0}) = {1}", y, deltaf(y));
+Console.WriteLine("deltaf({0}) = {1}", z, deltaf(z));
 
-//func1()
+Func<decimal, bool> DF = deltaf;
+
+Console.WriteLine("Nagate(deltaf({0})) = {1}", x, DF.de);
+Console.WriteLine("deltaf({0}) = {1}", y, deltaf(y));
+Console.WriteLine("deltaf({0}) = {1}", z, deltaf(z));
+
+
+
+bool deltaf(decimal i) 
+{
+    var j = i switch
+    {
+        <  0 => false,
+        >  0 => false,
+        _    => true,
+    };
+    return j; 
+}
 static class Kuku 
 {
-    public static Func<T2, T1, R> SwapArgs<T1, T2, R>(this Func<T1, T2, R> f)
- => (t2, t1) => f(t1, t2);
-}
-class O {
-    public string n;
+   public static Func<T, bool> Negate<T>(this Func<T, bool> pred)
+         => t => !pred(t);
 }
