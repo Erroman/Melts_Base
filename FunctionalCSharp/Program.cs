@@ -1,35 +1,25 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System;
-using static Kuku;
+using System.Reflection.Metadata.Ecma335;
+using static StringExt;
 
 Console.WriteLine("Hello, World!");
-decimal x = -12;
-decimal y = 0;
-decimal z = 12;
-Console.WriteLine("deltaf({0}) = {1}", x, deltaf(x));
-Console.WriteLine("deltaf({0}) = {1}", y, deltaf(y));
-Console.WriteLine("deltaf({0}) = {1}", z, deltaf(z));
-
-Func<decimal, bool> DF = deltaf;
-
-Console.WriteLine("Nagate(deltaf({0})) = {1}", x, DF.de);
-Console.WriteLine("deltaf({0}) = {1}", y, deltaf(y));
-Console.WriteLine("deltaf({0}) = {1}", z, deltaf(z));
-
-
-
-bool deltaf(decimal i) 
+public static class StringExt
 {
-    var j = i switch
-    {
-        <  0 => false,
-        >  0 => false,
-        _    => true,
-    };
-    return j; 
+    public static string ToSentenceCase(this string s)
+       => s == string.Empty
+          ? string.Empty
+          : char.ToUpperInvariant(s[0]) + s.ToLower()[1..];
 }
-static class Kuku 
+class ListFormatter
 {
-   public static Func<T, bool> Negate<T>(this Func<T, bool> pred)
-         => t => !pred(t);
+    int counter;
+
+    string PrependCounter(string s) => $"{++counter}. {s}";
+
+    public List<string> Format(List<string> list)
+       => list
+          .Select(StringExt.ToSentenceCase)
+          .Select(PrependCounter)
+          .ToList();
 }
