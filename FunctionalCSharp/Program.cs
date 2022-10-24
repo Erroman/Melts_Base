@@ -2,8 +2,17 @@
 using System;
 using System.Reflection.Metadata.Ecma335;
 using static StringExt;
+using NUnit.Framework;
+using LaYumba.Functional;
+using static LaYumba.Functional.F;
+using static System.Console;
 
-Console.WriteLine("Hello, World!");
+Option<string> _ = None;
+Option<string> john = Some("John");
+Option<string> ku = None;
+ku = Some("Хуй");
+WriteLine(ku);
+
 public static class StringExt
 {
     public static string ToSentenceCase(this string s)
