@@ -4,8 +4,35 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using PrimeT = System.UInt32;
-Console.WriteLine(new PrimesBird().ElementAt(1000000 - 1)); // zero based indexing...
+//Console.WriteLine(new PrimesBird().ElementAt(1000000 - 1)); // zero based indexing...
+var f = GetFibonacci(10).GetEnumerator();
+Console.WriteLine(f.Current);
+f.MoveNext();
+Console.WriteLine(f.Current);
+//foreach (var g in GetFibonacci(10)) Console.WriteLine(g);
+static IEnumerator<int> GetInts()
+{
+    Console.WriteLine("first");
+    yield return 1;
 
+    Console.WriteLine("second");
+    yield return 2;
+    Console.WriteLine("Something that would  never be printed...");
+}
+IEnumerable<int> GetFibonacci(int maxValue)
+{
+    int previous = 0;
+    int current = 1;
+
+    while (current <= maxValue)
+    {
+        yield return current;
+
+        int newCurrent = previous + current;
+        previous = current;
+        current = newCurrent;
+    }
+}
 class PrimesBird : IEnumerable<PrimeT>
 {
     private struct CIS<T>
@@ -55,4 +82,5 @@ class PrimesBird : IEnumerable<PrimeT>
         for (var ps = prms(); ; ps = ps.cont()) yield return ps.v;
     }
     IEnumerator IEnumerable.GetEnumerator() { return (IEnumerator)GetEnumerator(); }
+
 }
