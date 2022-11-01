@@ -6,6 +6,23 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="YouTube viewers"/>
+            <Button Grid.Column="1" Content="Add"/>
+
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid>
+                
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

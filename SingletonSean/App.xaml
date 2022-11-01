@@ -3,6 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:SingletonSean">
     <Application.Resources>
-         
+        <SolidColorBrush x:Key="BorderPrimary" Color="#1c1c1c"/>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#547aff"/>
+            <Setter Property="Padding" Value="15 5"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+        </Style>
     </Application.Resources>
 </Application>
