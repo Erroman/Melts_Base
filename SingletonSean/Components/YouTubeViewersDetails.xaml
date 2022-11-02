@@ -6,7 +6,33 @@
              xmlns:local="clr-namespace:SingletonSean.Components"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+        <Border SnapsToDevicePixels="True" BorderBrush="{StaticResource BorderPrimary}" BorderThickness="1" CornerRadius="5" Padding="20">
+            <Grid Grid.IsSharedSizeScope="True">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="SingletonSean" FontSize="24"/>
+   
+                <Grid Grid.Row="1" Margin="0 20 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="Label"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"  Text="Is sibscribed?" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="1"  Text="Yes" Margin="20 0 0 0" FontWeight="Bold"/>
+                </Grid>
+                <Grid Grid.Row="2" Margin="0 20 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="Label"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"  Text="Is member?" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="1"  Text="Yes" Margin="20 0 0 0 " FontWeight="Bold"/>
+                </Grid>
+            </Grid>
+        </Border>
+
 </UserControl>

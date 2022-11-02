@@ -3,26 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:components="clr-namespace:SingletonSean.Components"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="YouTube viewers"/>
-            <Button Grid.Column="1" Content="Add"/>
+            <TextBlock Grid.Column="0" Text="YouTube viewers" FontSize="32"/>
+            <Button Grid.Column="1" Content="Add" FontSize="16"/>
 
         </Grid>
-        <Grid Grid.Row="1">
-            <Grid>
-                
-            </Grid>
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <components:YouTubeViewersListing Grid.Column="0"/>
+            <components:YouTubeViewersDetails Grid.Column="1" Margin="10 0 0 0"/>
         </Grid>
     </Grid>
 </UserControl>

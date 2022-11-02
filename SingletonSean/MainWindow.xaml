@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:SingletonSean.Views"
         mc:Ignorable="d"
+        FontSize="14"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <views:YouTubeViewersView></views:YouTubeViewersView>
