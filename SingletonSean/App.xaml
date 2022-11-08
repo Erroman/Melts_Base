@@ -6,7 +6,7 @@
         <SolidColorBrush x:Key="BorderPrimary" Color="#1c1c1c"/>
         <Style TargetType="Button">
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Background" Value="#547aff"/>
+            <Setter Property="Background" Value="#2a3d82"/>
             <Setter Property="Padding" Value="15 5"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -41,7 +41,7 @@
                             <Storyboard>
                                 <ColorAnimation
                                     Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
-                                    To="Blue" 
+                                    To="#2a3d82" 
                                     Duration="0:0:0.5"/>
                             </Storyboard>
                         </BeginStoryboard>
