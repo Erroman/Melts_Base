@@ -6,8 +6,13 @@
              xmlns:local="clr-namespace:SingletonSean.Components"
              mc:Ignorable="d">
     <Grid>
-        <Border BorderBrush="{StaticResource BorderPrimary}" BorderThickness="1" CornerRadius="5" Padding="20">
-            <ListView/>
+        <Border 
+            BorderBrush="{StaticResource BorderPrimary}" 
+            BorderThickness="1" 
+            CornerRadius="5"
+            SnapsToDevicePixels="True"
+            Padding="20">
+            <ListView BorderThickness="0"/>
         </Border>
     </Grid>
 </UserControl>
