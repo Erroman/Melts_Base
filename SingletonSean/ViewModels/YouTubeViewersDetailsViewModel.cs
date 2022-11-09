@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace SingletonSean.ViewModels
 {
-    class YouTubeViewersViewModel:ViewModelBase
+    internal class YouTubeViewersDetailsViewModel:ViewModelBase
     {
-        public ICommand AddYouTubeViewers { get;}
     }
 }
