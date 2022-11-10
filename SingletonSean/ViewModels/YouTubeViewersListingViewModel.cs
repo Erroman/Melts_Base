@@ -15,6 +15,9 @@ namespace SingletonSean.ViewModels
         public YouTubeViewersListingViewModel() 
         {
             _youTubeViewersListingItemViewModels = new ObservableCollection<YouTubeViewersListingItemViewModel>();
+            _youTubeViewersListingItemViewModels.Add(new YouTubeViewersListingItemViewModel("Mary"));
+            _youTubeViewersListingItemViewModels.Add(new YouTubeViewersListingItemViewModel("Sean"));
+            _youTubeViewersListingItemViewModels.Add(new YouTubeViewersListingItemViewModel("Alan"));
         }
     }
 }
