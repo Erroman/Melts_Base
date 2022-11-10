@@ -12,7 +12,7 @@ namespace SingletonSean.ViewModels
         public YouTubeViewersListingViewModel YouTubeViewersListingViewModel { get; set; }
         public YouTubeViewersDetailsViewModel YouTubeViewersDetailsViewModel { get; set; }
 
-        public ICommand AddYouTubeViewers { get;}
+        public ICommand AddYouTubeViewersCommand { get;}
 
         public YouTubeViewersViewModel() 
         {
