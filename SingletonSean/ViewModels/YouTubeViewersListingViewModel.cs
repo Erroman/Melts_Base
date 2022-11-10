@@ -8,5 +8,6 @@ namespace SingletonSean.ViewModels
 {
     internal class YouTubeViewersListingViewModel:ViewModelBase
     {
+        public IEnumerable<YouTubeViewersListingItemViewModel> YouTubeViewersListingItemViewModels { get; }
     }
 }
