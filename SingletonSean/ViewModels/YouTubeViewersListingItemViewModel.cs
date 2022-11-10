@@ -14,5 +14,10 @@ namespace SingletonSean.ViewModels
         public ICommand  EditCommand { get; }
         public ICommand  DeleteCommand { get; }
 
+        YouTubeViewersListingItemViewModel(string username) 
+        {
+            Username = username;
+        }
+
     }
 }
