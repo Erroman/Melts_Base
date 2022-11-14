@@ -31,7 +31,7 @@
                             <Storyboard>
                                 <ColorAnimation
                                     Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
-                                    To="DarkGray" 
+                                    To="#2a3d82" 
                                     Duration="0:0:0.1"/>
                             </Storyboard>
                         </BeginStoryboard>
@@ -41,7 +41,7 @@
                             <Storyboard>
                                 <ColorAnimation
                                     Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
-                                    To="#2a3d82" 
+                                    To="#547aff" 
                                     Duration="0:0:0.1"/>
                             </Storyboard>
                         </BeginStoryboard>
