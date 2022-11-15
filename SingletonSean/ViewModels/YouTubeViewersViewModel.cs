@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SingletonSean.Stores;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,10 +15,10 @@ namespace SingletonSean.ViewModels
 
         public ICommand AddYouTubeViewersCommand { get;}
 
-        public YouTubeViewersViewModel() 
+        public YouTubeViewersViewModel(SelectedYouTubeViewerStore _selectedYouTubeViewerStore) 
         {
-            YouTubeViewersListingViewModel = new YouTubeViewersListingViewModel();
-            YouTubeViewersDetailsViewModel = new YouTubeViewersDetailsViewModel();
+            YouTubeViewersListingViewModel = new YouTubeViewersListingViewModel(_selectedYouTubeViewerStore);
+            YouTubeViewersDetailsViewModel = new YouTubeViewersDetailsViewModel(_selectedYouTubeViewerStore);
         }
 
     }

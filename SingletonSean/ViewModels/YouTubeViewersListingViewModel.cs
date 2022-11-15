@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SingletonSean.Stores;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace SingletonSean.ViewModels
         private readonly ObservableCollection<YouTubeViewersListingItemViewModel> _youTubeViewersListingItemViewModels;
         public IEnumerable<YouTubeViewersListingItemViewModel> YouTubeViewersListingItemViewModels => 
             _youTubeViewersListingItemViewModels;
-        public YouTubeViewersListingViewModel() 
+        public YouTubeViewersListingViewModel(SelectedYouTubeViewerStore selectedYouTubeViewerStore) 
         {
             _youTubeViewersListingItemViewModels = new ObservableCollection<YouTubeViewersListingItemViewModel>();
             _youTubeViewersListingItemViewModels.Add(new YouTubeViewersListingItemViewModel("Mary"));
