@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SingletonSean.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,14 +10,15 @@ namespace SingletonSean.ViewModels
 {
     internal class YouTubeViewersListingItemViewModel:ViewModelBase
     {
-        public string Username { get; }
+        public readonly YouTubeViewer YouTubeViewer;
+        public string Username => YouTubeViewer.Username;
 
         public ICommand  EditCommand { get; }
         public ICommand  DeleteCommand { get; }
 
-        public YouTubeViewersListingItemViewModel(string username) 
+        public YouTubeViewersListingItemViewModel(YouTubeViewer youTubeViewer) 
         {
-            Username = username;
+            YouTubeViewer=youTubeViewer;
         }
 
     }
