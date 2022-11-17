@@ -23,6 +23,11 @@ namespace SingletonSean.ViewModels
             _selectedYouTubeViewerStore = selectedYouTubeViewerStore;
             _selectedYouTubeViewerStore.SelectedYouTubeViewerChanged += SelectedYouTubeViewerStore_SelectedYouTubeViewerChanged;
         }
+        protected override void Dispose()
+        {
+            _selectedYouTubeViewerStore.SelectedYouTubeViewerChanged  -= SelectedYouTubeViewerStore_SelectedYouTubeViewerChanged;
+            base.Dispose();
+        }
 
         private void SelectedYouTubeViewerStore_SelectedYouTubeViewerChanged()
         {

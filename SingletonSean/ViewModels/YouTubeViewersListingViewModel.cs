@@ -26,7 +26,7 @@ namespace SingletonSean.ViewModels
                 _selectedYouTubeViewersListingItemViewModel = value;
                 OnpropertyChanged(nameof(SelectedYouTubeViewersListingItemViewModel));
 
-                _selectedYouTubeViewerStore.SelectedYouTubeViewer = _selectedYouTubeViewersListingItemViewModel.YouTubeViewer;
+                _selectedYouTubeViewerStore.SelectedYouTubeViewer = _selectedYouTubeViewersListingItemViewModel?.YouTubeViewer   ;
            }
         }
 

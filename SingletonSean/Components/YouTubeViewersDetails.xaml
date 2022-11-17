@@ -6,15 +6,43 @@
              xmlns:local="clr-namespace:SingletonSean.Components"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-        <Border SnapsToDevicePixels="True" BorderBrush="{StaticResource BorderPrimary}" BorderThickness="1" CornerRadius="5" Padding="20">
-            <Grid Grid.IsSharedSizeScope="True">
+    <Grid>
+          <Border 
+            SnapsToDevicePixels="True" 
+            BorderBrush="{StaticResource BorderPrimary}" 
+            BorderThickness="1" 
+            CornerRadius="5" 
+            Padding="20">
+        <Grid>
+            <Grid>
+                <TextBlock 
+                    Grid.Row="0"
+                    FontSize="24"
+                    Text="Please select a YouTubeViewer to see their details."
+                    TextWrapping="WrapWithOverflow"/>
+            </Grid>
+             <Grid Grid.IsSharedSizeScope="True">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding HasSelectedYouTubeViewer}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+
+                        </Style>
+                        
+                    </Grid.Style>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="{Binding Username}" FontSize="24"/>
+                <TextBlock 
+                    Grid.Row="0"
+                    FontSize="24"
+                    Text="{Binding Username}" />
    
                 <Grid Grid.Row="1" Margin="0 20 0 0">
                     <Grid.ColumnDefinitions>
@@ -33,6 +61,10 @@
                     <TextBlock Grid.Column="1"  Text="{Binding IsMemberDisplay}" Margin="20 0 0 0 " FontWeight="Bold"/>
                 </Grid>
             </Grid>
+        </Grid>
+           
         </Border>
+    </Grid>
+      
 
 </UserControl>
