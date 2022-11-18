@@ -16,11 +16,13 @@ namespace SingletonSean.ViewModels
         
         public bool HasSelectedYouTubeViewer => SelectedYouTubeViewer != null;
         public string Username => SelectedYouTubeViewer?.Username ?? "Unknown";
-        public string IsSubscribedDisplay => (SelectedYouTubeViewer?.IsSubscribed ?? false)?"Yes":"No";
+        public string IsSubscribedDisplay => (SelectedYouTubeViewer?.IsSubscribed ?? false) ? "Yes" : "No";
         public string IsMemberDisplay => (SelectedYouTubeViewer?.IsMember ?? false) ? "Yes" : "No";
+
         public YouTubeViewersDetailsViewModel(SelectedYouTubeViewerStore selectedYouTubeViewerStore ) 
         {
             _selectedYouTubeViewerStore = selectedYouTubeViewerStore;
+
             _selectedYouTubeViewerStore.SelectedYouTubeViewerChanged += SelectedYouTubeViewerStore_SelectedYouTubeViewerChanged;
         }
         protected override void Dispose()
