@@ -3,7 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:SingletonSean">
     <Application.Resources>
+        <ResourceDictionary>
         <SolidColorBrush x:Key="BorderPrimary" Color="#1c1c1c"/>
+            <Style TargetType="TextBlock" x:Key="PageHeader">
+                <Setter Property="FontSize" Value="32"/>
+            </Style>
         <Style TargetType="Button">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="#2a3d82"/>
@@ -49,5 +53,6 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
