@@ -8,6 +8,11 @@
         FontSize="14"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <views:YouTubeViewersView></views:YouTubeViewersView>
+        <!--views:YouTubeViewersView/-->
+        <StackPanel>
+            <views:AddYouTubeViewerView/>
+            <views:EditYouTubeViewer/>
+        </StackPanel>
+
     </Grid>
 </Window>

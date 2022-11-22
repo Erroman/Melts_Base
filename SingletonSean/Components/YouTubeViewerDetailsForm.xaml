@@ -7,6 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        
         <Grid Grid.IsSharedSizeScope="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -29,16 +34,53 @@
                     Grid.Column="1"  
                     Margin="20 0 0 0" 
                     Text="{Binding Username}" />
-                <TextBlock Grid.Column="1"  Text="{Binding IsSubscribedDisplay}" Margin="20 0 0 0" FontWeight="Bold"/>
+              </Grid>
+            
+            <Grid Grid.Row="1" Margin="0 20 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" SharedSizeGroup="Label"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock 
+                    Grid.Column="0" 
+                    FontWeight="Bold" 
+                    Text="Is subscribed?" />
+
+                <CheckBox
+                    Grid.Column="1"
+                    Margin="20 0 0 0"
+                    VerticalAlignment="Center"
+                    IsChecked="{Binding IsSubscribed}" />
             </Grid>
+            
             <Grid Grid.Row="2" Margin="0 20 0 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" SharedSizeGroup="Label"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0"  Text="Is member?" FontWeight="Bold"/>
-                <TextBlock Grid.Column="1"  Text="{Binding IsMemberDisplay}" Margin="20 0 0 0 " FontWeight="Bold"/>
-            </Grid>
+                
+                <TextBlock 
+                    Grid.Column="0" 
+                    FontWeight="Bold" 
+                    Text="Is member?" />
+
+                <CheckBox
+                    Grid.Column="1"
+                    Margin="20 0 0 0"
+                    VerticalAlignment="Center"
+                    IsChecked="{Binding IsMember}" />
+             </Grid>
         </Grid>
+
+        <WrapPanel Grid.Row="1" Margin="0 20 0 0">
+            <Button 
+                Command="{Binding SubmitCommand}" 
+                Content="Submit" 
+                Margin="0 0 10 0"/>
+            <Button
+                Command="{Binding CancelCommand}" 
+                Content="Cancel"
+                Style="{StaticResource ButtonSecondary}"/>
+        </WrapPanel>
     </Grid>
 </UserControl>
