@@ -9,7 +9,7 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <!--views:YouTubeViewersView/-->
-        <StackPanel>
+        <StackPanel Margin="25">
             <views:AddYouTubeViewerView/>
             <views:EditYouTubeViewer/>
         </StackPanel>

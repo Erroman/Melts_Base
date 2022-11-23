@@ -17,6 +17,9 @@
                 Grid.Row="0" 
                 Text="Edit YouTube viewer" 
                 Style="{StaticResource PageHeader}"/>
-        <components:YouTubeViewerDetailsForm Grid.Row="1" Margin="0 20 0 0" />
+        
+        <components:YouTubeViewerDetailsForm 
+            Grid.Row="1" 
+            Margin="0 30 0 0" />
     </Grid>
 </UserControl>
