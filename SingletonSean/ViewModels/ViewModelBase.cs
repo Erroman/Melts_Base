@@ -7,11 +7,11 @@ using System.ComponentModel;
 
 namespace SingletonSean.ViewModels
 {
-    class ViewModelBase : INotifyPropertyChanged
+    public class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected virtual void OnpropertyChanged(string propertyName=null) 
+        protected virtual void OnPropertyChanged(string propertyName=null) 
         { 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

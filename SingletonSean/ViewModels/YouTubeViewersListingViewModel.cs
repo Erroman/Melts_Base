@@ -24,7 +24,7 @@ namespace SingletonSean.ViewModels
             get { return _selectedYouTubeViewersListingItemViewModel; }
             set {
                 _selectedYouTubeViewersListingItemViewModel = value;
-                OnpropertyChanged(nameof(SelectedYouTubeViewersListingItemViewModel));
+                OnPropertyChanged(nameof(SelectedYouTubeViewersListingItemViewModel));
 
                 _selectedYouTubeViewerStore.SelectedYouTubeViewer = _selectedYouTubeViewersListingItemViewModel?.YouTubeViewer   ;
            }

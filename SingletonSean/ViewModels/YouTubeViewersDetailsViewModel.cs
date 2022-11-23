@@ -33,10 +33,10 @@ namespace SingletonSean.ViewModels
 
         private void SelectedYouTubeViewerStore_SelectedYouTubeViewerChanged()
         {
-            OnpropertyChanged(nameof(HasSelectedYouTubeViewer));
-            OnpropertyChanged(nameof(Username));
-            OnpropertyChanged(nameof(IsSubscribedDisplay));
-            OnpropertyChanged(nameof(IsMemberDisplay));
+            OnPropertyChanged(nameof(HasSelectedYouTubeViewer));
+            OnPropertyChanged(nameof(Username));
+            OnPropertyChanged(nameof(IsSubscribedDisplay));
+            OnPropertyChanged(nameof(IsMemberDisplay));
         }
     }
 }
