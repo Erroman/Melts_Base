@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace SingletonSean.ViewModels
 {
-    class YouTubeViewerDetailsFormViewModel :ViewModelBase
+    public class YouTubeViewerDetailsFormViewModel :ViewModelBase
     {
 		private string _username;
 
