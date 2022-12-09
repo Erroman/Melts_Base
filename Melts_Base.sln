@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionalCSharp", "Functio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkerServiceForMelts_base", "WorkerServiceForMelts_base\WorkerServiceForMelts_base.csproj", "{07C3EF16-F934-4DC2-917D-E93DF0A4AB08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingletonSean", "SingletonSean\SingletonSean.csproj", "{F3B9C7DE-847B-477E-91F6-2695F73CEC42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SingletonSean", "SingletonSean\SingletonSean.csproj", "{F3B9C7DE-847B-477E-91F6-2695F73CEC42}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserEqualizerWorkerService", "user-equalizer-worker-service-main\UserEqualizerWorkerService.csproj", "{AD647BB6-1604-4E10-8520-067BBF5F5C87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,14 @@ Global
 		{F3B9C7DE-847B-477E-91F6-2695F73CEC42}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F3B9C7DE-847B-477E-91F6-2695F73CEC42}.Release|x86.ActiveCfg = Release|Any CPU
 		{F3B9C7DE-847B-477E-91F6-2695F73CEC42}.Release|x86.Build.0 = Release|Any CPU
+		{AD647BB6-1604-4E10-8520-067BBF5F5C87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD647BB6-1604-4E10-8520-067BBF5F5C87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD647BB6-1604-4E10-8520-067BBF5F5C87}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AD647BB6-1604-4E10-8520-067BBF5F5C87}.Debug|x86.Build.0 = Debug|Any CPU
+		{AD647BB6-1604-4E10-8520-067BBF5F5C87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD647BB6-1604-4E10-8520-067BBF5F5C87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD647BB6-1604-4E10-8520-067BBF5F5C87}.Release|x86.ActiveCfg = Release|Any CPU
+		{AD647BB6-1604-4E10-8520-067BBF5F5C87}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
