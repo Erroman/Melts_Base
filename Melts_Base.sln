@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SingletonSean", "SingletonS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserEqualizerWorkerService", "user-equalizer-worker-service-main\UserEqualizerWorkerService.csproj", "{AD647BB6-1604-4E10-8520-067BBF5F5C87}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleDI.Example", "ConsoleDI.Example\ConsoleDI.Example.csproj", "{4C8CC9A9-346D-48C2-8CBE-CDAB5BA06998}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,14 @@ Global
 		{AD647BB6-1604-4E10-8520-067BBF5F5C87}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AD647BB6-1604-4E10-8520-067BBF5F5C87}.Release|x86.ActiveCfg = Release|Any CPU
 		{AD647BB6-1604-4E10-8520-067BBF5F5C87}.Release|x86.Build.0 = Release|Any CPU
+		{4C8CC9A9-346D-48C2-8CBE-CDAB5BA06998}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C8CC9A9-346D-48C2-8CBE-CDAB5BA06998}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C8CC9A9-346D-48C2-8CBE-CDAB5BA06998}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4C8CC9A9-346D-48C2-8CBE-CDAB5BA06998}.Debug|x86.Build.0 = Debug|Any CPU
+		{4C8CC9A9-346D-48C2-8CBE-CDAB5BA06998}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C8CC9A9-346D-48C2-8CBE-CDAB5BA06998}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C8CC9A9-346D-48C2-8CBE-CDAB5BA06998}.Release|x86.ActiveCfg = Release|Any CPU
+		{4C8CC9A9-346D-48C2-8CBE-CDAB5BA06998}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

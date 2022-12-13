@@ -12,4 +12,4 @@ public class UserDbContext : DbContext
     public DbSet<Address> Address { get; set; }
     public DbSet<Geo> Geo { get; set; }
     public DbSet<Company> Company { get; set; }
-}
+}   
