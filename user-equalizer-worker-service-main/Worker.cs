@@ -27,7 +27,7 @@ namespace UserEqualizerWorkerService
 
                 _logger.LogInformation(resultLogMessage);
 
-                _logger.LogInformation("Stoping service...");
+                _logger.LogInformation("Stopping service...");
 
                 await Task.Delay(1000, stoppingToken);
             }

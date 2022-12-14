@@ -1,4 +1,4 @@
-﻿namespace UserEqualizerWorkerService.Models;
+﻿                                                                                                                                                                                                namespace UserEqualizerWorkerService.Models;
 
 public class User
 {
