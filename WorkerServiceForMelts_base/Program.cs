@@ -4,6 +4,10 @@ using App.WorkerService;
 
 
 IHost host = Host.CreateDefaultBuilder(args)
+    .UseWindowsService(options =>
+    {
+        options.ServiceName = ".NET Joke Service -> Пошёл в пизду, мудак ебаный!";
+    })
     .ConfigureServices(services =>
     {
         services.AddHostedService<Worker>();
