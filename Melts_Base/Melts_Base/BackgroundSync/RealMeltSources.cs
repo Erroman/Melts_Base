@@ -1,0 +1,91 @@
+﻿using Melts_Base.OracleModels;
+using Melts_Base.SybaseModels;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Odbc;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Melts_Base.BackgroundSync
+{
+    internal sealed class RealSybaseMeltSource : ISybaseMeltSource
+    {
+        private readonly PollingSettings _settings;
+
+        public RealSybaseMeltSource(IOptions<PollingSettings> settings)
+        {
+            _settings = settings.Value;
+        }
+
+        public async Task<IReadOnlyList<SybaseMelt>> ReadAsync(CancellationToken cancellationToken)
+        {
+            var constr = new OdbcConnectionStringBuilder
+            {
+                ["Dsn"] = _settings.SybaseDsn,
+                ["uid"] = _settings.SybaseUser,
+                ["pwd"] = _settings.SybasePassword
+            };
+
+            using var connection = new OdbcConnection(constr.ConnectionString);
+            await connection.OpenAsync(cancellationToken);
+            if (connection.State != ConnectionState.Open)
+            {
+                return Array.Empty<SybaseMelt>();
+            }
+
+            var melts = new List<SybaseMelt>();
+            using var command = connection.CreateCommand();
+            command.CommandText = "SELECT * FROM \"DBA\".\"rmelts\"";
+            using var reader = await command.ExecuteReaderAsync(cancellationToken);
+
+            while (await reader.ReadAsync(cancellationToken))
+            {
+                DateTime meltEnd;
+                DateTime.TryParse(reader["me_end"].ToString(), out meltEnd);
+                melts.Add(new SybaseMelt
+                {
+                    Me_id = reader["me_id"].ToString(),
+                    Me_num = reader["me_num"].ToString(),
+                    Eq_id = reader["eq_id"].ToString(),
+                    Me_beg = DateTime.Parse(reader["me_beg"].ToString() ?? string.Empty),
+                    Me_end = meltEnd == DateTime.Parse("01.01.0001") ? null : meltEnd,
+                    Me_splav = reader["me_splav"].ToString(),
+                    Sp_name = reader["sp_name"].ToString(),
+                    Me_mould = reader["me_mould"].ToString(),
+                    Me_del = reader["me_del"].ToString(),
+                    Me_weight = reader["me_weigth"].ToString(),
+                    Me_ukaz = reader["me_ukaz"].ToString(),
+                    Me_kont = reader["me_kont"].ToString(),
+                    Me_pril = reader["me_pril"].ToString(),
+                    Me_nazn = reader["me_nazn"].ToString(),
+                    Me_diam = reader["me_diam"].ToString(),
+                    Me_pos = reader["me_pos"].ToString(),
+                    Me_kat = reader["me_kat"].ToString(),
+                    Sp_id = reader["sp_id"].ToString(),
+                    Me_energy = reader["me_energy"].ToString()
+                });
+            }
+
+            return melts;
+        }
+    }
+
+    internal sealed class RealOracleMeltSource : IOracleMeltSource
+    {
+        public async Task<IReadOnlyList<OracleMelt>> ReadAsync(CancellationToken cancellationToken)
+        {
+            await using var context = new ModelPlantContext();
+            if (!await context.Database.CanConnectAsync(cancellationToken))
+            {
+                return Array.Empty<OracleMelt>();
+            }
+
+            await context.Melt31s.LoadAsync(cancellationToken);
+            return context.Melt31s.ToList();
+        }
+    }
+}
