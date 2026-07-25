@@ -1,0 +1,95 @@
+using Melts_Base.OracleModels;
+using Melts_Base.SybaseModels;
+using Microsoft.Data.Sqlite;
+
+namespace Melts_Base.BackgroundSync;
+
+internal sealed class SqliteSybaseMeltSource : ISybaseMeltSource
+{
+    private readonly string _connectionString;
+
+    public SqliteSybaseMeltSource(string databasePath)
+    {
+        _connectionString = new SqliteConnectionStringBuilder { DataSource = databasePath }.ToString();
+    }
+
+    public async Task<IReadOnlyList<SybaseMelt>> ReadAsync(CancellationToken cancellationToken)
+    {
+        var melts = new List<SybaseMelt>();
+        await using var connection = new SqliteConnection(_connectionString);
+        await connection.OpenAsync(cancellationToken);
+        await using var command = connection.CreateCommand();
+        command.CommandText = """
+            SELECT me_id, eq_id, me_num, me_beg, me_end, me_splav, sp_name,
+                   me_mould, me_weight, me_pos, sp_id
+            FROM sybase_melts
+            ORDER BY me_num
+            """;
+        await using var reader = await command.ExecuteReaderAsync(cancellationToken);
+
+        while (await reader.ReadAsync(cancellationToken))
+        {
+            melts.Add(new SybaseMelt
+            {
+                Me_id = reader.GetString(0),
+                Eq_id = reader.GetString(1),
+                Me_num = reader.GetString(2),
+                Me_beg = reader.GetDateTime(3),
+                Me_end = reader.IsDBNull(4) ? null : reader.GetDateTime(4),
+                Me_splav = reader.GetString(5),
+                Sp_name = reader.GetString(6),
+                Me_mould = reader.GetString(7),
+                Me_weight = reader.GetString(8),
+                Me_pos = reader.GetString(9),
+                Sp_id = reader.GetString(10)
+            });
+        }
+
+        return melts;
+    }
+}
+
+internal sealed class SqliteOracleMeltSource : IOracleMeltSource
+{
+    private readonly string _connectionString;
+
+    public SqliteOracleMeltSource(string databasePath)
+    {
+        _connectionString = new SqliteConnectionStringBuilder { DataSource = databasePath }.ToString();
+    }
+
+    public async Task<IReadOnlyList<OracleMelt>> ReadAsync(CancellationToken cancellationToken)
+    {
+        var melts = new List<OracleMelt>();
+        await using var connection = new SqliteConnection(_connectionString);
+        await connection.OpenAsync(cancellationToken);
+        await using var command = connection.CreateCommand();
+        command.CommandText = """
+            SELECT pasport_id, npech, nplav, ins, tek, pereplav,
+                   okonch_pereplav, poz, poz_naim, date_zap, date_close
+            FROM oracle_melts
+            ORDER BY pasport_id
+            """;
+        await using var reader = await command.ExecuteReaderAsync(cancellationToken);
+
+        while (await reader.ReadAsync(cancellationToken))
+        {
+            melts.Add(new OracleMelt
+            {
+                PasportId = reader.GetInt32(0),
+                Npech = reader.GetString(1),
+                Nplav = reader.GetString(2),
+                Ins = reader.GetString(3),
+                Tek = reader.GetString(4),
+                Pereplav = reader.GetString(5),
+                OkonchPereplav = reader.GetString(6),
+                Poz = reader.GetString(7),
+                PozNaim = reader.GetString(8),
+                DateZap = reader.GetDateTime(9),
+                DateClose = reader.IsDBNull(10) ? null : reader.GetDateTime(10)
+            });
+        }
+
+        return melts;
+    }
+}

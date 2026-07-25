@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <!-- Keep generated .cs files outside the parent WPF project's recursive glob. -->
+    <BaseIntermediateOutputPath>$(TEMP)\MeltsBaseBackgroundSyncTest\obj\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Program.source" />
+    <Compile Include="SqliteTestSources.source" />
+    <Compile Include="TestModels.source" />
+    <Compile Include="..\BackgroundSync\IMeltSources.cs" Link="BackgroundSync\IMeltSources.cs" />
+    <Compile Include="..\BackgroundSync\MeltPollingBackgroundService.cs" Link="BackgroundSync\MeltPollingBackgroundService.cs" />
+    <Compile Include="..\BackgroundSync\MeltPollingMonitor.cs" Link="BackgroundSync\MeltPollingMonitor.cs" />
+    <Compile Include="..\BackgroundSync\PollingSettings.cs" Link="BackgroundSync\PollingSettings.cs" />
+    <Compile Include="..\..\OracleModels\OracleMelt.cs" Link="OracleModels\OracleMelt.cs" />
+    <Compile Include="..\..\SQLiteModels\Melt.cs" Link="SQLiteModels\Melt.cs" />
+    <Compile Include="..\..\SQLiteModels\MeltContext.cs" Link="SQLiteModels\MeltContext.cs" />
+  </ItemGroup>
+</Project>

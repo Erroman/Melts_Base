@@ -1,0 +1,39 @@
+namespace Melts_Base.SybaseModels;
+
+// Mirrors the production DTO without its unused WPF namespace dependency, allowing
+// the headless test runner to remain a cross-platform console application.
+public sealed class SybaseMelt
+{
+    public string? Me_id { get; set; }
+    public string? Eq_id { get; set; }
+    public string? Me_num { get; set; }
+    public DateTime Me_beg { get; set; }
+    public DateTime? Me_end { get; set; }
+    public string? Me_splav { get; set; }
+    public string? Sp_name { get; set; }
+    public string? Me_mould { get; set; }
+    public string? Me_del { get; set; }
+    public string? Me_ukaz { get; set; }
+    public string? Me_kont { get; set; }
+    public string? Me_pril { get; set; }
+    public string? Me_nazn { get; set; }
+    public string? Me_diam { get; set; }
+    public string? Me_weight { get; set; }
+    public string? Me_zakaz { get; set; }
+    public string? Me_pos { get; set; }
+    public string? Me_kat { get; set; }
+    public string? Sp_id { get; set; }
+    public string? Me_energy { get; set; }
+    public string? Oracle_Ins { get; set; }
+    public string? Oracle_Tek { get; set; }
+    public string? Oracle_Poz { get; set; }
+    public string? Oracle_PozNaim { get; set; }
+    public string? Oracle_Pereplav { get; set; }
+    public string? Oracle_OkonchPereplav { get; set; }
+
+    public string MyHashCode() => Eq_id + Me_num + Me_beg + Me_end + Me_splav +
+        Sp_name + Me_mould + Me_del + Me_ukaz + Me_kont + Me_pril + Me_nazn +
+        Me_diam + Me_weight + Me_zakaz + Me_pos + Me_kat + Sp_id + Me_energy +
+        Oracle_Ins + Oracle_Tek + Oracle_Poz + Oracle_PozNaim + Oracle_Pereplav +
+        Oracle_OkonchPereplav;
+}

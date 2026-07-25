@@ -60,6 +60,7 @@ namespace Melts_Base.BackgroundSync
 
                     var added = SyncLocalDatabase(context, sybaseMelts, oracleMelts);
                     await context.SaveChangesAsync(stoppingToken);
+                    MeltPollingMonitor.Publish(sybaseMelts, oracleMelts, added);
 
                     _logger.LogInformation(
                         "Polling cycle done. Sybase={sybaseCount} Oracle={oracleCount} AddedOrUpdated={added}",

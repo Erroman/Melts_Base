@@ -1,0 +1,135 @@
+using Melts_Base.BackgroundSync;
+using Melts_Base.SQLiteModels;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+
+var testDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "test-data"));
+Directory.CreateDirectory(testDirectory);
+
+var sybasePath = Path.Combine(testDirectory, "test-sybase.db");
+var oraclePath = Path.Combine(testDirectory, "test-oracle.db");
+var targetPath = Path.Combine(testDirectory, "melts.db");
+
+DeleteDatabase(sybasePath);
+DeleteDatabase(oraclePath);
+DeleteDatabase(targetPath);
+await SeedSybaseAsync(sybasePath);
+await SeedOracleAsync(oraclePath);
+
+// MeltContext uses a relative SQLite path, so isolate it in the test-data directory.
+Environment.CurrentDirectory = testDirectory;
+await using (var target = new MeltContext())
+{
+    await target.Database.EnsureCreatedAsync();
+    target.Melts.Add(new Melt
+    {
+        Eq_id = "31",
+        Me_num = "A-1001",
+        Me_beg = new DateTime(2026, 7, 13, 7, 0, 0),
+        Me_weight = "stale-value"
+    });
+    await target.SaveChangesAsync();
+}
+
+using var host = Host.CreateDefaultBuilder(args)
+    .ConfigureLogging(logging => logging.SetMinimumLevel(LogLevel.Information).AddSimpleConsole(options =>
+    {
+        options.SingleLine = true;
+        options.TimestampFormat = "HH:mm:ss ";
+    }))
+    .ConfigureServices(services =>
+    {
+        services.Configure<PollingSettings>(settings =>
+        {
+            settings.Enabled = true;
+            settings.UseFakeSources = true;
+            settings.IntervalSeconds = 5;
+        });
+        services.AddSingleton<ISybaseMeltSource>(new SqliteSybaseMeltSource(sybasePath));
+        services.AddSingleton<IOracleMeltSource>(new SqliteOracleMeltSource(oraclePath));
+        services.AddDbContext<MeltContext>();
+        services.AddHostedService<MeltPollingBackgroundService>();
+    })
+    .Build();
+
+await host.StartAsync();
+
+var deadline = DateTime.UtcNow.AddSeconds(10);
+IReadOnlyList<Melt> merged = Array.Empty<Melt>();
+while (DateTime.UtcNow < deadline)
+{
+    await Task.Delay(100);
+    await using var context = new MeltContext();
+    merged = await context.Melts.OrderBy(melt => melt.Me_num).ToListAsync();
+    if (merged.Count == 2 && merged.All(melt => melt.Oracle_Ins is not null))
+    {
+        break;
+    }
+}
+
+await host.StopAsync();
+
+if (merged.Count != 2 || merged[0].Me_weight != "981" || merged[0].Oracle_Poz != $"POZ-1{Environment.NewLine}POZ-1B")
+{
+    throw new InvalidOperationException("The polling service did not produce the expected merged records.");
+}
+
+Console.WriteLine();
+Console.WriteLine("Verified SQLite test databases:");
+Console.WriteLine($"  Sybase source: {sybasePath} (2 rows)");
+Console.WriteLine($"  Oracle source: {oraclePath} (3 rows)");
+Console.WriteLine($"  Local target:  {targetPath} ({merged.Count} merged rows)");
+foreach (var melt in merged)
+{
+    Console.WriteLine($"  {melt.Me_num}: weight={melt.Me_weight}, INS={melt.Oracle_Ins}, positions={melt.Oracle_Poz?.Replace(Environment.NewLine, ",")}");
+}
+
+static void DeleteDatabase(string path)
+{
+    if (File.Exists(path))
+    {
+        File.Delete(path);
+    }
+}
+
+static async Task SeedSybaseAsync(string path)
+{
+    await using var connection = new SqliteConnection($"Data Source={path}");
+    await connection.OpenAsync();
+    await using var command = connection.CreateCommand();
+    command.CommandText = """
+        CREATE TABLE sybase_melts (
+            me_id TEXT NOT NULL, eq_id TEXT NOT NULL, me_num TEXT NOT NULL,
+            me_beg TEXT NOT NULL, me_end TEXT, me_splav TEXT NOT NULL,
+            sp_name TEXT NOT NULL, me_mould TEXT NOT NULL, me_weight TEXT NOT NULL,
+            me_pos TEXT NOT NULL, sp_id TEXT NOT NULL
+        );
+        INSERT INTO sybase_melts VALUES
+            ('fake-1', '31', 'A-1001', '2026-07-13 07:00:00', '2026-07-13 10:00:00', 'VT6', 'VT6 Titanium', 'K-101', '981', 'P1', 'VT6'),
+            ('fake-2', '31', 'A-1002', '2026-07-13 11:00:00', NULL, 'VT14', 'VT14 Titanium', 'K-102', '1020', 'P2', 'VT14');
+        """;
+    await command.ExecuteNonQueryAsync();
+}
+
+static async Task SeedOracleAsync(string path)
+{
+    await using var connection = new SqliteConnection($"Data Source={path}");
+    await connection.OpenAsync();
+    await using var command = connection.CreateCommand();
+    command.CommandText = """
+        CREATE TABLE oracle_melts (
+            pasport_id INTEGER NOT NULL, npech TEXT NOT NULL, nplav TEXT NOT NULL,
+            ins TEXT NOT NULL, tek TEXT NOT NULL, pereplav TEXT NOT NULL,
+            okonch_pereplav TEXT NOT NULL, poz TEXT NOT NULL, poz_naim TEXT NOT NULL,
+            date_zap TEXT NOT NULL, date_close TEXT
+        );
+        INSERT INTO oracle_melts VALUES
+            (1, '31', 'A-1001', 'INS-001', 'TEK-001', '1', 'Y', 'POZ-1', 'Rotor', '2026-07-13 07:00:00', '2026-07-13 10:00:00'),
+            (2, '31', 'A-1001', 'INS-001', 'TEK-001', '1', 'Y', 'POZ-1B', 'Rotor', '2026-07-13 07:00:00', '2026-07-13 10:00:00'),
+            (3, '31', 'A-1002', 'INS-002', 'TEK-002', '0', 'N', 'POZ-2', 'Compressor', '2026-07-13 11:00:00', NULL);
+        """;
+    await command.ExecuteNonQueryAsync();
+}
