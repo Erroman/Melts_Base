@@ -42,15 +42,9 @@ using var host = Host.CreateDefaultBuilder(args)
     }))
     .ConfigureServices(services =>
     {
-        services.Configure<PollingSettings>(settings =>
-        {
-            settings.Enabled = true;
-            settings.UseFakeSources = true;
-            settings.IntervalSeconds = 5;
-        });
+        services.AddSingleton<IPollingRuntimeOptions>(new HarnessRuntime(targetPath));
         services.AddSingleton<ISybaseMeltSource>(new SqliteSybaseMeltSource(sybasePath));
         services.AddSingleton<IOracleMeltSource>(new SqliteOracleMeltSource(oraclePath));
-        services.AddDbContext<MeltContext>();
         services.AddHostedService<MeltPollingBackgroundService>();
     })
     .Build();
@@ -86,6 +80,41 @@ foreach (var melt in merged)
 {
     Console.WriteLine($"  {melt.Me_num}: weight={melt.Me_weight}, INS={melt.Oracle_Ins}, positions={melt.Oracle_Poz?.Replace(Environment.NewLine, ",")}");
 }
+
+DeleteDatabase(TestDatabasePaths.SybaseDatabase);
+DeleteDatabase(TestDatabasePaths.OracleDatabase);
+DeleteDatabase(TestDatabasePaths.JoinedDatabase);
+
+using var applicationFakeHost = Host.CreateDefaultBuilder()
+    .ConfigureLogging(logging => logging.SetMinimumLevel(LogLevel.Information).AddSimpleConsole(options => options.SingleLine = true))
+    .ConfigureServices(services =>
+    {
+        services.AddSingleton<IPollingRuntimeOptions>(new HarnessRuntime(TestDatabasePaths.JoinedDatabase, false));
+        services.AddSingleton<ISybaseMeltSource, SqliteFakeSybaseMeltSource>();
+        services.AddSingleton<IOracleMeltSource, SqliteFakeOracleMeltSource>();
+        services.AddSingleton<MeltPollingBackgroundService>();
+        services.AddHostedService(provider => provider.GetRequiredService<MeltPollingBackgroundService>());
+    })
+    .Build();
+
+await applicationFakeHost.StartAsync();
+var applicationService = applicationFakeHost.Services.GetRequiredService<MeltPollingBackgroundService>();
+await applicationService.PollOnceAsync(true);
+await applicationService.PollOnceAsync(false);
+await applicationService.PollOnceAsync(false);
+
+await using (var applicationTarget = new PollingMeltContext(TestDatabasePaths.JoinedDatabase))
+{
+    var applicationRows = await applicationTarget.Melts.OrderBy(melt => melt.Me_num).ToListAsync();
+    if (applicationRows.Count != 3 || applicationRows[0].Me_weight != "983" || applicationRows[2].Oracle_Ins != "INS-003")
+    {
+        throw new InvalidOperationException("The application SQLite fake sources did not evolve and merge as expected.");
+    }
+
+    Console.WriteLine($"Application test mode verified after three cycles: {applicationRows.Count} joined rows, A-1001 weight={applicationRows[0].Me_weight}.");
+}
+
+await applicationFakeHost.StopAsync();
 
 static void DeleteDatabase(string path)
 {

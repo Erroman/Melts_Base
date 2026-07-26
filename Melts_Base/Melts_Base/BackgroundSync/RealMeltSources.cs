@@ -21,7 +21,15 @@ namespace Melts_Base.BackgroundSync
             _settings = settings.Value;
         }
 
-        public async Task<IReadOnlyList<SybaseMelt>> ReadAsync(CancellationToken cancellationToken)
+        public Task<IReadOnlyList<SybaseMelt>> ReadAsync(CancellationToken cancellationToken)
+        {
+            // SQL Anywhere 5 predates the asynchronous ODBC APIs. Its OpenAsync path
+            // blocks the caller and can fault inside dbl50t.dll; use the same synchronous
+            // ODBC pattern as the working application, isolated on a worker thread.
+            return Task.Run(() => Read(cancellationToken), cancellationToken);
+        }
+
+        private IReadOnlyList<SybaseMelt> Read(CancellationToken cancellationToken)
         {
             var constr = new OdbcConnectionStringBuilder
             {
@@ -31,7 +39,7 @@ namespace Melts_Base.BackgroundSync
             };
 
             using var connection = new OdbcConnection(constr.ConnectionString);
-            await connection.OpenAsync(cancellationToken);
+            connection.Open();
             if (connection.State != ConnectionState.Open)
             {
                 return Array.Empty<SybaseMelt>();
@@ -40,10 +48,11 @@ namespace Melts_Base.BackgroundSync
             var melts = new List<SybaseMelt>();
             using var command = connection.CreateCommand();
             command.CommandText = "SELECT * FROM \"DBA\".\"rmelts\"";
-            using var reader = await command.ExecuteReaderAsync(cancellationToken);
+            using var reader = command.ExecuteReader();
 
-            while (await reader.ReadAsync(cancellationToken))
+            while (reader.Read())
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 DateTime meltEnd;
                 DateTime.TryParse(reader["me_end"].ToString(), out meltEnd);
                 melts.Add(new SybaseMelt

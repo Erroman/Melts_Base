@@ -31,14 +31,20 @@ namespace Melts_Base.BackgroundSync
         public static void Publish(
             IReadOnlyList<SybaseMelt> sybaseMelts,
             IReadOnlyList<OracleMelt> oracleMelts,
-            int addedOrUpdated)
+            int addedOrUpdated,
+            string localDatabasePath,
+            bool testMode,
+            bool joined)
         {
             var snapshot = new MeltPollingSnapshot(
                 Interlocked.Increment(ref _version),
                 DateTimeOffset.Now,
                 sybaseMelts.ToArray(),
                 oracleMelts.ToArray(),
-                addedOrUpdated);
+                addedOrUpdated,
+                localDatabasePath,
+                testMode,
+                joined);
 
             lock (SyncRoot)
             {
@@ -54,13 +60,19 @@ namespace Melts_Base.BackgroundSync
             DateTimeOffset completedAt,
             IReadOnlyList<SybaseMelt> sybaseMelts,
             IReadOnlyList<OracleMelt> oracleMelts,
-            int addedOrUpdated)
+            int addedOrUpdated,
+            string localDatabasePath,
+            bool testMode,
+            bool joined)
         {
             Version = version;
             CompletedAt = completedAt;
             SybaseMelts = sybaseMelts;
             OracleMelts = oracleMelts;
             AddedOrUpdated = addedOrUpdated;
+            LocalDatabasePath = localDatabasePath;
+            TestMode = testMode;
+            Joined = joined;
         }
 
         public long Version { get; }
@@ -68,5 +80,8 @@ namespace Melts_Base.BackgroundSync
         public IReadOnlyList<SybaseMelt> SybaseMelts { get; }
         public IReadOnlyList<OracleMelt> OracleMelts { get; }
         public int AddedOrUpdated { get; }
+        public string LocalDatabasePath { get; }
+        public bool TestMode { get; }
+        public bool Joined { get; }
     }
 }

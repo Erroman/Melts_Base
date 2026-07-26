@@ -1,0 +1,14 @@
+using Melts_Base.BackgroundSync;
+
+internal sealed class HarnessRuntime : IPollingRuntimeOptions
+{
+    public HarnessRuntime(string localDatabasePath, bool pollingEnabled = true)
+    {
+        LocalDatabasePath = localDatabasePath;
+        PollingEnabled = pollingEnabled;
+    }
+    public bool TestMode => true;
+    public bool PollingEnabled { get; }
+    public TimeSpan PollingInterval => TimeSpan.FromSeconds(5);
+    public string LocalDatabasePath { get; }
+}

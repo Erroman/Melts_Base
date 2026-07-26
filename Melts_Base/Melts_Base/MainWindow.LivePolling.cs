@@ -10,6 +10,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -25,12 +26,70 @@ namespace Melts_Base
         {
             base.OnInitialized(e);
 
+            // Manual refresh and startup now use the same pipeline as background polling.
+            Loaded -= Window_Loaded;
+            Loaded += RuntimeWindow_Loaded;
+            refreshButton.Click -= refreshDataClick;
+            refreshButton.Click += RuntimeRefreshButton_Click;
+
             _livePollingTimer = new DispatcherTimer(DispatcherPriority.Background)
             {
                 Interval = TimeSpan.FromSeconds(1)
             };
             _livePollingTimer.Tick += LivePollingTimer_Tick;
             _livePollingTimer.Start();
+        }
+
+        private void RuntimeWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            SetTabsVisibility();
+            localdateZap.Width = new DataGridLength(120);
+            localnPlav.Width = new DataGridLength(90);
+            dateZap.Width = new DataGridLength(120);
+            dateClose.Width = new DataGridLength(120);
+            nPlav.Width = new DataGridLength(90);
+            refreshButton.IsEnabled = true;
+
+            var service = MeltPollingBackgroundService.Current;
+            if (service is null)
+            {
+                ShowPollingError("Сервис опроса не запущен");
+                return;
+            }
+
+            // The hosted service already starts the initial poll. A second preview here
+            // duplicated the legacy ODBC connection and blocked the first window render.
+            loadingProgress.IsIndeterminate = true;
+            textOfProgress.Text = "Loading data...";
+        }
+
+        private async void RuntimeRefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            var service = MeltPollingBackgroundService.Current;
+            if (service is null)
+            {
+                return;
+            }
+
+            refreshButton.IsEnabled = false;
+            loadingProgress.IsIndeterminate = true;
+            textOfProgress.Foreground = new SolidColorBrush(Colors.Green);
+            textOfProgress.Text = "Выполняется обновление ...";
+            try
+            {
+                var resetTestDatabase = ApplicationPollingRuntimeOptions.Current?.TestMode == true;
+                await service.PollOnceAsync(resetTestDatabase);
+                await DisplayLatestSnapshotAsync();
+            }
+            catch (Exception ex)
+            {
+                ShowPollingError($"Обновление не выполнено: {ex.Message}");
+            }
+            finally
+            {
+                loadingProgress.IsIndeterminate = false;
+                refreshButton.IsEnabled = true;
+            }
         }
 
         protected override void OnClosed(EventArgs e)
@@ -47,9 +106,7 @@ namespace Melts_Base
         private async void LivePollingTimer_Tick(object? sender, EventArgs e)
         {
             var snapshot = MeltPollingMonitor.Latest;
-            if (snapshot is null ||
-                snapshot.Version == _lastDisplayedPollingVersion ||
-                _isApplyingPollingSnapshot)
+            if (snapshot is null || snapshot.Version == _lastDisplayedPollingVersion || _isApplyingPollingSnapshot)
             {
                 return;
             }
@@ -62,13 +119,24 @@ namespace Melts_Base
             }
             catch (Exception ex)
             {
-                textOfProgress.Foreground = new SolidColorBrush(Colors.Red);
-                textOfProgress.Text = $"Ошибка отображения обновления: {ex.Message}";
+                ShowPollingError($"Ошибка отображения обновления: {ex.Message}");
             }
             finally
             {
                 _isApplyingPollingSnapshot = false;
             }
+        }
+
+        private async System.Threading.Tasks.Task DisplayLatestSnapshotAsync()
+        {
+            var snapshot = MeltPollingMonitor.Latest;
+            if (snapshot is null || snapshot.Version == _lastDisplayedPollingVersion)
+            {
+                return;
+            }
+
+            await DisplayPollingSnapshotAsync(snapshot);
+            _lastDisplayedPollingVersion = snapshot.Version;
         }
 
         private async System.Threading.Tasks.Task DisplayPollingSnapshotAsync(MeltPollingSnapshot snapshot)
@@ -86,10 +154,10 @@ namespace Melts_Base
             BindSybaseViewModel(observableSybaseMeltsViewModel);
 
             var localFilter = observableMeltsViewModel;
-            meltsContext.ChangeTracker.Clear();
-            await meltsContext.Melts.LoadAsync();
+            await using var displayContext = new PollingMeltContext(snapshot.LocalDatabasePath);
+            await displayContext.Database.EnsureCreatedAsync();
             localSQLLiteMelts = new ObservableCollection<Melt>(
-                meltsContext.Melts.Local.OrderByDescending(melt => melt.Me_beg));
+                await displayContext.Melts.AsNoTracking().OrderByDescending(melt => melt.Me_beg).ToListAsync());
             observableMeltsViewModel = new ObservableMeltsViewModel(localSQLLiteMelts);
             CopyLocalFilters(localFilter, observableMeltsViewModel);
             BindLocalViewModel(observableMeltsViewModel);
@@ -97,11 +165,20 @@ namespace Melts_Base
             oracleConnection.Fill = new SolidColorBrush(Colors.Green);
             sybaseConnection.Fill = new SolidColorBrush(Colors.Green);
             textOfProgress.Foreground = new SolidColorBrush(Colors.Green);
+            var mode = snapshot.TestMode ? "тест" : "рабочий режим";
+            var action = snapshot.Joined ? "Обновление" : "Источники загружены";
             textOfProgress.Text =
-                $"Автообновление {snapshot.CompletedAt:HH:mm:ss}: " +
-                $"Oracle {snapshot.OracleMelts.Count}, " +
-                $"Sybase {snapshot.SybaseMelts.Count}, " +
+                $"{action} {snapshot.CompletedAt:HH:mm:ss} ({mode}): " +
+                $"Oracle {snapshot.OracleMelts.Count}, Sybase {snapshot.SybaseMelts.Count}, " +
                 $"изменено {snapshot.AddedOrUpdated}";
+        }
+
+        private void ShowPollingError(string message)
+        {
+            oracleConnection.Fill = new SolidColorBrush(Colors.Red);
+            sybaseConnection.Fill = new SolidColorBrush(Colors.Red);
+            textOfProgress.Foreground = new SolidColorBrush(Colors.Red);
+            textOfProgress.Text = message;
         }
 
         private void BindOracleViewModel(ObservableOracleMeltsViewModel viewModel)
@@ -130,15 +207,9 @@ namespace Melts_Base
             localPlantMeltNumberSought.DataContext = viewModel;
         }
 
-        private static void CopyOracleFilters(
-            ObservableOracleMeltsViewModel? source,
-            ObservableOracleMeltsViewModel target)
+        private static void CopyOracleFilters(ObservableOracleMeltsViewModel? source, ObservableOracleMeltsViewModel target)
         {
-            if (source is null)
-            {
-                return;
-            }
-
+            if (source is null) return;
             target.MeltNumberSought = source.MeltNumberSought;
             target.StartDate = source.StartDate;
             target.EndDate = source.EndDate;
@@ -146,29 +217,17 @@ namespace Melts_Base
             target.EndCloseDate = source.EndCloseDate;
         }
 
-        private static void CopySybaseFilters(
-            ObservableSybaseMeltsViewModel? source,
-            ObservableSybaseMeltsViewModel target)
+        private static void CopySybaseFilters(ObservableSybaseMeltsViewModel? source, ObservableSybaseMeltsViewModel target)
         {
-            if (source is null)
-            {
-                return;
-            }
-
+            if (source is null) return;
             target.MeltNumberSought = source.MeltNumberSought;
             target.StartDate = source.StartDate;
             target.EndDate = source.EndDate;
         }
 
-        private static void CopyLocalFilters(
-            ObservableMeltsViewModel? source,
-            ObservableMeltsViewModel target)
+        private static void CopyLocalFilters(ObservableMeltsViewModel? source, ObservableMeltsViewModel target)
         {
-            if (source is null)
-            {
-                return;
-            }
-
+            if (source is null) return;
             target.MeltNumberSought = source.MeltNumberSought;
             target.StartDate = source.StartDate;
             target.EndDate = source.EndDate;

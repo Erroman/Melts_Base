@@ -47,7 +47,7 @@ namespace Melts_Base
         private ObservableSybaseMeltsViewModel observableSybaseMeltsViewModel;
         OdbcConnectionStringBuilder constr = new OdbcConnectionStringBuilder()
         {
-            ["Dsn"] = "ssybase",
+            ["Dsn"] = "sybase",
             ["uid"] = "romanovskii",
             ["pwd"] = "12345"
         };

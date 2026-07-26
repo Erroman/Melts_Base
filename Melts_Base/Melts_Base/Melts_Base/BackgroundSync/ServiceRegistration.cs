@@ -9,21 +9,16 @@ namespace Melts_Base.BackgroundSync
         public static IServiceCollection AddMeltBackgroundPolling(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<PollingSettings>(configuration.GetSection("Polling"));
-            services.AddDbContext<MeltContext>();
-
-            var useFakeSources = configuration.GetValue<bool>("Polling:UseFakeSources");
-            if (useFakeSources)
-            {
-                services.AddSingleton<ISybaseMeltSource, FakeSybaseMeltSource>();
-                services.AddSingleton<IOracleMeltSource, FakeOracleMeltSource>();
-            }
-            else
-            {
-                services.AddSingleton<ISybaseMeltSource, RealSybaseMeltSource>();
-                services.AddSingleton<IOracleMeltSource, RealOracleMeltSource>();
-            }
-
-            services.AddHostedService<MeltPollingBackgroundService>();
+            services.AddSingleton<ApplicationPollingRuntimeOptions>();
+            services.AddSingleton<IPollingRuntimeOptions>(provider => provider.GetRequiredService<ApplicationPollingRuntimeOptions>());
+            services.AddSingleton<RealSybaseMeltSource>();
+            services.AddSingleton<RealOracleMeltSource>();
+            services.AddSingleton<SqliteFakeSybaseMeltSource>();
+            services.AddSingleton<SqliteFakeOracleMeltSource>();
+            services.AddSingleton<ISybaseMeltSource, RuntimeSybaseMeltSource>();
+            services.AddSingleton<IOracleMeltSource, RuntimeOracleMeltSource>();
+            services.AddSingleton<MeltPollingBackgroundService>();
+            services.AddHostedService(provider => provider.GetRequiredService<MeltPollingBackgroundService>());
             return services;
         }
     }

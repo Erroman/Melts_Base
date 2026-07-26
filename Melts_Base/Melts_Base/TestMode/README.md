@@ -16,6 +16,17 @@ to the existing three tabs. The Oracle and Sybase tabs display the remote snapsh
 used by that cycle, while the local-copy tab reloads the joined records from
 `melts.db`. Existing grid filters are retained during automatic refreshes.
 
+The application's **Настройки** window now controls two persisted runtime options:
+
+- **Тестовый режим** switches the remote tabs to SQLite-backed `fake-sybase.db` and
+  `fake-oracle.db`, and switches the joined target to `test-melts.db`.
+- **Фоновый опрос** enables or disables a polling cycle every three seconds.
+
+The **Обновить данные** button always runs one cycle, even when background polling is
+disabled. In test mode it recreates `test-melts.db` before joining the current fake
+source rows. Subsequent automatic cycles update that database; the fake Sybase weight
+changes each cycle and a third matching melt appears on the third cycle.
+
 Run from this directory:
 
 ```powershell

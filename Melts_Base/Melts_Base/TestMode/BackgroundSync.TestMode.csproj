@@ -20,9 +20,12 @@
     <Compile Include="Program.source" />
     <Compile Include="SqliteTestSources.source" />
     <Compile Include="TestModels.source" />
+    <Compile Include="HarnessRuntime.source" />
     <Compile Include="..\BackgroundSync\IMeltSources.cs" Link="BackgroundSync\IMeltSources.cs" />
     <Compile Include="..\BackgroundSync\MeltPollingBackgroundService.cs" Link="BackgroundSync\MeltPollingBackgroundService.cs" />
     <Compile Include="..\BackgroundSync\MeltPollingMonitor.cs" Link="BackgroundSync\MeltPollingMonitor.cs" />
+    <Compile Include="..\BackgroundSync\PollingMeltContext.cs" Link="BackgroundSync\PollingMeltContext.cs" />
+    <Compile Include="..\BackgroundSync\SqliteFakeMeltSources.cs" Link="BackgroundSync\SqliteFakeMeltSources.cs" />
     <Compile Include="..\BackgroundSync\PollingSettings.cs" Link="BackgroundSync\PollingSettings.cs" />
     <Compile Include="..\..\OracleModels\OracleMelt.cs" Link="OracleModels\OracleMelt.cs" />
     <Compile Include="..\..\SQLiteModels\Melt.cs" Link="SQLiteModels\Melt.cs" />
