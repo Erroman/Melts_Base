@@ -81,6 +81,39 @@ foreach (var melt in merged)
     Console.WriteLine($"  {melt.Me_num}: weight={melt.Me_weight}, INS={melt.Oracle_Ins}, positions={melt.Oracle_Poz?.Replace(Environment.NewLine, ",")}");
 }
 
+var unavailableTargetPath = Path.Combine(testDirectory, "unavailable-melts.db");
+DeleteDatabase(unavailableTargetPath);
+var unavailableSybase = new ProbeSybaseMeltSource(false);
+var availableOracle = new ProbeOracleMeltSource(true);
+using (var unavailableHost = Host.CreateDefaultBuilder()
+    .ConfigureLogging(logging => logging.SetMinimumLevel(LogLevel.Information).AddSimpleConsole(options => options.SingleLine = true))
+    .ConfigureServices(services =>
+    {
+        services.AddSingleton<IPollingRuntimeOptions>(new HarnessRuntime(unavailableTargetPath, false, false));
+        services.AddSingleton<ISybaseMeltSource>(unavailableSybase);
+        services.AddSingleton<IOracleMeltSource>(availableOracle);
+        services.AddSingleton<MeltPollingBackgroundService>();
+        services.AddHostedService(provider => provider.GetRequiredService<MeltPollingBackgroundService>());
+    })
+    .Build())
+{
+    await unavailableHost.StartAsync();
+    var unavailableService = unavailableHost.Services.GetRequiredService<MeltPollingBackgroundService>();
+    await unavailableService.PollOnceAsync(false);
+
+    var connectionSnapshot = MeltPollingMonitor.Latest;
+    if (connectionSnapshot is null || connectionSnapshot.SybaseConnected || !connectionSnapshot.OracleConnected ||
+        connectionSnapshot.DataLoaded || unavailableSybase.ConnectionChecks == 0 || availableOracle.ConnectionChecks == 0 ||
+        unavailableSybase.Reads != 0 || availableOracle.Reads != 0 || File.Exists(unavailableTargetPath))
+    {
+        throw new InvalidOperationException("An unavailable real-mode connection did not prevent all data reads.");
+    }
+
+    await unavailableHost.StopAsync();
+}
+
+Console.WriteLine("Connection gate verified: both sources were checked, neither source was read, and no target database was created.");
+
 DeleteDatabase(TestDatabasePaths.SybaseDatabase);
 DeleteDatabase(TestDatabasePaths.OracleDatabase);
 DeleteDatabase(TestDatabasePaths.JoinedDatabase);

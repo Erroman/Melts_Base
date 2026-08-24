@@ -13,6 +13,8 @@ internal sealed class SqliteSybaseMeltSource : ISybaseMeltSource
         _connectionString = new SqliteConnectionStringBuilder { DataSource = databasePath }.ToString();
     }
 
+    public Task<bool> CanConnectAsync(CancellationToken cancellationToken) => Task.FromResult(true);
+
     public async Task<IReadOnlyList<SybaseMelt>> ReadAsync(CancellationToken cancellationToken)
     {
         var melts = new List<SybaseMelt>();
@@ -57,6 +59,8 @@ internal sealed class SqliteOracleMeltSource : IOracleMeltSource
     {
         _connectionString = new SqliteConnectionStringBuilder { DataSource = databasePath }.ToString();
     }
+
+    public Task<bool> CanConnectAsync(CancellationToken cancellationToken) => Task.FromResult(true);
 
     public async Task<IReadOnlyList<OracleMelt>> ReadAsync(CancellationToken cancellationToken)
     {

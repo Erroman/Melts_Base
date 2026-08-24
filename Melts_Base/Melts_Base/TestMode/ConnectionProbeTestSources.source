@@ -1,0 +1,48 @@
+using Melts_Base.OracleModels;
+using Melts_Base.SybaseModels;
+
+namespace Melts_Base.BackgroundSync;
+
+internal sealed class ProbeSybaseMeltSource : ISybaseMeltSource
+{
+    private readonly bool _canConnect;
+
+    public ProbeSybaseMeltSource(bool canConnect) => _canConnect = canConnect;
+
+    public int ConnectionChecks { get; private set; }
+    public int Reads { get; private set; }
+
+    public Task<bool> CanConnectAsync(CancellationToken cancellationToken)
+    {
+        ConnectionChecks++;
+        return Task.FromResult(_canConnect);
+    }
+
+    public Task<IReadOnlyList<SybaseMelt>> ReadAsync(CancellationToken cancellationToken)
+    {
+        Reads++;
+        return Task.FromResult<IReadOnlyList<SybaseMelt>>(Array.Empty<SybaseMelt>());
+    }
+}
+
+internal sealed class ProbeOracleMeltSource : IOracleMeltSource
+{
+    private readonly bool _canConnect;
+
+    public ProbeOracleMeltSource(bool canConnect) => _canConnect = canConnect;
+
+    public int ConnectionChecks { get; private set; }
+    public int Reads { get; private set; }
+
+    public Task<bool> CanConnectAsync(CancellationToken cancellationToken)
+    {
+        ConnectionChecks++;
+        return Task.FromResult(_canConnect);
+    }
+
+    public Task<IReadOnlyList<OracleMelt>> ReadAsync(CancellationToken cancellationToken)
+    {
+        Reads++;
+        return Task.FromResult<IReadOnlyList<OracleMelt>>(Array.Empty<OracleMelt>());
+    }
+}

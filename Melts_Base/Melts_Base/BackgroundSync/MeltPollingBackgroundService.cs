@@ -40,6 +40,7 @@ namespace Melts_Base.BackgroundSync
         {
             _logger.LogInformation("Background polling service started. Runtime interval={interval}s", _runtime.PollingInterval.TotalSeconds);
 
+            var initialConnectionCheckPending = true;
             while (!stoppingToken.IsCancellationRequested)
             {
                 if (_runtime.PollingEnabled)
@@ -57,6 +58,12 @@ namespace Melts_Base.BackgroundSync
                         _logger.LogWarning(ex, "Polling cycle failed.");
                     }
                 }
+                else if (initialConnectionCheckPending)
+                {
+                    await CheckConnectionsAndPublishAsync(stoppingToken);
+                }
+
+                initialConnectionCheckPending = false;
 
                 await Task.Delay(_runtime.PollingInterval, stoppingToken);
             }
@@ -67,6 +74,13 @@ namespace Melts_Base.BackgroundSync
             await _cycleLock.WaitAsync(cancellationToken);
             try
             {
+                var connections = await CheckConnectionsAsync(cancellationToken);
+                if (!connections.AllAvailable)
+                {
+                    PublishConnectionStatus(connections);
+                    return;
+                }
+
                 var sybaseMelts = await _sybaseSource.ReadAsync(cancellationToken);
                 var oracleMelts = await _oracleSource.ReadAsync(cancellationToken);
                 var targetPath = _runtime.LocalDatabasePath;
@@ -86,6 +100,13 @@ namespace Melts_Base.BackgroundSync
             await _cycleLock.WaitAsync(cancellationToken);
             try
             {
+                var connections = await CheckConnectionsAsync(cancellationToken);
+                if (!connections.AllAvailable)
+                {
+                    PublishConnectionStatus(connections);
+                    return;
+                }
+
                 var sybaseMelts = await _sybaseSource.ReadAsync(cancellationToken);
                 var oracleMelts = await _oracleSource.ReadAsync(cancellationToken);
                 var targetPath = _runtime.LocalDatabasePath;
@@ -111,6 +132,64 @@ namespace Melts_Base.BackgroundSync
             {
                 _cycleLock.Release();
             }
+        }
+
+        private async Task CheckConnectionsAndPublishAsync(CancellationToken cancellationToken)
+        {
+            await _cycleLock.WaitAsync(cancellationToken);
+            try
+            {
+                var connections = await CheckConnectionsAsync(cancellationToken);
+                MeltPollingMonitor.PublishConnectionStatus(
+                    connections.SybaseConnected,
+                    connections.OracleConnected,
+                    _runtime.LocalDatabasePath,
+                    _runtime.TestMode);
+            }
+            finally
+            {
+                _cycleLock.Release();
+            }
+        }
+
+        private async Task<DatabaseConnectionStatus> CheckConnectionsAsync(CancellationToken cancellationToken)
+        {
+            // Test mode deliberately avoids touching either real database.
+            if (_runtime.TestMode)
+            {
+                return new DatabaseConnectionStatus(true, true);
+            }
+
+            var sybaseCheck = _sybaseSource.CanConnectAsync(cancellationToken);
+            var oracleCheck = _oracleSource.CanConnectAsync(cancellationToken);
+            await Task.WhenAll(sybaseCheck, oracleCheck);
+            return new DatabaseConnectionStatus(await sybaseCheck, await oracleCheck);
+        }
+
+        private void PublishConnectionStatus(DatabaseConnectionStatus connections)
+        {
+            MeltPollingMonitor.PublishConnectionStatus(
+                connections.SybaseConnected,
+                connections.OracleConnected,
+                _runtime.LocalDatabasePath,
+                _runtime.TestMode);
+            _logger.LogWarning(
+                "Data load skipped because a database connection is unavailable. Sybase={sybaseConnected} Oracle={oracleConnected}",
+                connections.SybaseConnected,
+                connections.OracleConnected);
+        }
+
+        private readonly struct DatabaseConnectionStatus
+        {
+            public DatabaseConnectionStatus(bool sybaseConnected, bool oracleConnected)
+            {
+                SybaseConnected = sybaseConnected;
+                OracleConnected = oracleConnected;
+            }
+
+            public bool SybaseConnected { get; }
+            public bool OracleConnected { get; }
+            public bool AllAvailable => SybaseConnected && OracleConnected;
         }
 
         private static void EnsureParentDirectory(string databasePath)

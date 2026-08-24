@@ -19,6 +19,9 @@ namespace Melts_Base.BackgroundSync
 
         public Task<IReadOnlyList<SybaseMelt>> ReadAsync(CancellationToken cancellationToken) =>
             _runtime.TestMode ? _fake.ReadAsync(cancellationToken) : _real.ReadAsync(cancellationToken);
+
+        public Task<bool> CanConnectAsync(CancellationToken cancellationToken) =>
+            _runtime.TestMode ? Task.FromResult(true) : _real.CanConnectAsync(cancellationToken);
     }
 
     internal sealed class RuntimeOracleMeltSource : IOracleMeltSource
@@ -34,5 +37,8 @@ namespace Melts_Base.BackgroundSync
 
         public Task<IReadOnlyList<OracleMelt>> ReadAsync(CancellationToken cancellationToken) =>
             _runtime.TestMode ? _fake.ReadAsync(cancellationToken) : _real.ReadAsync(cancellationToken);
+
+        public Task<bool> CanConnectAsync(CancellationToken cancellationToken) =>
+            _runtime.TestMode ? Task.FromResult(true) : _real.CanConnectAsync(cancellationToken);
     }
 }

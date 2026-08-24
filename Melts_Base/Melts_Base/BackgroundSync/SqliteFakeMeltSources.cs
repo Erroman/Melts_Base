@@ -20,6 +20,8 @@ namespace Melts_Base.BackgroundSync
 
     internal sealed class SqliteFakeSybaseMeltSource : ISybaseMeltSource
     {
+        public Task<bool> CanConnectAsync(CancellationToken cancellationToken) => Task.FromResult(true);
+
         public async Task<IReadOnlyList<SybaseMelt>> ReadAsync(CancellationToken cancellationToken)
         {
             TestDatabasePaths.EnsureDirectory();
@@ -85,6 +87,8 @@ namespace Melts_Base.BackgroundSync
 
     internal sealed class SqliteFakeOracleMeltSource : IOracleMeltSource
     {
+        public Task<bool> CanConnectAsync(CancellationToken cancellationToken) => Task.FromResult(true);
+
         public async Task<IReadOnlyList<OracleMelt>> ReadAsync(CancellationToken cancellationToken)
         {
             TestDatabasePaths.EnsureDirectory();

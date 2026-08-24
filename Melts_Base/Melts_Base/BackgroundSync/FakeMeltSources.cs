@@ -11,6 +11,8 @@ namespace Melts_Base.BackgroundSync
     {
         private int _pollCounter;
 
+        public Task<bool> CanConnectAsync(CancellationToken cancellationToken) => Task.FromResult(true);
+
         public Task<IReadOnlyList<SybaseMelt>> ReadAsync(CancellationToken cancellationToken)
         {
             _pollCounter++;
@@ -89,6 +91,8 @@ namespace Melts_Base.BackgroundSync
 
     internal sealed class FakeOracleMeltSource : IOracleMeltSource
     {
+        public Task<bool> CanConnectAsync(CancellationToken cancellationToken) => Task.FromResult(true);
+
         public Task<IReadOnlyList<OracleMelt>> ReadAsync(CancellationToken cancellationToken)
         {
             var now = DateTime.Now;

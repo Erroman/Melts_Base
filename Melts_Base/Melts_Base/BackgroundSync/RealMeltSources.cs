@@ -29,16 +29,27 @@ namespace Melts_Base.BackgroundSync
             return Task.Run(() => Read(cancellationToken), cancellationToken);
         }
 
+        public Task<bool> CanConnectAsync(CancellationToken cancellationToken)
+        {
+            return Task.Run(() =>
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                try
+                {
+                    using var connection = CreateConnection();
+                    connection.Open();
+                    return connection.State == ConnectionState.Open;
+                }
+                catch (Exception) when (!cancellationToken.IsCancellationRequested)
+                {
+                    return false;
+                }
+            }, cancellationToken);
+        }
+
         private IReadOnlyList<SybaseMelt> Read(CancellationToken cancellationToken)
         {
-            var constr = new OdbcConnectionStringBuilder
-            {
-                ["Dsn"] = _settings.SybaseDsn,
-                ["uid"] = _settings.SybaseUser,
-                ["pwd"] = _settings.SybasePassword
-            };
-
-            using var connection = new OdbcConnection(constr.ConnectionString);
+            using var connection = CreateConnection();
             connection.Open();
             if (connection.State != ConnectionState.Open)
             {
@@ -81,10 +92,35 @@ namespace Melts_Base.BackgroundSync
 
             return melts;
         }
+
+        private OdbcConnection CreateConnection()
+        {
+            var constr = new OdbcConnectionStringBuilder
+            {
+                ["Dsn"] = _settings.SybaseDsn,
+                ["uid"] = _settings.SybaseUser,
+                ["pwd"] = _settings.SybasePassword
+            };
+
+            return new OdbcConnection(constr.ConnectionString);
+        }
     }
 
     internal sealed class RealOracleMeltSource : IOracleMeltSource
     {
+        public async Task<bool> CanConnectAsync(CancellationToken cancellationToken)
+        {
+            try
+            {
+                await using var context = new ModelPlantContext();
+                return await context.Database.CanConnectAsync(cancellationToken);
+            }
+            catch (Exception) when (!cancellationToken.IsCancellationRequested)
+            {
+                return false;
+            }
+        }
+
         public async Task<IReadOnlyList<OracleMelt>> ReadAsync(CancellationToken cancellationToken)
         {
             await using var context = new ModelPlantContext();

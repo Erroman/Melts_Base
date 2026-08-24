@@ -27,8 +27,8 @@ namespace Melts_Base
             base.OnInitialized(e);
 
             // Manual refresh and startup now use the same pipeline as background polling.
-            Loaded -= Window_Loaded;
-            Loaded += RuntimeWindow_Loaded;
+            //Loaded -= Window_Loaded;
+            //Loaded += RuntimeWindow_Loaded;
             refreshButton.Click -= refreshDataClick;
             refreshButton.Click += RuntimeRefreshButton_Click;
 
@@ -49,6 +49,7 @@ namespace Melts_Base
             dateClose.Width = new DataGridLength(120);
             nPlav.Width = new DataGridLength(90);
             refreshButton.IsEnabled = true;
+            ShowConnectionCheckInProgress();
 
             var service = MeltPollingBackgroundService.Current;
             if (service is null)
@@ -57,10 +58,9 @@ namespace Melts_Base
                 return;
             }
 
-            // The hosted service already starts the initial poll. A second preview here
-            // duplicated the legacy ODBC connection and blocked the first window render.
-            loadingProgress.IsIndeterminate = true;
-            textOfProgress.Text = "Loading data...";
+            // The hosted service performs the startup connection check and, when enabled,
+            // the initial poll. The UI timer displays its result without opening a second
+            // legacy ODBC connection on the UI thread.
         }
 
         private async void RuntimeRefreshButton_Click(object sender, RoutedEventArgs e)
@@ -72,9 +72,7 @@ namespace Melts_Base
             }
 
             refreshButton.IsEnabled = false;
-            loadingProgress.IsIndeterminate = true;
-            textOfProgress.Foreground = new SolidColorBrush(Colors.Green);
-            textOfProgress.Text = "Выполняется обновление ...";
+            ShowConnectionCheckInProgress();
             try
             {
                 var resetTestDatabase = ApplicationPollingRuntimeOptions.Current?.TestMode == true;
@@ -90,6 +88,16 @@ namespace Melts_Base
                 loadingProgress.IsIndeterminate = false;
                 refreshButton.IsEnabled = true;
             }
+        }
+
+        private void ShowConnectionCheckInProgress()
+        {
+            var checkingBrush = new SolidColorBrush(Colors.Gray);
+            oracleConnection.Fill = checkingBrush;
+            sybaseConnection.Fill = checkingBrush;
+            loadingProgress.IsIndeterminate = true;
+            textOfProgress.Foreground = new SolidColorBrush(Colors.Black);
+            textOfProgress.Text = "Проверка связи с базами...";
         }
 
         protected override void OnClosed(EventArgs e)
@@ -141,6 +149,25 @@ namespace Melts_Base
 
         private async System.Threading.Tasks.Task DisplayPollingSnapshotAsync(MeltPollingSnapshot snapshot)
         {
+            UpdateConnectionIndicators(snapshot);
+            if (!snapshot.ConnectionsAvailable)
+            {
+                loadingProgress.IsIndeterminate = false;
+                textOfProgress.Foreground = new SolidColorBrush(Colors.Red);
+                textOfProgress.Text = "Загрузка данных невозможна!";
+                return;
+            }
+
+            if (!snapshot.DataLoaded)
+            {
+                loadingProgress.IsIndeterminate = false;
+                textOfProgress.Foreground = new SolidColorBrush(Colors.Green);
+                textOfProgress.Text = "Связь с базами установлена";
+                return;
+            }
+
+            loadingProgress.IsIndeterminate = false;
+
             var oracleFilter = observableOracleMeltsViewModel;
             observableOracleMeltsViewModel = new ObservableOracleMeltsViewModel(
                 new ObservableCollection<OracleMelt>(snapshot.OracleMelts));
@@ -162,8 +189,6 @@ namespace Melts_Base
             CopyLocalFilters(localFilter, observableMeltsViewModel);
             BindLocalViewModel(observableMeltsViewModel);
 
-            oracleConnection.Fill = new SolidColorBrush(Colors.Green);
-            sybaseConnection.Fill = new SolidColorBrush(Colors.Green);
             textOfProgress.Foreground = new SolidColorBrush(Colors.Green);
             var mode = snapshot.TestMode ? "тест" : "рабочий режим";
             var action = snapshot.Joined ? "Обновление" : "Источники загружены";
@@ -171,6 +196,14 @@ namespace Melts_Base
                 $"{action} {snapshot.CompletedAt:HH:mm:ss} ({mode}): " +
                 $"Oracle {snapshot.OracleMelts.Count}, Sybase {snapshot.SybaseMelts.Count}, " +
                 $"изменено {snapshot.AddedOrUpdated}";
+        }
+
+        private void UpdateConnectionIndicators(MeltPollingSnapshot snapshot)
+        {
+            sybaseConnection.Fill = new SolidColorBrush(
+                snapshot.SybaseConnected ? Colors.Green : Colors.Red);
+            oracleConnection.Fill = new SolidColorBrush(
+                snapshot.OracleConnected ? Colors.Green : Colors.Red);
         }
 
         private void ShowPollingError(string message)

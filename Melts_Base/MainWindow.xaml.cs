@@ -71,79 +71,79 @@ namespace Melts_Base
 
  
 
-        private async void Window_Loaded(object sender, RoutedEventArgs e)
-        {          
-            SetTabsVisibility();
-            refreshButton.IsEnabled = false;
-            localdateZap.Width = new DataGridLength(120);
-            localnPlav.Width = new DataGridLength(90);
-            dateZap.Width = new DataGridLength(120);
-            dateClose.Width = new DataGridLength(120);
-            nPlav.Width = new DataGridLength(90);
+        //private async void Window_Loaded(object sender, RoutedEventArgs e)
+        //{          
+        //    SetTabsVisibility();
+        //    refreshButton.IsEnabled = false;
+        //    localdateZap.Width = new DataGridLength(120);
+        //    localnPlav.Width = new DataGridLength(90);
+        //    dateZap.Width = new DataGridLength(120);
+        //    dateClose.Width = new DataGridLength(120);
+        //    nPlav.Width = new DataGridLength(90);
  
-            progress = new Progress<int>(v => loadingProgress.Value += v);
-            meltsContext.Database.EnsureCreated();
-            var notaskLoadFromSQLite = readFromSQLiteLocal();
-            progress.Report(20);
+        //    progress = new Progress<int>(v => loadingProgress.Value += v);
+        //    meltsContext.Database.EnsureCreated();
+        //    var notaskLoadFromSQLite = readFromSQLiteLocal();
+        //    progress.Report(20);
 
-            var taskLoadFromSybase = await readFromSybaseAsync();
-            if(taskLoadFromSybase != null) 
-            {
-                sybaseConnection.Fill = new SolidColorBrush(Colors.Green);
-                shop31Grid.DataContext = taskLoadFromSybase;
-                shop31PlantMeltNumberSought.DataContext = taskLoadFromSybase;
-                shop31ZapuskStartDate.DataContext = taskLoadFromSybase;
-                shop31ZapuskEndDate.DataContext = taskLoadFromSybase; 
-            }else sybaseConnection.Fill = new SolidColorBrush(Colors.Red);
-            progress.Report(20);
+        //    var taskLoadFromSybase = await readFromSybaseAsync();
+        //    if(taskLoadFromSybase != null) 
+        //    {
+        //        sybaseConnection.Fill = new SolidColorBrush(Colors.Green);
+        //        shop31Grid.DataContext = taskLoadFromSybase;
+        //        shop31PlantMeltNumberSought.DataContext = taskLoadFromSybase;
+        //        shop31ZapuskStartDate.DataContext = taskLoadFromSybase;
+        //        shop31ZapuskEndDate.DataContext = taskLoadFromSybase; 
+        //    }else sybaseConnection.Fill = new SolidColorBrush(Colors.Red);
+        //    progress.Report(20);
 
-            var taskLoadFromOracle = await readFromOracleAsync();
-            if (taskLoadFromOracle != null)
-            {
-                oracleGrid.DataContext = taskLoadFromOracle;
-                ZapuskStartDate.DataContext = taskLoadFromOracle;
-                ZapuskEndDate.DataContext = taskLoadFromOracle;
-                CloseStartDate.DataContext = taskLoadFromOracle;
-                CloseEndDate.DataContext = taskLoadFromOracle;
-                PlantMeltNumberSought.DataContext = taskLoadFromOracle;
-            }else oracleConnection.Fill = new SolidColorBrush(Colors.Red);
-            progress.Report(20);
+        //    var taskLoadFromOracle = await readFromOracleAsync();
+        //    if (taskLoadFromOracle != null)
+        //    {
+        //        oracleGrid.DataContext = taskLoadFromOracle;
+        //        ZapuskStartDate.DataContext = taskLoadFromOracle;
+        //        ZapuskEndDate.DataContext = taskLoadFromOracle;
+        //        CloseStartDate.DataContext = taskLoadFromOracle;
+        //        CloseEndDate.DataContext = taskLoadFromOracle;
+        //        PlantMeltNumberSought.DataContext = taskLoadFromOracle;
+        //    }else oracleConnection.Fill = new SolidColorBrush(Colors.Red);
+        //    progress.Report(20);
 
-            if (taskLoadFromSybase != null & taskLoadFromOracle != null)
-            {
-                MeltNumberSought = observableMeltsViewModel?.MeltNumberSought;
-                StartDate = observableMeltsViewModel?.StartDate;
-                EndDate = observableMeltsViewModel?.EndDate;
-                //var CombinedPlantData = PumpPlantData(taskLoadFromSybase.Melts.ToList<SybaseMelt>(),
-                observableMeltsViewModel = PumpPlantData(taskLoadFromSybase.Melts.ToList<SybaseMelt>(),
-                taskLoadFromOracle.Melts.ToList<OracleMelt>(),
-                notaskLoadFromSQLite.Melts.ToList<Melt>());
-                localcopyGrid.DataContext = observableMeltsViewModel;
-                localZapuskStartDate.DataContext = observableMeltsViewModel;
-                localZapuskEndDate.DataContext = observableMeltsViewModel;
-                localPlantMeltNumberSought.DataContext = observableMeltsViewModel;
-                observableMeltsViewModel.MeltNumberSought = MeltNumberSought;
-                observableMeltsViewModel.StartDate = StartDate;
-                observableMeltsViewModel.EndDate = EndDate;
-                await Task.Delay(1000);
-                Thread.Sleep(1000);
-                progress.Report(20);
-                textOfProgress.Foreground = new SolidColorBrush(Colors.Green);
-                textOfProgress.Text = "Обновление выполнено";
-                //progress.Report(20);
-                meltsContext.SaveChanges();
-            }
-            else 
-            {
-                progress.Report(-100);
-                textOfProgress.Foreground = new SolidColorBrush(Colors.Red);
-                textOfProgress.Text = "Обновление не выполнено!";
+        //    if (taskLoadFromSybase != null & taskLoadFromOracle != null)
+        //    {
+        //        MeltNumberSought = observableMeltsViewModel?.MeltNumberSought;
+        //        StartDate = observableMeltsViewModel?.StartDate;
+        //        EndDate = observableMeltsViewModel?.EndDate;
+        //        //var CombinedPlantData = PumpPlantData(taskLoadFromSybase.Melts.ToList<SybaseMelt>(),
+        //        observableMeltsViewModel = PumpPlantData(taskLoadFromSybase.Melts.ToList<SybaseMelt>(),
+        //        taskLoadFromOracle.Melts.ToList<OracleMelt>(),
+        //        notaskLoadFromSQLite.Melts.ToList<Melt>());
+        //        localcopyGrid.DataContext = observableMeltsViewModel;
+        //        localZapuskStartDate.DataContext = observableMeltsViewModel;
+        //        localZapuskEndDate.DataContext = observableMeltsViewModel;
+        //        localPlantMeltNumberSought.DataContext = observableMeltsViewModel;
+        //        observableMeltsViewModel.MeltNumberSought = MeltNumberSought;
+        //        observableMeltsViewModel.StartDate = StartDate;
+        //        observableMeltsViewModel.EndDate = EndDate;
+        //        await Task.Delay(1000);
+        //        Thread.Sleep(1000);
+        //        progress.Report(20);
+        //        textOfProgress.Foreground = new SolidColorBrush(Colors.Green);
+        //        textOfProgress.Text = "Обновление выполнено";
+        //        //progress.Report(20);
+        //        meltsContext.SaveChanges();
+        //    }
+        //    else 
+        //    {
+        //        progress.Report(-100);
+        //        textOfProgress.Foreground = new SolidColorBrush(Colors.Red);
+        //        textOfProgress.Text = "Обновление не выполнено!";
              
-            }
-            //progress.Report(-100);
-            refreshButton.IsEnabled = true;
+        //    }
+        //    //progress.Report(-100);
+        //    refreshButton.IsEnabled = true;
 
-        }
+        //}
         private async void refreshDataClick(object sender, RoutedEventArgs e)
         {
             refreshButton.IsEnabled = false;

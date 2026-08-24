@@ -8,8 +8,7 @@ using System.Threading;
 namespace Melts_Base.BackgroundSync
 {
     /// <summary>
-    /// Holds the most recent successful remote poll for presentation by the WPF UI.
-    /// A snapshot is published only after the joined SQLite transaction is saved.
+    /// Holds the most recent connection check or completed poll for presentation by the WPF UI.
     /// </summary>
     internal static class MeltPollingMonitor
     {
@@ -44,8 +43,38 @@ namespace Melts_Base.BackgroundSync
                 addedOrUpdated,
                 localDatabasePath,
                 testMode,
-                joined);
+                joined,
+                true,
+                true,
+                true);
 
+            SetLatest(snapshot);
+        }
+
+        public static void PublishConnectionStatus(
+            bool sybaseConnected,
+            bool oracleConnected,
+            string localDatabasePath,
+            bool testMode)
+        {
+            var snapshot = new MeltPollingSnapshot(
+                Interlocked.Increment(ref _version),
+                DateTimeOffset.Now,
+                Array.Empty<SybaseMelt>(),
+                Array.Empty<OracleMelt>(),
+                0,
+                localDatabasePath,
+                testMode,
+                false,
+                sybaseConnected,
+                oracleConnected,
+                false);
+
+            SetLatest(snapshot);
+        }
+
+        private static void SetLatest(MeltPollingSnapshot snapshot)
+        {
             lock (SyncRoot)
             {
                 _latest = snapshot;
@@ -63,7 +92,10 @@ namespace Melts_Base.BackgroundSync
             int addedOrUpdated,
             string localDatabasePath,
             bool testMode,
-            bool joined)
+            bool joined,
+            bool sybaseConnected,
+            bool oracleConnected,
+            bool dataLoaded)
         {
             Version = version;
             CompletedAt = completedAt;
@@ -73,6 +105,9 @@ namespace Melts_Base.BackgroundSync
             LocalDatabasePath = localDatabasePath;
             TestMode = testMode;
             Joined = joined;
+            SybaseConnected = sybaseConnected;
+            OracleConnected = oracleConnected;
+            DataLoaded = dataLoaded;
         }
 
         public long Version { get; }
@@ -83,5 +118,9 @@ namespace Melts_Base.BackgroundSync
         public string LocalDatabasePath { get; }
         public bool TestMode { get; }
         public bool Joined { get; }
+        public bool SybaseConnected { get; }
+        public bool OracleConnected { get; }
+        public bool DataLoaded { get; }
+        public bool ConnectionsAvailable => SybaseConnected && OracleConnected;
     }
 }

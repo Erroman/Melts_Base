@@ -19,6 +19,7 @@
   <ItemGroup>
     <Compile Include="Program.source" />
     <Compile Include="SqliteTestSources.source" />
+    <Compile Include="ConnectionProbeTestSources.source" />
     <Compile Include="TestModels.source" />
     <Compile Include="HarnessRuntime.source" />
     <Compile Include="..\BackgroundSync\IMeltSources.cs" Link="BackgroundSync\IMeltSources.cs" />
